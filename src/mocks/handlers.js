@@ -3,12 +3,15 @@
  * Swap for a real API later without touching the UI: services keep the same paths.
  */
 import { http, HttpResponse, delay } from 'msw'
-import db, { createAttemptId } from './db'
+import db, { createAttemptId, persistDb } from './db'
 import { buildResult, buildDashboardAnalytics } from './engine/analysis'
 import { buildRecommendations } from './engine/recommendations'
 import { knowledgeBase, suggestedQuestions } from './seed/assistant'
 import { ASSISTANT_TIMEOUT_MS } from '@/lib/constants'
 import { publicUser } from './seed/users'
+
+/** Emails are matched case-insensitively and trimmed, like a real backend. */
+const normalizeEmail = (value) => String(value ?? '').trim().toLowerCase()
 
 const ok = (data) => HttpResponse.json(data)
 const fail = (status, message, code) =>
@@ -26,7 +29,8 @@ export const authHandlers = [
   http.post('/api/auth/login', async ({ request }) => {
     await delay(600)
     const body = await request.json()
-    const user = db.users.find((u) => u.email === body.email)
+    const email = normalizeEmail(body.email)
+    const user = db.users.find((u) => normalizeEmail(u.email) === email)
     if (!user) return fail(404, 'userNotFound')
     if (user.password !== body.password) return fail(401, 'invalidCredentials')
     return ok({ user: publicUser(user), token: user.token })
@@ -35,12 +39,14 @@ export const authHandlers = [
   http.post('/api/auth/register', async ({ request }) => {
     await delay(700)
     const body = await request.json()
-    if (db.users.some((u) => u.email === body.email)) return fail(409, 'emailExists')
+    const email = normalizeEmail(body.email)
+    if (!email) return fail(400, 'emailRequired')
+    if (db.users.some((u) => normalizeEmail(u.email) === email)) return fail(409, 'emailExists')
     const user = {
       id: `u${db.users.length + 1}`,
       name: body.name,
       nameEn: body.name,
-      email: body.email,
+      email,
       password: body.password,
       role: 'student',
       token: `mock-jwt-u${db.users.length + 1}`,
@@ -57,13 +63,14 @@ export const authHandlers = [
       },
     }
     db.users.push(user)
+    persistDb()
     return ok({ user: publicUser(user), token: user.token })
   }),
 
   http.post('/api/auth/forgot-password', async ({ request }) => {
     await delay(500)
     const body = await request.json()
-    const user = db.users.find((u) => u.email === body.email)
+    const user = db.users.find((u) => normalizeEmail(u.email) === normalizeEmail(body.email))
     if (!user) return fail(404, 'userNotFound')
     return ok({ sent: true })
   }),
@@ -81,6 +88,7 @@ export const authHandlers = [
     const body = await request.json()
     user.profile = { ...user.profile, ...body }
     if (body.name) user.name = body.name
+    persistDb()
     return ok(publicUser(user))
   }),
 ]
@@ -147,6 +155,7 @@ export const universityHandlers = [
     }
     if (body.type === 'public') db.publicUniversities.unshift(record)
     else db.privateUniversities.unshift(record)
+    persistDb()
     return ok(record)
   }),
 
@@ -168,6 +177,7 @@ export const universityHandlers = [
     if (body.lastVerified !== undefined) record.lastVerified = body.lastVerified
     if (body.established !== undefined) record.established = Number(body.established)
     if (body.type !== undefined) record.type = body.type
+    persistDb()
     return ok(record)
   }),
 
@@ -180,6 +190,7 @@ export const universityHandlers = [
     db.privateUniversities = db.privateUniversities.filter((x) => x.id !== params.id)
     const after = db.publicUniversities.length + db.privateUniversities.length
     if (before === after) return fail(404, 'notFound')
+    persistDb()
     return ok({ deleted: true })
   }),
 ]
@@ -322,6 +333,7 @@ export const testHandlers = [
       autoSubmitted: Boolean(body.autoSubmitted),
     }
     db.attempts.push(attempt)
+    persistDb()
 
     const result = buildResult(test, attempt)
     return ok({ resultId: result.attemptId, result })
@@ -420,6 +432,7 @@ export const adminHandlers = [
       },
     }
     db.circulars.unshift(circular)
+    persistDb()
     return ok(circular)
   }),
 
@@ -446,6 +459,7 @@ export const adminHandlers = [
     const body = await request.json()
     if (body.title) c.title = body.title
     if (body.extracted) c.extracted = { ...c.extracted, ...body.extracted }
+    persistDb()
     return ok(c)
   }),
 
@@ -458,6 +472,7 @@ export const adminHandlers = [
     c.status = 'approved'
     c.reviewedAt = new Date().toISOString()
     c.reviewedBy = user.email
+    persistDb()
     return ok(c)
   }),
 
@@ -472,6 +487,7 @@ export const adminHandlers = [
     c.rejectReason = body.reason || ''
     c.reviewedAt = new Date().toISOString()
     c.reviewedBy = user.email
+    persistDb()
     return ok(c)
   }),
 
@@ -498,6 +514,7 @@ export const adminHandlers = [
     if (body.explanation) q.explanation = body.explanation
     if (body.topic) q.topic = body.topic
     if (body.difficulty) q.difficulty = body.difficulty
+    persistDb()
     return ok(q)
   }),
 
@@ -508,6 +525,7 @@ export const adminHandlers = [
     const q = db.questionReviews.find((x) => x.id === params.id)
     if (!q) return fail(404, 'notFound')
     q.status = 'approved'
+    persistDb()
     return ok(q)
   }),
 
@@ -520,6 +538,7 @@ export const adminHandlers = [
     const body = await request.json().catch(() => ({}))
     q.status = 'rejected'
     q.rejectReason = body.reason || ''
+    persistDb()
     return ok(q)
   }),
 

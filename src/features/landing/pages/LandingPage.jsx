@@ -63,7 +63,7 @@ export default function LandingPage() {
               <Sparkles className="h-3.5 w-3.5" />
               {t('landing.badge')}
             </span>
-            <h1 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-[2.75rem]">
+            <h1 className="text-3xl font-normal leading-tight text-brand-900 sm:text-4xl lg:text-[2.75rem]">
               {t('landing.heroTitle')}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">
