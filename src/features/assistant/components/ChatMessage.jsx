@@ -1,8 +1,48 @@
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { Bot, UserRound, ExternalLink, ShieldAlert, RefreshCw, AlertTriangle } from 'lucide-react'
 import { MarkdownContent } from '@/components/common/MarkdownContent'
 import { useLocale } from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
+
+/**
+ * A source is either an external URL (opens in a new tab) or an in-app route
+ * such as `/app/public-universities` (navigates inside the SPA).
+ *
+ * Internal routes MUST use client-side navigation: opening them with
+ * target="_blank" reloads the whole app from the server, which lands on a
+ * route with no loaded data — appearing as an empty page.
+ */
+const isInternalRoute = (url) => typeof url === 'string' && url.startsWith('/') && !url.startsWith('//')
+
+/** One source chip: in-app route → <Link>, external URL → <a target=_blank>. */
+function SourceChip({ source }) {
+  const { loc } = useLocale()
+  const className =
+    'inline-flex items-center gap-1 rounded-full border border-brand-200 bg-white px-2.5 py-1 text-xs font-medium text-brand-700 hover:bg-brand-50'
+  const label = loc(source.label) || source.url
+
+  if (isInternalRoute(source.url)) {
+    return (
+      <Link to={source.url} className={className}>
+        <Bot className="h-3 w-3" />
+        {label}
+      </Link>
+    )
+  }
+
+  return (
+    <a
+      href={source.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
+      <ExternalLink className="h-3 w-3" />
+      {label}
+    </a>
+  )
+}
 
 /**
  * One chat bubble.
@@ -12,7 +52,6 @@ import { cn } from '@/lib/utils'
  */
 export function ChatMessage({ message, onRetry }) {
   const { t } = useTranslation()
-  const { loc } = useLocale()
   const isUser = message.role === 'user'
 
   if (isUser) {
@@ -97,6 +136,11 @@ export function ChatMessage({ message, onRetry }) {
 
         <MarkdownContent content={message.content} />
 
+        {/* blinking caret while tokens stream in */}
+        {message.status === 'streaming' && (
+          <span className="ml-0.5 inline-block h-4 w-1.5 animate-pulse rounded-sm bg-slate-400 align-middle" />
+        )}
+
         {/* sources under each reply */}
         {message.sources?.length > 0 && (
           <div className="mt-3 border-t border-slate-200/70 pt-2.5">
@@ -105,16 +149,7 @@ export function ChatMessage({ message, onRetry }) {
             </p>
             <div className="flex flex-wrap gap-1.5">
               {message.sources.map((s, i) => (
-                <a
-                  key={i}
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 rounded-full border border-brand-200 bg-white px-2.5 py-1 text-xs font-medium text-brand-700 hover:bg-brand-50"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  {loc(s.label)}
-                </a>
+                <SourceChip key={i} source={s} />
               ))}
             </div>
           </div>

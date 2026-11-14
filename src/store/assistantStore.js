@@ -36,6 +36,20 @@ export const useAssistantStore = create((set) => ({
       ),
     })),
 
+  /**
+   * Append streamed text to the in-flight assistant bubble.
+   * The first chunk switches status from 'pending' to 'streaming' so the UI
+   * can show partial text while the typing dots are gone.
+   */
+  appendToPendingReply: (chunk) =>
+    set((s) => ({
+      messages: s.messages.map((m) =>
+        m.status === 'pending' || m.status === 'streaming'
+          ? { ...m, content: `${m.content || ''}${chunk}`, status: 'streaming' }
+          : m
+      ),
+    })),
+
   /** Allow retrying the last failed assistant reply. */
   retryLast: () =>
     set((s) => {

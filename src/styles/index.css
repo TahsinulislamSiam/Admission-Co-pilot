@@ -19,6 +19,18 @@
   ::selection {
     @apply bg-brand-200 text-brand-900;
   }
+
+  /* Respect users who ask for less motion: keep layout, drop the movement. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
