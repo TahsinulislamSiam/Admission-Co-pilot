@@ -1,6 +1,10 @@
 import ReactMarkdown from 'react-markdown'
+import { Link } from 'react-router-dom'
 import { sanitizeText } from '@/lib/sanitize'
 import { cn } from '@/lib/utils'
+
+const isInternalRoute = (href) =>
+  typeof href === 'string' && href.startsWith('/') && !href.startsWith('//')
 
 /**
  * Safely render AI-generated markdown (assistant answers, Bangla explanations).
@@ -14,17 +18,25 @@ export function MarkdownContent({ content, className }) {
     <div className={cn('markdown-body text-[15px] leading-relaxed', className)}>
       <ReactMarkdown
         components={{
-          // Render links safely, force new tab for external URLs
-          a: ({ href, children }) => (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-brand-700 underline underline-offset-2"
-            >
-              {children}
-            </a>
-          ),
+          // In-app routes navigate inside the SPA; external URLs open a new tab.
+          a: ({ href, children }) =>
+            isInternalRoute(href) ? (
+              <Link
+                to={href}
+                className="font-medium text-brand-700 underline underline-offset-2"
+              >
+                {children}
+              </Link>
+            ) : (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-brand-700 underline underline-offset-2"
+              >
+                {children}
+              </a>
+            ),
           strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
           ul: ({ children }) => <ul className="my-2 list-disc space-y-1 pl-5">{children}</ul>,
           ol: ({ children }) => <ol className="my-2 list-decimal space-y-1 pl-5">{children}</ol>,

@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Link, Outlet, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-hot-toast'
 import {
@@ -88,12 +88,16 @@ export function StudentLayout() {
             >
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
-            <span className="hidden items-center gap-2 sm:flex">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
+            <Link
+              to={ROUTES.landing}
+              className="hidden items-center gap-2 sm:flex"
+              aria-label={t('nav.home')}
+            >
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white transition-transform duration-200 hover:scale-105">
                 <GraduationCap className="h-4 w-4" />
               </span>
               <span className="font-bold text-slate-900">{t('common.appName')}</span>
-            </span>
+            </Link>
           </div>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
@@ -118,12 +122,17 @@ function SidebarContent({ user, isAdmin, onLogout, t, onClose }) {
   return (
     <>
       <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5">
-        <div className="flex items-center gap-2">
+        <Link
+          to={ROUTES.landing}
+          onClick={onClose}
+          className="flex items-center gap-2"
+          aria-label={t('nav.home')}
+        >
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
             <GraduationCap className="h-5 w-5" />
           </span>
           <span className="text-base font-bold text-slate-900">{t('common.appName')}</span>
-        </div>
+        </Link>
         {onClose && (
           <button onClick={onClose} className="p-1 text-slate-400 hover:text-slate-600">
             <X className="h-5 w-5" />
