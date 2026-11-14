@@ -95,7 +95,7 @@ export function ChatMessage({ message, onRetry }) {
           </p>
         )}
 
-        <MarkdownContent content={message.content} />
+        <MarkdownContent content={loc(message.content)} />
 
         {/* sources under each reply */}
         {message.sources?.length > 0 && (

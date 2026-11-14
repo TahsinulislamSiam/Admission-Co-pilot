@@ -12,6 +12,8 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // Assistant chat goes to the Node server that holds the OpenAI key
+    proxy: { '/api/assistant/chat': 'http://localhost:3001' },
   },
   test: {
     environment: 'jsdom',
