@@ -563,7 +563,9 @@ export const adminHandlers = [
 export const handlers = [
   ...authHandlers,
   ...universityHandlers,
-  ...assistantHandlers,
+  // Chat is served by the real backend (server/index.js -> OpenAI); only the
+  // suggestions endpoint stays mocked.
+  ...assistantHandlers.filter((h) => h.info.path !== '/api/assistant/chat'),
   ...recommendationHandlers,
   ...testHandlers,
   ...adminHandlers,

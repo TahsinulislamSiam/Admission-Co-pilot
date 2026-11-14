@@ -6,6 +6,7 @@
   "description": "AI-powered admission guidance and practice platform for HSC students in Bangladesh (frontend)",
   "scripts": {
     "dev": "vite",
+    "server": "node server/index.js",
     "dev:server": "node server/index.js",
     "dev:all": "node scripts/dev-all.js",
     "build": "vite build",
