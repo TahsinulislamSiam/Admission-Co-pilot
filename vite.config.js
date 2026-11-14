@@ -34,5 +34,17 @@ export default defineConfig(({ mode }) => {
       globals: true,
       css: true,
     },
+  },
+  server: {
+    port: 5173,
+    // Assistant chat goes to the Node server that holds the OpenAI key
+    proxy: { '/api/assistant/chat': 'http://localhost:3001' },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.js'],
+    globals: true,
+    css: true,
+  },
   }
 })
