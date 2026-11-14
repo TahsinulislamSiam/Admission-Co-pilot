@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Link, Outlet, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-hot-toast'
 import {
@@ -39,7 +39,11 @@ export function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-slate-50">
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col border-r border-slate-200 bg-slate-900 lg:flex">
-        <div className="flex h-16 items-center gap-2 border-b border-slate-800 px-5">
+        <Link
+          to={ROUTES.landing}
+          className="flex h-16 items-center gap-2 border-b border-slate-800 px-5 transition-colors hover:bg-slate-800/60"
+          aria-label={t('nav.home')}
+        >
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-white">
             <GraduationCap className="h-5 w-5" />
           </span>
@@ -47,7 +51,7 @@ export function AdminLayout() {
             <p className="text-sm font-bold text-white">{t('admin.title')}</p>
             <p className="text-[11px] text-slate-400">{t('common.appName')}</p>
           </div>
-        </div>
+        </Link>
 
         <nav className="flex-1 space-y-1 px-3 py-4">
           {adminNav.map(({ to, icon: Icon, key }) => (
