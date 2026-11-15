@@ -12,7 +12,7 @@
 import 'dotenv/config'
 import express from 'express'
 import { knowledgeBase } from '../src/mocks/seed/assistant.js'
-import { publicUniversities } from '../src/mocks/seed/publicUniversities.js'
+import { publicUniversities } from '../src/mocks/seed/publicUniversityData.js'
 import { privateUniversities } from '../src/mocks/seed/privateUniversities.js'
 
 const PORT = process.env.PORT || 3001
