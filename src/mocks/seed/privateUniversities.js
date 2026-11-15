@@ -1,548 +1,108 @@
 /**
- * Private university records with per-department cost data (FR-3, FR-4).
- * totalCost = credits × tuitionPerCredit + otherFees (4-year estimate).
+ * Private university records (FR-3, FR-4).
+ *
+ * Source of truth: ./private.json — a curated shortlist of the top 10 private
+ * universities in Bangladesh with *estimated total degree cost ranges* (BDT).
+ *
+ * The JSON is imported directly so edits to it take effect with no code change.
+ * Here we only normalise it into the shape the UI consumes:
+ *   - every university gets an `id`, a `city` and bilingual name objects
+ *   - Cost values are ranges { min, max }. `totalCost` is kept as the range
+ *     midpoint so existing cost/locale helpers keep working, while `costMin`
+ *     / `costMax` carry the honest range for display.
+ *   - The dataset has no credits, seats, deadlines or waiver rules, so those
+ *     fields are intentionally absent (the UI shows "—" for them).
  */
-const withCosts = (departments) =>
-  departments.map((d) => ({
-    ...d,
-    totalCost: d.credits * d.tuitionPerCredit + d.otherFees,
-    maxWaiverPct: Math.max(0, ...d.waiverRules.map((w) => w.discountPct)),
-  }))
+// Import attribute syntax is required by Node (the assistant server imports
+// this module) and supported by Vite. ESLint's parser cannot read it yet, so
+// the next line is disabled for the linter only.
+// eslint-disable-next-line
+import raw from './private.json' with { type: 'json' }
 
-export const privateUniversities = [
-  {
-    id: 'nsu',
-    name: { en: 'North South University', bn: 'নর্থ সাউথ বিশ্ববিদ্যালয়' },
-    shortName: { en: 'NSU', bn: 'এনএসইউ' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
+const bdt = (n) => (typeof n === 'number' ? n : null)
+
+/** Slug ids for the shortlist so URLs stay stable and readable. */
+const ID_BY_SHORT_NAME = {
+  NSU: 'nsu',
+  BRACU: 'brac',
+  AUST: 'aust',
+  AIUB: 'aiub',
+  EWU: 'ewu',
+  UIU: 'uiu',
+  IUB: 'iub',
+  DIU: 'diu',
+  BUBT: 'bubt',
+  SEU: 'seu',
+}
+
+/** City display text comes straight from the JSON `location` string. */
+const cityOf = (location) => {
+  const parts = String(location || '').split(',')
+  return parts[parts.length - 1].trim() || 'Dhaka'
+}
+
+const rangeOf = (obj) => ({
+  min: bdt(obj?.min),
+  max: bdt(obj?.max),
+})
+
+/** Build one department record from a JSON `department_costs` entry. */
+const toDepartment = (uniId, entry, index, uniRange) => {
+  const cost = rangeOf(entry.estimated_total_degree_cost_bdt)
+  const range = cost.min != null && cost.max != null ? cost : uniRange
+  return {
+    id: `${uniId}-d${index + 1}`,
+    // Free-text department name from the dataset (not a fixed dept key)
+    name: { en: entry.department, bn: entry.department },
+    dept: null,
+    costMin: range.min,
+    costMax: range.max,
+    // Midpoint keeps numeric sorting / budget maths working
+    totalCost: range.min != null && range.max != null ? Math.round((range.min + range.max) / 2) : range.min ?? range.max,
+    costType: entry.cost_type || 'estimated_total_program_cost',
+    includes: entry.includes || null,
+    // Present on rows added as planning estimates; the UI badges these.
+    basis: entry.basis || null,
+  }
+}
+
+const metadata = raw.metadata || {}
+
+export const privateUniversitiesMeta = {
+  title: metadata.title || 'Private Universities',
+  lastUpdated: metadata.last_updated || null,
+  costNote: metadata.cost_note || null,
+  rankingNote: metadata.ranking_note || null,
+  sources: metadata.sources || [],
+}
+
+export const privateUniversities = (raw.universities || []).map((u) => {
+  const id = ID_BY_SHORT_NAME[u.short_name] || String(u.short_name || u.name).toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  const uniRange = rangeOf(u.estimated_total_degree_cost_bdt)
+  const perCredit = u.estimated_per_credit_fee_bdt ? rangeOf(u.estimated_per_credit_fee_bdt) : { min: null, max: null }
+
+  return {
+    id,
+    rank: u.rank_in_shortlist ?? null,
+    name: { en: u.name, bn: u.name },
+    shortName: { en: u.short_name, bn: u.short_name },
+    city: { en: cityOf(u.location), bn: cityOf(u.location) },
+    location: u.location || null,
     type: 'private',
-    established: 1992,
-    website: 'https://www.northsouth.edu',
-    sourceUrl: 'https://www.northsouth.edu/admission',
-    lastVerified: '2026-11-09',
-    admissionDeadline: '2026-12-25',
-    admissionFee: 25000,
-    departments: withCosts([
-      {
-        id: 'nsu-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 136,
-        tuitionPerCredit: 7300,
-        otherFees: 90000,
-        seats: 480,
-        durationYears: 4,
-        deadline: '2026-12-25',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 30, en: '30% merit tuition waiver for GPA 5.00 in both SSC & HSC', bn: 'এসএসসি ও এইচএসসি উভয়ে জিপিএ ৫.০০ হলে ৩০% মেধা ওয়েভার (টিউশন)' },
-          { minSscGpa: 4.5, minHscGpa: 4.75, discountPct: 20, en: '20% waiver for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ২০% ওয়েভার' },
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 15, en: '15% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ১৫% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'nsu-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 126,
-        tuitionPerCredit: 7300,
-        otherFees: 90000,
-        seats: 520,
-        durationYears: 4,
-        deadline: '2026-12-25',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 30, en: '30% merit waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৩০% মেধা ওয়েভার' },
-          { minSscGpa: 4.5, minHscGpa: 4.75, discountPct: 20, en: '20% waiver for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ২০% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'nsu-eee',
-        dept: 'EEE',
-        name: { en: 'B.Sc. in Electrical & Electronic Engineering', bn: 'সিএসসি ইন ইলেকট্রিক্যাল ও ইলেকট্রনিক ইঞ্জিনিয়ারিং' },
-        credits: 140,
-        tuitionPerCredit: 7300,
-        otherFees: 95000,
-        seats: 300,
-        durationYears: 4,
-        deadline: '2026-12-25',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 30, en: '30% merit waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৩০% মেধা ওয়েভার' },
-        ],
-      },
-      {
-        id: 'nsu-env',
-        dept: 'ENV',
-        name: { en: 'B.Sc. in Environmental Science', bn: 'সিএসসি ইন এনভায়রনমেন্টাল সায়েন্স' },
-        credits: 124,
-        tuitionPerCredit: 6800,
-        otherFees: 80000,
-        seats: 150,
-        durationYears: 4,
-        deadline: '2026-12-25',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 15, en: '15% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ১৫% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'nsu-econ',
-        dept: 'ECON',
-        name: { en: 'B.Sc. in Economics', bn: 'সিএসসি ইন ইকোনমিক্স' },
-        credits: 126,
-        tuitionPerCredit: 7300,
-        otherFees: 85000,
-        seats: 220,
-        durationYears: 4,
-        deadline: '2026-12-25',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.75, discountPct: 20, en: '20% waiver for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ২০% ওয়েভার' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'brac',
-    name: { en: 'BRAC University', bn: 'ব্র্যাক বিশ্ববিদ্যালয়' },
-    shortName: { en: 'BRACU', bn: 'ব্র্যাক ইউনিভার্সিটি' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 2001,
-    website: 'https://www.bracu.ac.bd',
-    sourceUrl: 'https://www.bracu.ac.bd/admissions',
-    lastVerified: '2026-11-07',
-    admissionDeadline: '2026-12-31',
-    admissionFee: 30000,
-    departments: withCosts([
-      {
-        id: 'brac-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 137,
-        tuitionPerCredit: 6800,
-        otherFees: 100000,
-        seats: 400,
-        durationYears: 4,
-        deadline: '2026-12-31',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 40, en: 'Vice Chancellor\'s waiver: 40% for double GPA 5.00 with Golden', bn: 'উপাচার্য ওয়েভার: গোল্ডেন জিপিএ ৫.০০ হলে ৪০%' },
-          { minSscGpa: 5, minHscGpa: 4.75, discountPct: 25, en: '25% merit waiver for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ২৫% মেধা ওয়েভার' },
-        ],
-      },
-      {
-        id: 'brac-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 124,
-        tuitionPerCredit: 6800,
-        otherFees: 95000,
-        seats: 450,
-        durationYears: 4,
-        deadline: '2026-12-31',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 4.75, discountPct: 25, en: '25% merit waiver for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ২৫% মেধা ওয়েভার' },
-        ],
-      },
-      {
-        id: 'brac-eee',
-        dept: 'EEE',
-        name: { en: 'B.Sc. in Electrical & Electronic Engineering', bn: 'সিএসসি ইন ইলেকট্রিক্যাল ও ইলেকট্রনিক ইঞ্জিনিয়ারিং' },
-        credits: 142,
-        tuitionPerCredit: 6800,
-        otherFees: 100000,
-        seats: 250,
-        durationYears: 4,
-        deadline: '2026-12-31',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 4.75, discountPct: 25, en: '25% merit waiver', bn: '২৫% মেধা ওয়েভার' },
-        ],
-      },
-      {
-        id: 'brac-english',
-        dept: 'ENGLISH',
-        name: { en: 'BA in English', bn: 'বিএ ইন ইংলিশ' },
-        credits: 120,
-        tuitionPerCredit: 6200,
-        otherFees: 85000,
-        seats: 180,
-        durationYears: 4,
-        deadline: '2026-12-31',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 15, en: '15% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ১৫% ওয়েভার' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'ewu',
-    name: { en: 'East West University', bn: 'ইস্ট ওয়েস্ট বিশ্ববিদ্যালয়' },
-    shortName: { en: 'EWU', bn: 'ইডব্লিউইউ' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 1996,
-    website: 'https://www.ewubd.edu',
-    sourceUrl: 'https://www.ewubd.edu/admission',
-    lastVerified: '2026-11-05',
-    admissionDeadline: '2026-12-28',
-    admissionFee: 20000,
-    departments: withCosts([
-      {
-        id: 'ewu-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 144,
-        tuitionPerCredit: 5450,
-        otherFees: 72000,
-        seats: 420,
-        durationYears: 4,
-        deadline: '2026-12-28',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 40, en: '40% tuition waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৪০% টিউশন ওয়েভার' },
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 20, en: '20% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ২০% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'ewu-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 132,
-        tuitionPerCredit: 5450,
-        otherFees: 70000,
-        seats: 460,
-        durationYears: 4,
-        deadline: '2026-12-28',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 40, en: '40% tuition waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৪০% টিউশন ওয়েভার' },
-        ],
-      },
-      {
-        id: 'ewu-pharma',
-        dept: 'PHARMACY',
-        name: { en: 'B.Pharm. in Pharmacy', bn: 'বিফার্ম ইন ফার্মেসি' },
-        credits: 160,
-        tuitionPerCredit: 5900,
-        otherFees: 78000,
-        seats: 120,
-        durationYears: 4,
-        deadline: '2026-12-28',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 20, en: '20% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ২০% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'ewu-law',
-        dept: 'LAW',
-        name: { en: 'LL.B. (Hons)', bn: 'এলএলবি (সম্মান)' },
-        credits: 120,
-        tuitionPerCredit: 5000,
-        otherFees: 60000,
-        seats: 150,
-        durationYears: 4,
-        deadline: '2026-12-28',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 15, en: '15% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ১৫% ওয়েভার' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'aiub',
-    name: { en: 'American International University-Bangladesh', bn: 'আমেরিকান ইন্টারন্যাশনাল ইউনিভার্সিটি-বাংলাদেশ' },
-    shortName: { en: 'AIUB', bn: 'এআইইউবি' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 1994,
-    website: 'https://www.aiub.edu',
-    sourceUrl: 'https://www.aiub.edu/admission-aid',
-    lastVerified: '2026-11-06',
-    admissionDeadline: '2026-12-20',
-    admissionFee: 22000,
-    departments: withCosts([
-      {
-        id: 'aiub-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 148,
-        tuitionPerCredit: 5250,
-        otherFees: 80000,
-        seats: 600,
-        durationYears: 4,
-        deadline: '2026-12-20',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 50, en: '50% scholarship for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৫০% স্কলারশিপ' },
-          { minSscGpa: 5, minHscGpa: 4.75, discountPct: 30, en: '30% for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ৩০%' },
-        ],
-      },
-      {
-        id: 'aiub-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 132,
-        tuitionPerCredit: 5250,
-        otherFees: 78000,
-        seats: 700,
-        durationYears: 4,
-        deadline: '2026-12-20',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 50, en: '50% scholarship for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৫০% স্কলারশিপ' },
-        ],
-      },
-      {
-        id: 'aiub-eee',
-        dept: 'EEE',
-        name: { en: 'B.Sc. in Electrical & Electronic Engineering', bn: 'সিএসসি ইন ইলেকট্রিক্যাল ও ইলেকট্রনিক ইঞ্জিনিয়ারিং' },
-        credits: 152,
-        tuitionPerCredit: 5250,
-        otherFees: 82000,
-        seats: 350,
-        durationYears: 4,
-        deadline: '2026-12-20',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 50, en: '50% scholarship for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৫০% স্কলারশিপ' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'uiu',
-    name: { en: 'United International University', bn: 'ইউনাইটেড ইন্টারন্যাশনাল বিশ্ববিদ্যালয়' },
-    shortName: { en: 'UIU', bn: 'ইউআইইউ' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 2003,
-    website: 'https://www.uiu.ac.bd',
-    sourceUrl: 'https://www.uiu.ac.bd/admission',
-    lastVerified: '2026-11-04',
-    admissionDeadline: '2027-01-10',
-    admissionFee: 18000,
-    departments: withCosts([
-      {
-        id: 'uiu-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 140,
-        tuitionPerCredit: 4950,
-        otherFees: 65000,
-        seats: 350,
-        durationYears: 4,
-        deadline: '2027-01-10',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 50, en: '50% tuition waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৫০% টিউশন ওয়েভার' },
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 25, en: '25% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ২৫% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'uiu-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 124,
-        tuitionPerCredit: 4700,
-        otherFees: 60000,
-        seats: 300,
-        durationYears: 4,
-        deadline: '2027-01-10',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 25, en: '25% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ২৫% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'uiu-eee',
-        dept: 'EEE',
-        name: { en: 'B.Sc. in Electrical & Electronic Engineering', bn: 'সিএসসি ইন ইলেকট্রিক্যাল ও ইলেকট্রনিক ইঞ্জিনিয়ারিং' },
-        credits: 148,
-        tuitionPerCredit: 4950,
-        otherFees: 68000,
-        seats: 200,
-        durationYears: 4,
-        deadline: '2027-01-10',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 4.75, discountPct: 30, en: '30% for combined GPA 9.75+', bn: 'সম্মিলিত জিপিএ ৯.৭৫+ হলে ৩০%' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'iub',
-    name: { en: 'Independent University, Bangladesh', bn: 'ইন্ডিপেনডেন্ট ইউনিভার্সিটি, বাংলাদেশ' },
-    shortName: { en: 'IUB', bn: 'আইইউবি' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 1993,
-    website: 'https://www.iub.edu.bd',
-    sourceUrl: 'https://www.iub.edu.bd/admission',
-    lastVerified: '2026-11-03',
-    admissionDeadline: '2026-12-22',
-    admissionFee: 28000,
-    departments: withCosts([
-      {
-        id: 'iub-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 138,
-        tuitionPerCredit: 6900,
-        otherFees: 92000,
-        seats: 280,
-        durationYears: 4,
-        deadline: '2026-12-22',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 35, en: '35% merit scholarship for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৩৫% মেধা স্কলারশিপ' },
-          { minSscGpa: 4.5, minHscGpa: 4.75, discountPct: 20, en: '20% for combined GPA 9.5+', bn: 'সম্মিলিত জিপিএ ৯.৫+ হলে ২০%' },
-        ],
-      },
-      {
-        id: 'iub-env',
-        dept: 'ENV',
-        name: { en: 'B.Sc. in Environmental Science', bn: 'সিএসসি ইন এনভায়রনমেন্টাল সায়েন্স' },
-        credits: 126,
-        tuitionPerCredit: 6500,
-        otherFees: 85000,
-        seats: 140,
-        durationYears: 4,
-        deadline: '2026-12-22',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 20, en: '20% for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ২০%' },
-        ],
-      },
-      {
-        id: 'iub-econ',
-        dept: 'ECON',
-        name: { en: 'B.Sc. in Economics', bn: 'সিএসসি ইন ইকোনমিক্স' },
-        credits: 130,
-        tuitionPerCredit: 6300,
-        otherFees: 82000,
-        seats: 160,
-        durationYears: 4,
-        deadline: '2026-12-22',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 15, en: '15% for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ১৫%' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'daffodil',
-    name: { en: 'Daffodil International University', bn: 'ড্যাফোডিল ইন্টারন্যাশনাল বিশ্ববিদ্যালয়' },
-    shortName: { en: 'DIU', bn: 'ডিআইইউ' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 2002,
-    website: 'https://www.daffodilvarsity.edu.bd',
-    sourceUrl: 'https://www.daffodilvarsity.edu.bd/admission',
-    lastVerified: '2026-11-02',
-    admissionDeadline: '2027-01-15',
-    admissionFee: 15000,
-    departments: withCosts([
-      {
-        id: 'diu-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 144,
-        tuitionPerCredit: 3200,
-        otherFees: 55000,
-        seats: 800,
-        durationYears: 4,
-        deadline: '2027-01-15',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 60, en: 'Up to 60% tuition waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে সর্বোচ্চ ৬০% টিউশন ওয়েভার' },
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 30, en: '30% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ৩০% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'diu-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 132,
-        tuitionPerCredit: 3000,
-        otherFees: 50000,
-        seats: 900,
-        durationYears: 4,
-        deadline: '2027-01-15',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 60, en: 'Up to 60% tuition waiver', bn: 'সর্বোচ্চ ৬০% টিউশন ওয়েভার' },
-        ],
-      },
-      {
-        id: 'diu-civil',
-        dept: 'CIVIL',
-        name: { en: 'B.Sc. in Civil Engineering', bn: 'সিএসসি ইন সিভিল ইঞ্জিনিয়ারিং' },
-        credits: 160,
-        tuitionPerCredit: 3400,
-        otherFees: 58000,
-        seats: 250,
-        durationYears: 4,
-        deadline: '2027-01-15',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 25, en: '25% waiver for combined GPA 9.0+', bn: 'সম্মিলিত জিপিএ ৯.০+ হলে ২৫% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'diu-pharma',
-        dept: 'PHARMACY',
-        name: { en: 'B.Pharm. in Pharmacy', bn: 'বিফার্ম ইন ফার্মেসি' },
-        credits: 158,
-        tuitionPerCredit: 3300,
-        otherFees: 56000,
-        seats: 150,
-        durationYears: 4,
-        deadline: '2027-01-15',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 25, en: '25% waiver', bn: '২৫% ওয়েভার' },
-        ],
-      },
-    ]),
-  },
-  {
-    id: 'stamford',
-    name: { en: 'Stamford University Bangladesh', bn: 'স্ট্যামফোর্ড ইউনিভার্সিটি বাংলাদেশ' },
-    shortName: { en: 'STAMFORD', bn: 'স্ট্যামফোর্ড' },
-    city: { en: 'Dhaka', bn: 'ঢাকা' },
-    type: 'private',
-    established: 2002,
-    website: 'https://www.stamforduniversity.edu.bd',
-    sourceUrl: 'https://www.stamforduniversity.edu.bd/admission',
-    lastVerified: '2026-10-28',
-    admissionDeadline: '2026-12-18',
-    admissionFee: 12000,
-    departments: withCosts([
-      {
-        id: 'stam-cse',
-        dept: 'CSE',
-        name: { en: 'B.Sc. in Computer Science & Engineering', bn: 'সিএসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং' },
-        credits: 152,
-        tuitionPerCredit: 2900,
-        otherFees: 45000,
-        seats: 300,
-        durationYears: 4,
-        deadline: '2026-12-18',
-        waiverRules: [
-          { minSscGpa: 5, minHscGpa: 5, discountPct: 30, en: '30% waiver for double GPA 5.00', bn: 'উভয় পরীক্ষায় জিপিএ ৫.০০ হলে ৩০% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'stam-bba',
-        dept: 'BBA',
-        name: { en: 'Bachelor of Business Administration', bn: 'ব্যাচেলর অব বিজনেস অ্যাডমিনিস্ট্রেশন' },
-        credits: 120,
-        tuitionPerCredit: 2700,
-        otherFees: 40000,
-        seats: 350,
-        durationYears: 4,
-        deadline: '2026-12-18',
-        waiverRules: [
-          { minSscGpa: 4.5, minHscGpa: 4.5, discountPct: 20, en: '20% waiver', bn: '২০% ওয়েভার' },
-        ],
-      },
-      {
-        id: 'stam-env',
-        dept: 'ENV',
-        name: { en: 'B.Sc. in Environmental Science', bn: 'সিএসসি ইন এনভায়রনমেন্টাল সায়েন্স' },
-        credits: 128,
-        tuitionPerCredit: 2600,
-        otherFees: 38000,
-        seats: 100,
-        durationYears: 4,
-        deadline: '2026-12-18',
-        waiverRules: [
-          { minSscGpa: 4, minHscGpa: 4, discountPct: 10, en: '10% waiver for combined GPA 8.0+', bn: 'সম্মিলিত জিপিএ ৮.০+ হলে ১০% ওয়েভার' },
-        ],
-      },
-    ]),
-  },
-]
+    established: null,
+    website: u.official_website || null,
+    feeScheduleUrl: u.official_fee_schedule_url || null,
+    sourceUrl: u.official_website || null,
+    lastVerified: metadata.last_updated || null,
+    // Cost ranges (see notes above)
+    costMin: uniRange.min,
+    costMax: uniRange.max,
+    totalCost: uniRange.min != null && uniRange.max != null ? Math.round((uniRange.min + uniRange.max) / 2) : uniRange.min ?? uniRange.max,
+    perCreditMin: perCredit.min,
+    perCreditMax: perCredit.max,
+    departments: (u.department_costs || []).map((entry, i) => toDepartment(id, entry, i, uniRange)),
+    departmentNames: u.departments || [],
+  }
+})
+
+export default privateUniversities

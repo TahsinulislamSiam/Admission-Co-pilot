@@ -20,7 +20,16 @@ import { circulars } from './seed/circulars'
  */
 export const DB_STORAGE_KEY = 'acbd-mock-db'
 
+/**
+ * Bump this whenever the seeded tables change shape or content (e.g. more
+ * departments added to private.json). A snapshot stamped with an older version
+ * is discarded on boot, otherwise stale rows would shadow the new seed forever
+ * and the UI would keep showing old numbers.
+ */
+export const SEED_VERSION = 2
+
 const seedSnapshot = () => ({
+  __seedVersion: SEED_VERSION,
   users: JSON.parse(JSON.stringify(seedUsers)),
   publicUniversities: JSON.parse(JSON.stringify(publicUniversities)),
   privateUniversities: JSON.parse(JSON.stringify(privateUniversities)),
@@ -40,6 +49,14 @@ const loadSnapshot = () => {
     const raw = window.localStorage.getItem(DB_STORAGE_KEY)
     if (!raw) return seeded
     const saved = JSON.parse(raw)
+
+    // A snapshot written from different seed data must not win, or seeded rows
+    // (universities, departments) would never reflect the current dataset.
+    if (saved?.__seedVersion !== SEED_VERSION) {
+      window.localStorage.removeItem(DB_STORAGE_KEY)
+      return seeded
+    }
+
     // Shallow-merge so new seed fields still appear for older snapshots.
     return { ...seeded, ...saved }
   } catch {
