@@ -1,3 +1,4 @@
+
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
@@ -10,15 +11,17 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
       },
     },
+
     server: {
       port: 5173,
-      // In live mode the assistant proxy in server/ handles these paths.
-      // Everything else stays with MSW.
+
+      // Assistant API proxy
       proxy: liveAssistant
         ? {
             '/api/assistant': {
@@ -26,25 +29,19 @@ export default defineConfig(({ mode }) => {
               changeOrigin: true,
             },
           }
-        : undefined,
+        : {
+            '/api/assistant/chat': {
+              target: 'http://localhost:3001',
+              changeOrigin: true,
+            },
+          },
     },
+
     test: {
       environment: 'jsdom',
       setupFiles: ['./vitest.setup.js'],
       globals: true,
       css: true,
     },
-  },
-  server: {
-    port: 5173,
-    // Assistant chat goes to the Node server that holds the OpenAI key
-    proxy: { '/api/assistant/chat': 'http://localhost:3001' },
-  },
-  test: {
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.js'],
-    globals: true,
-    css: true,
-  },
   }
 })

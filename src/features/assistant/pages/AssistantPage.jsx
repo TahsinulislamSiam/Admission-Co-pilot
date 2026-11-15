@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MessagesSquare, SendHorizonal, Eraser, Info } from 'lucide-react'
+import { MessagesSquare, SendHorizontal, Eraser, Info } from 'lucide-react'
 import { useAssistant, useSuggestions } from '../hooks/useAssistant'
 import { ChatMessage, SuggestedQuestions } from '../components/ChatMessage'
 import { Card } from '@/components/ui/Card'
@@ -98,7 +98,7 @@ export default function AssistantPage() {
               className="max-h-32 flex-1 resize-none rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 scrollbar-slim"
             />
             <Button onClick={() => handleSend()} loading={pending} disabled={!draft.trim() && !pending}>
-              {!pending && <SendHorizonal className="h-4 w-4" />}
+              {!pending && <SendHorizontal className="h-4 w-4" />}
               {t('assistant.send')}
             </Button>
           </div>
