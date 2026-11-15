@@ -1,0 +1,1614 @@
+{
+  "metadata": {
+    "title": "Top 10 Private Universities in Bangladesh",
+    "country": "Bangladesh",
+    "currency": "BDT",
+    "cost_basis": "Estimated total undergraduate degree cost (tuition and typical academic fees where included by the source)",
+    "last_updated": "2026-11-15",
+    "ranking_note": "This is a practical shortlist, not an official UGC ranking. University order follows a 2026 comparison article; rankings vary by publisher and methodology.",
+    "cost_note": "Department-level figures are indicative total-program planning estimates in BDT, not verified official quotations. They are approximate ranges and may differ from each university's current published fee schedule. Actual cost depends on credit requirements, admission fees, lab/studio fees, semester charges, retakes, waivers and scholarships. Confirm each department's current fee breakdown directly with the university before making a decision.",
+    "sources": [
+      {
+        "name": "The Study Orbit - Top 10 Best Private Universities in Bangladesh (2026)",
+        "url": "https://thestudyorbit.com/best-private-universities-in-bangladesh/",
+        "used_for": "Shortlist, indicative cost ranges and example department strengths"
+      },
+      {
+        "name": "uniRank - Top Private Universities in Bangladesh (2026)",
+        "url": "https://www.unirank.org/bd/private/",
+        "used_for": "Cross-checking that the listed institutions are private universities"
+      },
+      {
+        "name": "University Grants Commission of Bangladesh",
+        "url": "https://ugc.gov.bd/",
+        "used_for": "Official recognition and approval checks; verify current status and programme approval"
+      },
+      {
+        "name": "AIUB official tuition and other fee structure",
+        "url": "https://english.aiub.edu/tuition-fee",
+        "used_for": "Published AIUB undergraduate per-credit tuition rates and additional fee categories; effective Fall 2026-27"
+      }
+    ],
+    "department_cost_methodology": "Department estimates are differentiated by programme type and likely lab/studio intensity, while staying within the university-level cost bands in this dataset. They should be treated as preliminary estimates, not exact official fees."
+  },
+  "universities": [
+    {
+      "rank_in_shortlist": 1,
+      "name": "North South University",
+      "short_name": "NSU",
+      "location": "Bashundhara, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Computer Engineering",
+        "Pharmacy",
+        "Biochemistry and Microbiology",
+        "Environmental Science and Management",
+        "Economics",
+        "Business Administration",
+        "English",
+        "Law",
+        "Accounting and Finance",
+        "Marketing",
+        "Public Health",
+        "Statistics",
+        "Political Science"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 1150000,
+        "max": 1300000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 8000,
+        "max": 8000
+      },
+      "official_website": "https://www.northsouth.edu/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1150000,
+            "max": 1300000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Computer Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1100000,
+            "max": 1250000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1250000,
+            "max": 1450000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Biochemistry and Microbiology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1050000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Environmental Science and Management",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1050000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Accounting and Finance",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Marketing",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Public Health",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Statistics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Political Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 2,
+      "name": "BRAC University",
+      "short_name": "BRACU",
+      "location": "Merul Badda, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Electronic Engineering",
+        "Architecture",
+        "Business Administration",
+        "Economics",
+        "English",
+        "Law",
+        "Biotechnology",
+        "Microbiology",
+        "Pharmacy",
+        "Public Health",
+        "Anthropology",
+        "Governance and Development",
+        "Mathematics and Natural Sciences"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 1200000,
+        "max": 1380000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 8250,
+        "max": 8250
+      },
+      "official_website": "https://www.bracu.ac.bd/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1200000,
+            "max": 1380000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1200000,
+            "max": 1380000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1300000,
+            "max": 1500000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1100000,
+            "max": 1300000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1000000,
+            "max": 1150000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 900000,
+            "max": 1050000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1000000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Biotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1150000,
+            "max": 1350000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Microbiology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1150000,
+            "max": 1350000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1150000,
+            "max": 1500000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Public Health",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1200000,
+            "max": 1380000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Anthropology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 900000,
+            "max": 1300000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Governance and Development",
+          "estimated_total_degree_cost_bdt": {
+            "min": 900000,
+            "max": 1300000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mathematics and Natural Sciences",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1200000,
+            "max": 1380000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 3,
+      "name": "Ahsanullah University of Science and Technology",
+      "short_name": "AUST",
+      "location": "Tejgaon, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Electronic Engineering",
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Industrial and Production Engineering",
+        "Textile Engineering",
+        "Architecture",
+        "Business Administration",
+        "Electrical and Computer Engineering",
+        "Software Engineering",
+        "Biomedical Engineering",
+        "Mathematics"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 550000,
+        "max": 650000
+      },
+      "estimated_per_credit_fee_bdt": null,
+      "official_website": "https://www.aust.edu/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 680000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 620000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 620000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 620000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Industrial and Production Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 620000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Textile Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 680000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 750000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 550000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Computer Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Software Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Biomedical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 4,
+      "name": "American International University-Bangladesh",
+      "short_name": "AIUB",
+      "location": "Kuratoli, Khilkhet, Dhaka",
+      "departments": [
+        "Computer Science",
+        "Computer Engineering",
+        "Electrical and Electronic Engineering",
+        "Architecture",
+        "Business Administration",
+        "Economics",
+        "English",
+        "Law",
+        "Pharmacy",
+        "Media and Mass Communication",
+        "Public Health",
+        "Statistics",
+        "Tourism and Hospitality Management"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 950000,
+        "max": 1100000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 6500,
+        "max": 7000
+      },
+      "official_website": "https://www.aiub.edu/",
+      "department_costs": [
+        {
+          "department": "Computer Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 8500,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Computer Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 6000,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 7500,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1100000,
+            "max": 1300000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 6500,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 8000,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 750000,
+            "max": 900000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 5500,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 850000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 6500,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 800000,
+            "max": 950000,
+            "basis": "Planning estimate; not calculated as an official total from the per-credit rate"
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "published_tuition_fee_per_credit_bdt": 8500,
+          "published_fee_source": "https://english.aiub.edu/tuition-fee",
+          "published_fee_effective_period": "Fall 2026-27 (LLB and B.Pharm effective Spring 2026-27)"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1300000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Media and Mass Communication",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Public Health",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Statistics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Tourism and Hospitality Management",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ],
+      "official_fee_schedule_url": "https://english.aiub.edu/tuition-fee"
+    },
+    {
+      "rank_in_shortlist": 5,
+      "name": "East West University",
+      "short_name": "EWU",
+      "location": "Aftabnagar, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Electronic Engineering",
+        "Pharmacy",
+        "Business Administration",
+        "Economics",
+        "English",
+        "Law",
+        "Genetic Engineering and Biotechnology",
+        "Information Studies",
+        "Civil Engineering",
+        "Social Relations",
+        "Mathematics",
+        "Media and Communication"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 800000,
+        "max": 950000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 5500,
+        "max": 6500
+      },
+      "official_website": "https://www.ewubd.edu/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1150000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 750000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 850000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 800000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 750000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Genetic Engineering and Biotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 900000,
+            "max": 1050000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Information Studies",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 800000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 1150000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Social Relations",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 800000,
+            "max": 950000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Media and Communication",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 6,
+      "name": "United International University",
+      "short_name": "UIU",
+      "location": "United City, Madani Avenue, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Data Science",
+        "Electrical and Electronic Engineering",
+        "Business Administration",
+        "Economics",
+        "Environmental Science",
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Pharmacy",
+        "English",
+        "Media Studies"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 800000,
+        "max": 950000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 5500,
+        "max": 6500
+      },
+      "official_website": "https://www.uiu.ac.bd/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Data Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 750000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 850000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Environmental Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 750000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Media Studies",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 900000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 7,
+      "name": "Independent University, Bangladesh",
+      "short_name": "IUB",
+      "location": "Bashundhara, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Electronic Engineering",
+        "Environmental Science and Management",
+        "Business Administration",
+        "Economics",
+        "Media and Communication",
+        "English",
+        "Global Studies and Governance",
+        "Life Sciences",
+        "Pharmacy",
+        "Public Health",
+        "Anthropology",
+        "Mathematics",
+        "Accounting and Finance"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 1000000,
+        "max": 1150000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 7000,
+        "max": 7500
+      },
+      "official_website": "https://www.iub.edu.bd/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1050000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1050000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Environmental Science and Management",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Media and Communication",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 800000,
+            "max": 950000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Global Studies and Governance",
+          "estimated_total_degree_cost_bdt": {
+            "min": 850000,
+            "max": 1000000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Life Sciences",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1000000,
+            "max": 1150000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 1050000,
+            "max": 1200000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Public Health",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1150000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Anthropology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 800000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 950000,
+            "max": 1150000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Accounting and Finance",
+          "estimated_total_degree_cost_bdt": {
+            "min": 800000,
+            "max": 1100000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 8,
+      "name": "Daffodil International University",
+      "short_name": "DIU",
+      "location": "Daffodil Smart City, Ashulia, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Software Engineering",
+        "Information Technology and Management",
+        "Electrical and Electronic Engineering",
+        "Business Administration",
+        "Textile Engineering",
+        "Nutrition and Food Engineering",
+        "Pharmacy",
+        "English",
+        "Law",
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Architecture",
+        "Journalism and Mass Communication",
+        "Public Health"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 550000,
+        "max": 720000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 4000,
+        "max": 5000
+      },
+      "official_website": "https://daffodilvarsity.edu.bd/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 750000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Software Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 750000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Information Technology and Management",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 680000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 800000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 500000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Textile Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 750000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Nutrition and Food Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 650000,
+            "max": 800000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 800000,
+            "max": 950000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 580000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 500000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 950000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 950000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 600000,
+            "max": 950000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Journalism and Mass Communication",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Public Health",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 680000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 9,
+      "name": "Bangladesh University of Business and Technology",
+      "short_name": "BUBT",
+      "location": "Rupnagar, Mirpur, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Electronic Engineering",
+        "Business Administration",
+        "Economics",
+        "English",
+        "Law",
+        "Textile Engineering",
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Pharmacy",
+        "Mathematics",
+        "Journalism and Media Studies"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 420000,
+        "max": 580000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 3200,
+        "max": 4200
+      },
+      "official_website": "https://www.bubt.edu.bd/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 600000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 500000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 400000,
+            "max": 550000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 380000,
+            "max": 500000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 350000,
+            "max": 480000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 420000,
+            "max": 550000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Textile Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 500000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 650000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 420000,
+            "max": 580000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Journalism and Media Studies",
+          "estimated_total_degree_cost_bdt": {
+            "min": 350000,
+            "max": 550000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_shortlist": 10,
+      "name": "Southeast University",
+      "short_name": "SEU",
+      "location": "Tejgaon, Dhaka",
+      "departments": [
+        "Computer Science and Engineering",
+        "Electrical and Electronic Engineering",
+        "Pharmacy",
+        "Textile Engineering",
+        "Business Administration",
+        "Economics",
+        "English",
+        "Law",
+        "Civil Engineering",
+        "Mechanical Engineering",
+        "Architecture",
+        "Public Health",
+        "Journalism and Mass Communication"
+      ],
+      "estimated_total_degree_cost_bdt": {
+        "min": 500000,
+        "max": 680000
+      },
+      "estimated_per_credit_fee_bdt": {
+        "min": 4000,
+        "max": 5000
+      },
+      "official_website": "https://seu.edu.bd/",
+      "department_costs": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 700000,
+            "max": 850000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Textile Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 700000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 600000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 400000,
+            "max": 550000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 350000,
+            "max": 500000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 450000,
+            "max": 600000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately"
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 850000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 850000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 550000,
+            "max": 850000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Public Health",
+          "estimated_total_degree_cost_bdt": {
+            "min": 500000,
+            "max": 680000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        },
+        {
+          "department": "Journalism and Mass Communication",
+          "estimated_total_degree_cost_bdt": {
+            "min": 350000,
+            "max": 600000
+          },
+          "cost_type": "estimated_total_program_cost",
+          "includes": "Indicative tuition and typical academic fees; confirm admission, lab, semester and other charges separately",
+          "basis": "Planning estimate derived from this university's existing cost bands for comparable programmes; not an official published total. Confirm the current fee breakdown with the university."
+        }
+      ]
+    }
+  ]
+}
