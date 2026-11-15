@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
             </div>
           ) : (
             <>
-              <h1 className="text-xl font-bold text-slate-900">{t('auth.forgotTitle')}</h1>
+              <h1 className="text-xl font-bold text-slate-800">{t('auth.forgotTitle')}</h1>
               <p className="mt-1 text-sm text-slate-500">{t('auth.forgotSubtitle')}</p>
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-6">
