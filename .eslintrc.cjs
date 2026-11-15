@@ -11,7 +11,7 @@ module.exports = {
   ],
   // privateUniversities.js reads ./private.json with an import attribute, which
   // this parser version cannot read; the file is type-checked by Vite and Node.
-  ignorePatterns: ['dist', 'node_modules', 'coverage', 'public', 'src/mocks/seed/privateUniversities.js'],
+  ignorePatterns: ['dist', 'node_modules', 'coverage', 'public', 'src/mocks/seed/privateUniversities.js', 'src/mocks/seed/publicUniversityData.js'],
   settings: { react: { version: 'detect' } },
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   rules: {

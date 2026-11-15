@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next'
-import { CalendarClock, Users, MapPin, Banknote, ClipboardList, Layers } from 'lucide-react'
+import { CalendarClock, Users, MapPin, Banknote, ClipboardList, Layers, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { SourceLink, VerifiedBadge } from '@/components/common/SourceLink'
 import { useLocale } from '@/hooks/useLocale'
-import { formatDate, daysUntil } from '@/lib/utils'
+import { formatDate, daysUntil, formatBDT } from '@/lib/utils'
 import { ROUTES, route } from '@/routes/constants'
 
 /** Card for a public university on the hub grid (FR-2). */
@@ -41,40 +41,61 @@ export function PublicUniversityCard({ university: u }) {
 
         {/* key numbers */}
         <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-          <div className="flex items-center gap-2 text-slate-600">
-            <Users className="h-4 w-4 text-brand-600" />
-            <span className="font-semibold text-slate-800">{u.seatsTotal.toLocaleString('en-IN')}</span>
-            <span className="text-xs">{t('common.seats')}</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-600">
-            <Banknote className="h-4 w-4 text-brand-600" />
-            <span className="font-semibold text-slate-800">৳{u.applicationFee}</span>
-            <span className="text-xs">{t('common.fee')}</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-600">
-            <ClipboardList className="h-4 w-4 text-brand-600" />
-            <span className="text-xs">{u.examPattern}</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-600">
-            <Layers className="h-4 w-4 text-brand-600" />
-            <span className="text-xs">
-              {u.groups.map((g) => t(`profile.groups.${g}`)).join(', ')}
-            </span>
-          </div>
+          {u.seatsTotal != null && (
+            <div className="flex items-center gap-2 text-slate-600">
+              <Users className="h-4 w-4 text-brand-600" />
+              <span className="font-semibold text-slate-800">{u.seatsTotal.toLocaleString('en-IN')}</span>
+              <span className="text-xs">{t('common.seats')}</span>
+            </div>
+          )}
+          {u.applicationFee != null && (
+            <div className="flex items-center gap-2 text-slate-600">
+              <Banknote className="h-4 w-4 text-brand-600" />
+              <span className="font-semibold text-slate-800">৳{u.applicationFee}</span>
+              <span className="text-xs">{t('common.fee')}</span>
+            </div>
+          )}
+          {u.examPattern && (
+            <div className="flex items-center gap-2 text-slate-600">
+              <ClipboardList className="h-4 w-4 text-brand-600" />
+              <span className="text-xs">{u.examPattern}</span>
+            </div>
+          )}
+          {u.groups?.length > 0 && (
+            <div className="flex items-center gap-2 text-slate-600">
+              <Layers className="h-4 w-4 text-brand-600" />
+              <span className="text-xs">
+                {u.groups.map((g) => t(`profile.groups.${g}`)).join(', ')}
+              </span>
+            </div>
+          )}
+          {u.costMin != null && (
+            <div className="col-span-2 flex items-center gap-2 border-t border-slate-100 pt-3 text-slate-600">
+              <Wallet className="h-4 w-4 text-brand-600" />
+              <span className="font-semibold text-slate-800">
+                {u.costMin === u.costMax
+                  ? formatBDT(u.costMin)
+                  : `${formatBDT(u.costMin)} – ${formatBDT(u.costMax)}`}
+              </span>
+              <span className="text-xs">{t('universities.estimatedDegreeCost')}</span>
+            </div>
+          )}
         </div>
 
         {/* deadline */}
-        <div className="mt-4 flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2">
-          <span className="flex items-center gap-1.5 text-xs text-slate-500">
-            <CalendarClock className="h-3.5 w-3.5" />
-            {t('common.deadline')}: {formatDate(u.deadline, lang)}
-          </span>
-          {days != null && days >= 0 && (
-            <Badge variant={deadlineTone}>
-              {days === 0 ? t('common.daysLeftToday') : t('common.daysLeft', { count: days })}
-            </Badge>
-          )}
-        </div>
+        {u.deadline && (
+          <div className="mt-4 flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2">
+            <span className="flex items-center gap-1.5 text-xs text-slate-500">
+              <CalendarClock className="h-3.5 w-3.5" />
+              {t('common.deadline')}: {formatDate(u.deadline, lang)}
+            </span>
+            {days != null && days >= 0 && (
+              <Badge variant={deadlineTone}>
+                {days === 0 ? t('common.daysLeftToday') : t('common.daysLeft', { count: days })}
+              </Badge>
+            )}
+          </div>
+        )}
 
         {/* FR-4: source + last verified on every record */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
