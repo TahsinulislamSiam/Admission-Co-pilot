@@ -3,7 +3,7 @@
  * Scores university-department pairs against the student profile and returns
  * the top 10 with match reasons, total cost and eligibility badges.
  */
-import { publicUniversities } from '../seed/publicUniversities'
+import { publicUniversities } from '../seed/publicUniversityData'
 import { privateUniversities } from '../seed/privateUniversities'
 
 /**

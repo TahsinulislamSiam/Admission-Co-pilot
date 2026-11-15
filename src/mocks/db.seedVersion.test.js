@@ -17,13 +17,17 @@ describe('mock db seed versioning', () => {
     vi.resetModules()
   })
 
-  it('uses the fresh seed when a stale (unversioned) snapshot exists', async () => {
+  it('refreshes seeded tables but keeps registered users on a version bump', async () => {
     const { privateUniversities } = await import('@/mocks/seed/privateUniversities')
     const expected = privateUniversities.reduce((n, u) => n + u.departments.length, 0)
 
-    // Simulate what an older build wrote: no __seedVersion, fewer departments.
+    // Simulate what an older build wrote: no __seedVersion, fewer departments,
+    // plus a real account the student registered.
     const stale = {
-      users: [],
+      users: [
+        { id: 'u1', email: 'student@example.com', password: 'password123', token: 't1' },
+        { id: 'u9', email: 'myname@gmail.com', password: 'mypass123', token: 't9' },
+      ],
       privateUniversities: [
         { id: 'nsu', name: { en: 'North South University' }, departments: [{ id: 'nsu-cse' }] },
       ],
@@ -33,11 +37,15 @@ describe('mock db seed versioning', () => {
     const db = await loadDb()
     const total = db.privateUniversities.reduce((n, u) => n + u.departments.length, 0)
 
+    // Seed data is fresh...
     expect(db.privateUniversities).toHaveLength(10)
     expect(total).toBe(expected)
     expect(total).toBeGreaterThan(9)
-    // The stale snapshot should have been discarded, not merged.
-    expect(window.localStorage.getItem('acbd-mock-db')).toBeNull()
+
+    // ...but the registered account MUST survive, or login breaks.
+    const account = db.users.find((u) => u.email === 'myname@gmail.com')
+    expect(account).toBeTruthy()
+    expect(account.password).toBe('mypass123')
   })
 
   it('still honours a snapshot stamped with the current seed version', async () => {
