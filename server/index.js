@@ -108,7 +108,8 @@ knowledgeBase.forEach((k, i) => {
   records.push(`[${id}] ${k.answer.en}\n${k.answer.bn}`)
 })
 for (const u of [...publicUniversities, ...privateUniversities]) {
-  sourceById.set(u.id, [{ label: u.name, url: u.sourceUrl }])
+  const label = typeof u.name === 'string' ? u.name : u.name?.en || u.id
+  sourceById.set(u.id, [{ label, url: u.sourceUrl }])
   records.push(`[${u.id}] ${JSON.stringify(u)}`)
 }
 const CONTEXT = records.join('\n\n')
