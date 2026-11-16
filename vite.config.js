@@ -27,12 +27,16 @@ export default defineConfig(({ mode }) => {
       // Assistant API proxy
       proxy: liveAssistant
         ? {
+            // live mode: OpenAI streaming proxy (server/index.js, `npm run dev:server`)
             '/api/assistant': {
               target: `http://localhost:${assistantPort}`,
               changeOrigin: true,
             },
           }
-        : undefined,
+        : {
+            // default: Gemini server (server/gemini.js, `npm run server`)
+            '/api/assistant/chat': 'http://localhost:3001',
+          },
     },
 
     test: {
@@ -41,5 +45,7 @@ export default defineConfig(({ mode }) => {
       globals: true,
       css: true,
     },
+  }
+})
   };
 });
