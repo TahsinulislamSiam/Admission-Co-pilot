@@ -1,7 +1,7 @@
 import { api, normalizedError } from '@/lib/axios'
 import { ASSISTANT_TIMEOUT_MS } from '@/lib/constants'
 
-/** True when chats should go to the real OpenAI-backed proxy (see server/). */
+/** True when chats should go to the real Gemini-backed proxy (see server/). */
 export const isLiveAssistant = () => import.meta.env.VITE_ASSISTANT_MODE === 'live'
 
 /**

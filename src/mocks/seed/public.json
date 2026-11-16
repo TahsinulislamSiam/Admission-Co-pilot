@@ -1,0 +1,1392 @@
+{
+  "metadata": {
+    "title": "10 Major Public Universities in Bangladesh",
+    "country": "Bangladesh",
+    "currency": "BDT",
+    "student_category": "Domestic undergraduate students",
+    "created_on": "2026-11-15",
+    "ranking_note": "This is a practical selection of 10 major public universities, not an official ranking.",
+    "cost_definition": "Indicative total academic cost for completing an undergraduate degree. This is a broad planning estimate, not an official fee quotation.",
+    "cost_exclusions": [
+      "Accommodation and hall charges",
+      "Food and personal expenses",
+      "Transportation",
+      "Books, devices and personal supplies",
+      "Retake, improvement and special examination fees unless included in a university's published schedule"
+    ],
+    "important_cost_warning": "Public university fees are subsidized and usually much lower than private university fees. However, exact payable amounts differ by admission session, department, credit load, hall status, lab/studio charges and university notices. Department-level figures in this file are approximate planning ranges, not verified official totals. Contact the university and check its latest admission circular and fee schedule before relying on them.",
+    "department_note": "The department lists are representative undergraduate options, not a complete catalogue of every department, institute or programme.",
+    "sources": [
+      {
+        "name": "University Grants Commission of Bangladesh",
+        "url": "https://ugc.gov.bd/",
+        "use": "Official regulator; verify public-university status and programme recognition."
+      },
+      {
+        "name": "Bangladesh Education Statistics 2021 (BANBEIS)",
+        "url": "https://banbeis.gov.bd/",
+        "use": "Public university institutional and department counts; historical statistical reference."
+      },
+      {
+        "name": "Bangladesh Research and Education Network (BdREN) Annual Report 2023-2024",
+        "url": "https://www.bdren.net.bd/resource/BdREN-Annual-Report-2024.pdf",
+        "use": "Cross-check public university institutional status."
+      },
+      {
+        "name": "BAETE - Public Universities",
+        "url": "https://baetebangladesh.org/public-universities.html",
+        "use": "Cross-check engineering programme offering public universities."
+      },
+      {
+        "name": "University of Dhaka IQAC - useful links",
+        "url": "https://www.du.ac.bd/iqac_dynamic_link/IQAC",
+        "use": "Official university links for public higher education institutions."
+      },
+      {
+        "name": "Jahangirnagar University - Faculties and Departments",
+        "url": "https://juniv.edu/public/",
+        "use": "Department examples for Jahangirnagar University."
+      },
+      {
+        "name": "BUET - Institution profile, UGC Study in Bangladesh",
+        "url": "https://ict.ugc.gov.bd/studyinbd/institute/details/Bangladesh%20University%20of%20Engineering%20and%20Technology%C2%A0%28BUET%29",
+        "use": "BUET undergraduate subjects and departments."
+      },
+      {
+        "name": "The Daily Star - Public university units explained, 12 November 2026",
+        "url": "https://www.thedailystar.net/campus/news/public-university-units-explained-4320066",
+        "use": "Recent overview of departments and admission-unit groupings at DU, RU and KU."
+      }
+    ]
+  },
+  "universities": [
+    {
+      "rank_in_dataset": 1,
+      "name": "University of Dhaka",
+      "short_name": "DU",
+      "location": "Dhaka",
+      "official_website": "https://www.du.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 35000,
+        "max": 150000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 140000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 140000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Applied Chemistry and Chemical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 140000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Physics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Chemistry",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Statistics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 150000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Microbiology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biochemistry and Molecular Biology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Geography and Environment",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 2,
+      "name": "Bangladesh University of Engineering and Technology",
+      "short_name": "BUET",
+      "location": "Dhaka",
+      "official_website": "https://www.buet.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 90000,
+        "max": 200000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 110000,
+            "max": 200000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Water Resources Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biomedical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Industrial and Production Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Naval Architecture and Marine Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Chemical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Materials and Metallurgical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Petroleum and Mineral Resources Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Glass and Ceramic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 90000,
+            "max": 170000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Urban and Regional Planning",
+          "estimated_total_degree_cost_bdt": {
+            "min": 100000,
+            "max": 190000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 3,
+      "name": "University of Rajshahi",
+      "short_name": "RU",
+      "location": "Rajshahi",
+      "official_website": "https://www.ru.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 30000,
+        "max": 120000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Applied Chemistry and Chemical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Genetic Engineering and Biotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Microbiology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 30000,
+            "max": 75000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 85000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Accounting and Information Systems",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Marketing",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Management Studies",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Physics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 85000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Geography and Environmental Studies",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 4,
+      "name": "University of Chittagong",
+      "short_name": "CU",
+      "location": "Hathazari, Chattogram",
+      "official_website": "https://cu.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 30000,
+        "max": 120000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Applied Chemistry and Chemical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Genetic Engineering and Biotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Microbiology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Marine Sciences",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Fisheries",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Forestry",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 30000,
+            "max": 75000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 85000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Accounting",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Marketing",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Finance",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 5,
+      "name": "Jahangirnagar University",
+      "short_name": "JU",
+      "location": "Savar, Dhaka",
+      "official_website": "https://juniv.edu/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 30000,
+        "max": 130000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Statistics and Data Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Environmental Sciences",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 60000,
+            "max": 130000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biochemistry and Molecular Biology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Microbiology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biotechnology and Genetic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "International Relations",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 30000,
+            "max": 75000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Law and Justice",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Finance and Banking",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Marketing",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Accounting and Information Systems",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Urban and Regional Planning",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 6,
+      "name": "Shahjalal University of Science and Technology",
+      "short_name": "SUST",
+      "location": "Sylhet",
+      "official_website": "https://www.sust.edu/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 30000,
+        "max": 140000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Software Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Civil and Environmental Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Industrial and Production Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 140000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Physics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Chemistry",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 95000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mathematics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Statistics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Genetic Engineering and Biotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biochemistry and Molecular Biology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 30000,
+            "max": 75000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 7,
+      "name": "Khulna University",
+      "short_name": "KU",
+      "location": "Khulna",
+      "official_website": "https://ku.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 30000,
+        "max": 145000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electronics and Communication Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 145000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Urban and Rural Planning",
+          "estimated_total_degree_cost_bdt": {
+            "min": 55000,
+            "max": 120000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Environmental Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Pharmacy",
+          "estimated_total_degree_cost_bdt": {
+            "min": 60000,
+            "max": 130000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biotechnology and Genetic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Agrotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Fisheries and Marine Resource Technology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Forestry and Wood Technology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 80000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "English",
+          "estimated_total_degree_cost_bdt": {
+            "min": 30000,
+            "max": 75000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Law",
+          "estimated_total_degree_cost_bdt": {
+            "min": 35000,
+            "max": 85000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Business Administration",
+          "estimated_total_degree_cost_bdt": {
+            "min": 40000,
+            "max": 90000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 8,
+      "name": "Bangladesh Agricultural University",
+      "short_name": "BAU",
+      "location": "Mymensingh",
+      "official_website": "https://bau.edu.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 45000,
+        "max": 150000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Veterinary Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 70000,
+            "max": 150000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Agriculture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 60000,
+            "max": 130000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Animal Husbandry",
+          "estimated_total_degree_cost_bdt": {
+            "min": 60000,
+            "max": 130000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Agricultural Economics",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Agricultural Engineering and Technology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 65000,
+            "max": 140000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Fisheries",
+          "estimated_total_degree_cost_bdt": {
+            "min": 60000,
+            "max": 130000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Food Engineering and Technology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 65000,
+            "max": 140000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Biotechnology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 60000,
+            "max": 130000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Environmental Science",
+          "estimated_total_degree_cost_bdt": {
+            "min": 50000,
+            "max": 110000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Rural Sociology",
+          "estimated_total_degree_cost_bdt": {
+            "min": 45000,
+            "max": 100000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 9,
+      "name": "Chittagong University of Engineering and Technology",
+      "short_name": "CUET",
+      "location": "Raozan, Chattogram",
+      "official_website": "https://cuet.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 85000,
+        "max": 190000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Water Resources Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mechatronics and Industrial Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Petroleum and Mining Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 100000,
+            "max": 190000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Urban and Regional Planning",
+          "estimated_total_degree_cost_bdt": {
+            "min": 95000,
+            "max": 180000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    },
+    {
+      "rank_in_dataset": 10,
+      "name": "Rajshahi University of Engineering and Technology",
+      "short_name": "RUET",
+      "location": "Rajshahi",
+      "official_website": "https://www.ruet.ac.bd/",
+      "estimated_total_degree_cost_bdt": {
+        "min": 85000,
+        "max": 190000
+      },
+      "cost_basis": "Approximate academic costs only; see metadata.cost_definition",
+      "departments": [
+        {
+          "department": "Civil Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Computer Science and Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Electronic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mechanical Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Industrial and Production Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Mechatronics Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Electrical and Computer Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Glass and Ceramic Engineering",
+          "estimated_total_degree_cost_bdt": {
+            "min": 85000,
+            "max": 160000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Architecture",
+          "estimated_total_degree_cost_bdt": {
+            "min": 100000,
+            "max": 190000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        },
+        {
+          "department": "Urban and Regional Planning",
+          "estimated_total_degree_cost_bdt": {
+            "min": 95000,
+            "max": 180000
+          },
+          "cost_status": "estimated_not_official",
+          "cost_note": "Indicative planning range; confirm the current department fee schedule with the university."
+        }
+      ]
+    }
+  ]
+}
