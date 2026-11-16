@@ -1,8 +1,8 @@
 /**
- * POST /api/assistant/chat — OpenAI-backed assistant endpoint.
+ * POST /api/assistant/chat — Gemini-backed assistant endpoint.
  *
  * The browser never sees the API key: this server owns it and is the only
- * process that talks to OpenAI. Response shape matches the existing mock
+ * process that talks to Google Gemini. Response shape matches the existing mock
  * contract so the UI needs no special case:
  *
  *   200 { status: 'ok' | 'no_record', message: { en, bn }, sources: [...] }
@@ -13,29 +13,54 @@
  *   event: done    data: {"status": "ok"}
  *   event: error   data: {"message": "..."}
  */
-import OpenAI from 'openai'
 import { buildSystemPrompt, knownSources } from './prompt.js'
 
-const MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini'
+const MODEL = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest'
+const BASE_URL =
+  process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta'
 const MAX_HISTORY = 12 // keep the prompt bounded
 const NO_RECORD = '[[NO_RECORD]]'
 
-let client = null
-function getClient() {
-  if (!process.env.OPENAI_API_KEY) {
+function requireKey() {
+  if (!process.env.GEMINI_API_KEY) {
     const err = new Error('missingApiKey')
     err.status = 503
     throw err
   }
-  if (!client) {
-    client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-      baseURL: process.env.OPENAI_BASE_URL || undefined,
-      timeout: 30_000,
-      maxRetries: 1,
-    })
+  return process.env.GEMINI_API_KEY
+}
+
+/** Tidy history into Gemini `contents` ({ role: 'user'|'model', parts }). */
+function toContents(messages) {
+  return messages.map((m) => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }))
+}
+
+/** One Gemini generateContent call. Returns the parsed JSON body. */
+async function generate({ system, contents, stream = false }) {
+  const key = requireKey()
+  const method = stream ? 'streamGenerateContent' : 'generateContent'
+  const url =
+    `${BASE_URL}/models/${MODEL}:${method}` + (stream ? '?alt=sse' : '')
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: system }] },
+      contents,
+      generationConfig: { temperature: 0.3, maxOutputTokens: 800 },
+    }),
+    signal: AbortSignal.timeout(30_000),
+  })
+  if (!res.ok) {
+    const err = new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 200)}`)
+    err.status = res.status
+    throw err
   }
-  return client
+  return res
 }
 
 /** Keep only well-formed turns, cap the length, and drop the pending bubble. */
@@ -91,14 +116,13 @@ function toHttpError(e) {
 
 /** Non-streaming path: one complete reply. */
 async function complete(messages, lang) {
-  const res = await getClient().chat.completions.create({
-    model: MODEL,
-    temperature: 0.3,
-    max_tokens: 800,
-    messages: [{ role: 'system', content: buildSystemPrompt(lang) }, ...messages],
+  const res = await generate({
+    system: buildSystemPrompt(lang),
+    contents: toContents(messages),
   })
-
-  const text = res.choices?.[0]?.message?.content || ''
+  const data = await res.json()
+  const text =
+    data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
   return {
     status: statusFor(text),
     message: { en: tidy(text), bn: tidy(text) },
@@ -120,20 +144,42 @@ async function stream(messages, lang, res) {
 
   let full = ''
   try {
-    const upstream = await getClient().chat.completions.create({
-      model: MODEL,
-      temperature: 0.3,
-      max_tokens: 800,
+    const upstream = await generate({
+      system: buildSystemPrompt(lang),
+      contents: toContents(messages),
       stream: true,
-      messages: [{ role: 'system', content: buildSystemPrompt(lang) }, ...messages],
     })
 
-    for await (const chunk of upstream) {
-      const delta = chunk.choices?.[0]?.delta?.content || ''
-      if (!delta) continue
-      full += delta
-      // Hold back the marker so it never renders mid-stream
-      send('delta', { text: delta.replaceAll(NO_RECORD, '') })
+    const reader = upstream.body.getReader()
+    const decoder = new TextDecoder()
+    let buffer = ''
+
+    // Parse the SSE stream and relay each text chunk as a delta.
+    for (;;) {
+      const { value, done } = await reader.read()
+      if (done) break
+      buffer += decoder.decode(value, { stream: true })
+      const events = buffer.split('\n\n')
+      buffer = events.pop() || ''
+      for (const evt of events) {
+        for (const line of evt.split('\n')) {
+          if (!line.startsWith('data:')) continue
+          const payload = line.slice(5).trim()
+          if (!payload || payload === '[DONE]') continue
+          let chunk
+          try {
+            chunk = JSON.parse(payload)
+          } catch {
+            continue
+          }
+          const delta =
+            chunk.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
+          if (!delta) continue
+          full += delta
+          // Hold back the marker so it never renders mid-stream
+          send('delta', { text: delta.replaceAll(NO_RECORD, '') })
+        }
+      }
     }
 
     send('sources', { sources: extractSources(full) })

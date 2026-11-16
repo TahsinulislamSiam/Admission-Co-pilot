@@ -1,13 +1,13 @@
 /**
- * Backend for the AI assistant. Keeps the OpenAI key on the server.
- * Run with:  npm run server   (port 3001; Vite proxies /api/assistant/chat to it)
+ * Backend for the AI assistant. Keeps the Gemini key on the server.
+ * Run with:  npm run server   (port 8787; Vite proxies /api/assistant/chat to it)
  *
  * How answers are produced:
- *  1. ChatGPT gets ALL verified records (knowledge base + public + private
+ *  1. Gemini gets ALL verified records (knowledge base + public + private
  *     universities) as context, so any phrasing in Bangla/English can match.
  *  2. Facts found in those records are used and cited with sources.
  *  3. Everything else is answered from general knowledge, marked as unverified.
- *  4. If OpenAI is unreachable -> keyword match on the knowledge base, else no_record.
+ *  4. If Gemini is unreachable -> keyword match on the knowledge base, else no_record.
  */
 import 'dotenv/config'
 import express from 'express'
@@ -19,72 +19,53 @@ import { privateUniversities } from '../src/mocks/seed/privateUniversities.js'
 const PORT = process.env.ASSISTANT_PORT || process.env.PORT || 8787
 const TIMEOUT_MS = 9000 // stay under the UI's 10s limit
 
-// Provider: Gemini if GEMINI_API_KEY is set (free tier), otherwise OpenAI.
+// Provider: Google Gemini (free tier). This app no longer uses OpenAI.
 const GEMINI_KEY = process.env.GEMINI_API_KEY
 // Tried in order; if one is overloaded/retired the next one answers.
 const GEMINI_MODELS = (process.env.GEMINI_MODEL || 'gemini-flash-lite-latest,gemini-3.5-flash')
   .split(',')
   .map((m) => m.trim())
   .filter(Boolean)
-const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini'
 
-if (!GEMINI_KEY && !process.env.OPENAI_API_KEY) {
+if (!GEMINI_KEY) {
   console.error('Missing GEMINI_API_KEY in .env — add it and restart.')
   process.exit(1)
 }
-console.log(`AI provider: ${GEMINI_KEY ? `Gemini (${GEMINI_MODELS.join(' → ')})` : `OpenAI (${OPENAI_MODEL})`}`)
+console.log(`AI provider: Gemini (${GEMINI_MODELS.join(' → ')})`)
 
-/** Ask the model; returns the raw JSON string it produced. */
+/** Ask Gemini; returns the raw JSON string it produced. */
 async function askModel(system, message) {
-  if (GEMINI_KEY) {
-    let lastErr
-    for (const model of GEMINI_MODELS) {
-      try {
-        const r = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_KEY },
-            body: JSON.stringify({
-              systemInstruction: { parts: [{ text: system }] },
-              contents: [{ role: 'user', parts: [{ text: message }] }],
-              generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
-            }),
-            signal: AbortSignal.timeout(Math.floor(TIMEOUT_MS / GEMINI_MODELS.length)),
-          }
-        )
-        if (!r.ok) {
-          const err = new Error(`Gemini ${model} ${r.status}: ${(await r.text()).slice(0, 200)}`)
-          err.status = r.status
-          throw err
+  let lastErr
+  for (const model of GEMINI_MODELS) {
+    try {
+      const r = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_KEY },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: system }] },
+            contents: [{ role: 'user', parts: [{ text: message }] }],
+            generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
+          }),
+          signal: AbortSignal.timeout(Math.max(TIMEOUT_MS, 1000)),
         }
-        const data = await r.json()
-        const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
-        if (text) return text
-        throw new Error(`Gemini ${model} returned an empty answer`)
-      } catch (e) {
-        console.error(`Gemini ${model} failed:`, e.message)
-        lastErr = e
+      )
+      if (!r.ok) {
+        const err = new Error(`Gemini ${model} ${r.status}: ${(await r.text()).slice(0, 200)}`)
+        err.status = r.status
+        throw err
       }
+      const data = await r.json()
+      const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
+      if (text) return text
+      throw new Error(`Gemini ${model} returned an empty answer`)
+    } catch (e) {
+      console.error(`Gemini ${model} failed:`, e.message)
+      lastErr = e
     }
-    throw lastErr
   }
-
-  const { default: OpenAI } = await import('openai')
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-  const c = await openai.chat.completions.create(
-    {
-      model: OPENAI_MODEL,
-      temperature: 0.2,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: message },
-      ],
-    },
-    { timeout: TIMEOUT_MS }
-  )
-  return c.choices[0]?.message?.content || ''
+  throw lastErr
 }
 
 const NO_RECORD = {
@@ -148,9 +129,9 @@ app.use(express.json({ limit: '10kb' }))
 app.get('/api/assistant/health', (_req, res) => {
   res.json({
     ok: true,
-    provider: GEMINI_KEY ? 'gemini' : 'openai',
-    models: GEMINI_KEY ? GEMINI_MODELS : [OPENAI_MODEL],
-    keyConfigured: Boolean(GEMINI_KEY || process.env.OPENAI_API_KEY),
+    provider: 'gemini',
+    models: GEMINI_MODELS,
+    keyConfigured: Boolean(GEMINI_KEY),
   })
 })
 

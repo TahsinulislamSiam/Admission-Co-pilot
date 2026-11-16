@@ -1,5 +1,5 @@
 /**
- * Grounding context for the OpenAI assistant.
+ * Grounding context for the Gemini assistant.
  *
  * We reuse the same curated knowledge base the mock backend uses so the live
  * model answers from *our* verified records instead of guessing. Keeping one
