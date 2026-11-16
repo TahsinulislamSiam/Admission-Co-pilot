@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Building2, MapPin, Wallet, GraduationCap, Check, Scale, BadgePercent } from 'lucide-react'
+import { Building2, MapPin, Wallet, Layers, Check, Scale, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -20,9 +20,10 @@ export function PrivateUniversityCard({ university: u }) {
   const toggleCompare = useCompareStore((s) => s.toggle)
   const inCompare = compareIds.includes(u.id)
 
-  const costs = u.departments.map((d) => d.totalCost)
-  const minCost = Math.min(...costs)
-  const maxWaiver = Math.max(0, ...u.departments.map((d) => d.maxWaiverPct || 0))
+  const minCost = Math.min(...u.departments.map((d) => d.costMin ?? d.totalCost))
+  const maxCost = Math.max(...u.departments.map((d) => d.costMax ?? d.totalCost))
+  const formatRange = (min, max) =>
+    min === max ? formatBDT(min) : `${formatBDT(min)} – ${formatBDT(max)}`
 
   const handleCompare = () => {
     const result = toggleCompare(u.id)
@@ -42,7 +43,7 @@ export function PrivateUniversityCard({ university: u }) {
             </Link>
             <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
               <MapPin className="h-3 w-3" />
-              {loc(u.city)} · {t('universities.established')} {u.established}
+              {u.location || loc(u.city)}
             </p>
           </div>
           <Badge variant="brand">{loc(u.shortName)}</Badge>
@@ -51,21 +52,24 @@ export function PrivateUniversityCard({ university: u }) {
         {/* key numbers */}
         <div className="mt-4 grid grid-cols-3 gap-2 text-center">
           <div className="rounded-lg bg-slate-50 px-2 py-2.5">
-            <GraduationCap className="mx-auto h-4 w-4 text-brand-600" />
+            <Layers className="mx-auto h-4 w-4 text-brand-600" />
             <p className="mt-1 text-sm font-semibold text-slate-800">{u.departments.length}</p>
             <p className="text-[11px] text-slate-400">{t('universities.departmentCount', { count: '' })}</p>
           </div>
-          <div className="rounded-lg bg-slate-50 px-2 py-2.5">
+          <div className="col-span-2 rounded-lg bg-slate-50 px-2 py-2.5">
             <Wallet className="mx-auto h-4 w-4 text-brand-600" />
-            <p className="mt-1 text-sm font-semibold text-slate-800">{formatBDT(minCost)}</p>
-            <p className="text-[11px] text-slate-400">{t('universities.minTotalCost')}</p>
-          </div>
-          <div className="rounded-lg bg-slate-50 px-2 py-2.5">
-            <BadgePercent className="mx-auto h-4 w-4 text-brand-600" />
-            <p className="mt-1 text-sm font-semibold text-slate-800">{maxWaiver}%</p>
-            <p className="text-[11px] text-slate-400">{t('universities.maxWaiver', { pct: '' })}</p>
+            <p className="mt-1 text-sm font-semibold text-slate-800">{formatRange(minCost, maxCost)}</p>
+            <p className="text-[11px] text-slate-400">{t('universities.estimatedDegreeCost')}</p>
           </div>
         </div>
+
+        {/* shortlist rank */}
+        {u.rank && (
+          <p className="mt-3 flex items-center gap-1.5 text-xs text-slate-500">
+            <Trophy className="h-3 w-3 text-amber-500" />
+            {t('universities.shortlistRank', { rank: u.rank })}
+          </p>
+        )}
 
         {/* FR-4 */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -111,32 +115,25 @@ export function DepartmentCard({ university: u, dept: d, showUniversity = false 
             </p>
           )}
           <h3 className="text-sm font-semibold text-slate-800">{loc(d.name)}</h3>
-          <p className="mt-1 text-xs text-slate-400">
-            {t('profile.subjects.' + d.dept)} · {d.credits} {t('universities.credits')} ·{' '}
-            {d.seats} {t('common.seats')}
+          <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-400">
+            {u ? u.name.en : ''}
+            {d.basis && (
+              <span className="rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                {t('universities.estimate')}
+              </span>
+            )}
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm font-bold text-slate-900">{formatBDT(d.totalCost)}</p>
-          <p className="text-[11px] text-slate-400">{t('universities.totalCost')}</p>
+          <p className="text-sm font-bold text-slate-900">
+            {d.costMin === d.costMax ? formatBDT(d.costMin) : `${formatBDT(d.costMin)} – ${formatBDT(d.costMax)}`}
+          </p>
+          <p className="text-[11px] text-slate-400">{t('universities.estimatedDegreeCost')}</p>
         </div>
       </div>
 
-      {/* tuition breakdown */}
-      <div className="mt-3 grid grid-cols-3 gap-2 rounded-lg bg-slate-50 px-3 py-2 text-center text-xs">
-        <div>
-          <p className="font-semibold text-slate-700">{formatBDT(d.tuitionPerCredit)}</p>
-          <p className="text-slate-400">{t('universities.tuitionPerCredit')}</p>
-        </div>
-        <div>
-          <p className="font-semibold text-slate-700">{d.credits}</p>
-          <p className="text-slate-400">{t('universities.credits')}</p>
-        </div>
-        <div>
-          <p className="font-semibold text-slate-700">{d.maxWaiverPct ? `${d.maxWaiverPct}%` : '—'}</p>
-          <p className="text-slate-400">{t('universities.table.waiver')}</p>
-        </div>
-      </div>
+      {/* cost scope note from the dataset */}
+      {d.includes && <p className="mt-3 text-[11px] leading-relaxed text-slate-400">{d.includes}</p>}
     </Card>
   )
 }
