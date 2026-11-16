@@ -52,6 +52,7 @@ function SourceChip({ source }) {
  */
 export function ChatMessage({ message, onRetry }) {
   const { t } = useTranslation()
+  const { loc } = useLocale()
   const isUser = message.role === 'user'
 
   if (isUser) {

@@ -563,7 +563,7 @@ export const adminHandlers = [
 export const handlers = [
   ...authHandlers,
   ...universityHandlers,
-  // Chat is served by the real backend (server/index.js -> OpenAI); only the
+  // Chat is served by the real backend (server/index.js -> Gemini); only the
   // suggestions endpoint stays mocked.
   ...assistantHandlers.filter((h) => h.info.path !== '/api/assistant/chat'),
   ...recommendationHandlers,

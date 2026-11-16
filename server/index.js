@@ -1,13 +1,13 @@
 /**
- * Backend for the AI assistant. Keeps the OpenAI key on the server.
- * Run with:  npm run server   (port 3001; Vite proxies /api/assistant/chat to it)
+ * Backend for the AI assistant. Keeps the Gemini key on the server.
+ * Run with:  npm run server   (port 8787; Vite proxies /api/assistant/chat to it)
  *
  * How answers are produced:
- *  1. ChatGPT gets ALL verified records (knowledge base + public + private
+ *  1. Gemini gets ALL verified records (knowledge base + public + private
  *     universities) as context, so any phrasing in Bangla/English can match.
  *  2. Facts found in those records are used and cited with sources.
  *  3. Everything else is answered from general knowledge, marked as unverified.
- *  4. If OpenAI is unreachable -> keyword match on the knowledge base, else no_record.
+ *  4. If Gemini is unreachable -> keyword match on the knowledge base, else no_record.
  */
 import 'dotenv/config'
 import express from 'express'
@@ -15,75 +15,57 @@ import { knowledgeBase } from '../src/mocks/seed/assistant.js'
 import { publicUniversities } from '../src/mocks/seed/publicUniversityData.js'
 import { privateUniversities } from '../src/mocks/seed/privateUniversities.js'
 
-const PORT = process.env.PORT || 3001
+// Must match the Vite proxy target (ASSISTANT_PORT in .env, default 8787).
+const PORT = process.env.ASSISTANT_PORT || process.env.PORT || 8787
 const TIMEOUT_MS = 9000 // stay under the UI's 10s limit
 
-// Provider: Gemini if GEMINI_API_KEY is set (free tier), otherwise OpenAI.
+// Provider: Google Gemini (free tier). This app no longer uses OpenAI.
 const GEMINI_KEY = process.env.GEMINI_API_KEY
 // Tried in order; if one is overloaded/retired the next one answers.
 const GEMINI_MODELS = (process.env.GEMINI_MODEL || 'gemini-flash-lite-latest,gemini-3.5-flash')
   .split(',')
   .map((m) => m.trim())
   .filter(Boolean)
-const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini'
 
-if (!GEMINI_KEY && !process.env.OPENAI_API_KEY) {
+if (!GEMINI_KEY) {
   console.error('Missing GEMINI_API_KEY in .env — add it and restart.')
   process.exit(1)
 }
-console.log(`AI provider: ${GEMINI_KEY ? `Gemini (${GEMINI_MODELS.join(' → ')})` : `OpenAI (${OPENAI_MODEL})`}`)
+console.log(`AI provider: Gemini (${GEMINI_MODELS.join(' → ')})`)
 
-/** Ask the model; returns the raw JSON string it produced. */
+/** Ask Gemini; returns the raw JSON string it produced. */
 async function askModel(system, message) {
-  if (GEMINI_KEY) {
-    let lastErr
-    for (const model of GEMINI_MODELS) {
-      try {
-        const r = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_KEY },
-            body: JSON.stringify({
-              systemInstruction: { parts: [{ text: system }] },
-              contents: [{ role: 'user', parts: [{ text: message }] }],
-              generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
-            }),
-            signal: AbortSignal.timeout(Math.floor(TIMEOUT_MS / GEMINI_MODELS.length)),
-          }
-        )
-        if (!r.ok) {
-          const err = new Error(`Gemini ${model} ${r.status}: ${(await r.text()).slice(0, 200)}`)
-          err.status = r.status
-          throw err
+  let lastErr
+  for (const model of GEMINI_MODELS) {
+    try {
+      const r = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_KEY },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: system }] },
+            contents: [{ role: 'user', parts: [{ text: message }] }],
+            generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
+          }),
+          signal: AbortSignal.timeout(Math.max(TIMEOUT_MS, 1000)),
         }
-        const data = await r.json()
-        const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
-        if (text) return text
-        throw new Error(`Gemini ${model} returned an empty answer`)
-      } catch (e) {
-        console.error(`Gemini ${model} failed:`, e.message)
-        lastErr = e
+      )
+      if (!r.ok) {
+        const err = new Error(`Gemini ${model} ${r.status}: ${(await r.text()).slice(0, 200)}`)
+        err.status = r.status
+        throw err
       }
+      const data = await r.json()
+      const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
+      if (text) return text
+      throw new Error(`Gemini ${model} returned an empty answer`)
+    } catch (e) {
+      console.error(`Gemini ${model} failed:`, e.message)
+      lastErr = e
     }
-    throw lastErr
   }
-
-  const { default: OpenAI } = await import('openai')
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-  const c = await openai.chat.completions.create(
-    {
-      model: OPENAI_MODEL,
-      temperature: 0.2,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user', content: message },
-      ],
-    },
-    { timeout: TIMEOUT_MS }
-  )
-  return c.choices[0]?.message?.content || ''
+  throw lastErr
 }
 
 const NO_RECORD = {
@@ -143,6 +125,16 @@ const keywordRecord = (q) =>
 const app = express()
 app.use(express.json({ limit: '10kb' }))
 
+/** Quick check that the proxy is up and a key is configured (no model call). */
+app.get('/api/assistant/health', (_req, res) => {
+  res.json({
+    ok: true,
+    provider: 'gemini',
+    models: GEMINI_MODELS,
+    keyConfigured: Boolean(GEMINI_KEY),
+  })
+})
+
 app.post('/api/assistant/chat', async (req, res) => {
   const message = String(req.body?.message || '').trim().slice(0, 500)
   const lang = req.body?.lang === 'en' ? 'en' : 'bn'
@@ -194,91 +186,3 @@ app.listen(PORT, (err) => {
   }
   console.log(`Assistant API on http://localhost:${PORT}`)
 })
- * Admission Copilot — token proxy for the AI assistant.
- *
- * Exists so the OpenAI API key never ships to the browser. Dev-only by
- * default; in production deploy behind your real auth and enable CORS for
- * your own origin.
- *
- *   npm run dev:server      # start proxy on :8787
- *   npm run dev:all         # vite + proxy together
- */
-import 'dotenv/config'
-import express from 'express'
-import { chatHandler, suggestionsHandler } from './assistant.js'
-
-const PORT = Number(process.env.ASSISTANT_PORT || 8787)
-const app = express()
-
-app.disable('x-powered-by')
-app.use(express.json({ limit: '64kb' }))
-
-// --- minimal CORS for local dev (vite runs on another port) ---
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean)
-
-app.use((req, res, next) => {
-  const origin = req.headers.origin
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-    res.setHeader('Vary', 'Origin')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  }
-  if (req.method === 'OPTIONS') return res.sendStatus(204)
-  return next()
-})
-
-// --- naive per-IP rate limit: protects your OpenAI bill ---
-const WINDOW_MS = 60_000
-const MAX_PER_WINDOW = Number(process.env.ASSISTANT_RATE_LIMIT || 20)
-const hits = new Map()
-
-function rateLimit(req, res, next) {
-  const key = req.ip || 'unknown'
-  const now = Date.now()
-  const entry = hits.get(key) || { count: 0, resetAt: now + WINDOW_MS }
-
-  if (now > entry.resetAt) {
-    entry.count = 0
-    entry.resetAt = now + WINDOW_MS
-  }
-  entry.count += 1
-  hits.set(key, entry)
-
-  if (entry.count > MAX_PER_WINDOW) {
-    res.setHeader('Retry-After', Math.ceil((entry.resetAt - now) / 1000))
-    return res.status(429).json({ message: 'assistantRateLimited' })
-  }
-  return next()
-}
-
-// --- routes ---
-app.get('/api/assistant/health', (_req, res) => {
-  res.json({
-    ok: true,
-    model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-    keyConfigured: Boolean(process.env.OPENAI_API_KEY),
-  })
-})
-
-app.post('/api/assistant/chat', rateLimit, chatHandler)
-app.get('/api/assistant/suggestions', suggestionsHandler)
-
-app.use((req, res) => res.status(404).json({ message: 'notFound' }))
-
-const server = app.listen(PORT, () => {
-  const configured = Boolean(process.env.OPENAI_API_KEY)
-  console.log(`\n  Assistant proxy  →  http://localhost:${PORT}`)
-  console.log(`  Model            →  ${process.env.OPENAI_MODEL || 'gpt-4o-mini'}`)
-  console.log(`  API key          →  ${configured ? 'configured' : 'MISSING (set OPENAI_API_KEY in .env)'}\n`)
-  if (!configured) {
-    console.warn('  The assistant will return 503 until OPENAI_API_KEY is set.\n')
-  }
-})
-
-const shutdown = () => server.close(() => process.exit(0))
-process.on('SIGINT', shutdown)
-process.on('SIGTERM', shutdown)
