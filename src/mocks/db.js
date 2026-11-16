@@ -3,7 +3,7 @@
  * the whole app behaves like a real backend during development.
  */
 import { seedUsers } from './seed/users'
-import { publicUniversities } from './seed/publicUniversities'
+import { publicUniversities } from './seed/publicUniversityData'
 import { privateUniversities } from './seed/privateUniversities'
 import { questionReviews } from './seed/questions'
 import { tests, attempts } from './seed/tests'
@@ -20,7 +20,21 @@ import { circulars } from './seed/circulars'
  */
 export const DB_STORAGE_KEY = 'acbd-mock-db'
 
+/**
+ * Bump this whenever the seeded tables change shape or content (e.g. more
+ * departments added to private.json).
+ *
+ * A snapshot stamped with an older version has its SEEDED tables refreshed from
+ * the current seed so the UI never shows stale universities/departments.
+ *
+ * IMPORTANT: `users` is never discarded. It holds real accounts created through
+ * /auth/register. Dropping it made every previously registered account vanish
+ * (login then failed with "no account found with this email").
+ */
+export const SEED_VERSION = 4
+
 const seedSnapshot = () => ({
+  __seedVersion: SEED_VERSION,
   users: JSON.parse(JSON.stringify(seedUsers)),
   publicUniversities: JSON.parse(JSON.stringify(publicUniversities)),
   privateUniversities: JSON.parse(JSON.stringify(privateUniversities)),
@@ -40,6 +54,18 @@ const loadSnapshot = () => {
     const raw = window.localStorage.getItem(DB_STORAGE_KEY)
     if (!raw) return seeded
     const saved = JSON.parse(raw)
+
+    if (saved?.__seedVersion !== SEED_VERSION) {
+      // Seed data changed: take the fresh seeded tables but KEEP user accounts
+      // (and their attempts), otherwise registrations would be lost on reload.
+      const kept = saved?.users?.length ? saved.users : seeded.users
+      return {
+        ...seeded,
+        users: kept,
+        attempts: saved?.attempts?.length ? saved.attempts : seeded.attempts,
+      }
+    }
+
     // Shallow-merge so new seed fields still appear for older snapshots.
     return { ...seeded, ...saved }
   } catch {

@@ -1,15 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { Scale, X, Building2, MapPin, CalendarDays, GraduationCap } from 'lucide-react'
+import { Scale, X, Building2, MapPin, GraduationCap } from 'lucide-react'
 import { usePrivateUniversities } from '../hooks/useUniversities'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { PageLoader } from '@/components/common/Loader'
 import { EmptyState } from '@/components/common/EmptyState'
 import { SourceLink, VerifiedBadge } from '@/components/common/SourceLink'
 import { useLocale } from '@/hooks/useLocale'
-import { formatBDT, formatDate } from '@/lib/utils'
+import { formatBDT } from '@/lib/utils'
 import { useCompareStore } from '@/store/compareStore'
 import { ROUTES, route } from '@/routes/constants'
 import { useDocumentTitle } from '@/hooks/useDocumentTitle'
@@ -22,7 +21,7 @@ import { cn } from '@/lib/utils'
 export default function ComparePage() {
   useDocumentTitle('nav.compare')
   const { t } = useTranslation()
-  const { loc, lang } = useLocale()
+  const { loc } = useLocale()
   const { data: universities = [], isLoading } = usePrivateUniversities()
 
   const compareIds = useCompareStore((s) => s.ids)
@@ -50,17 +49,23 @@ export default function ComparePage() {
   }
 
   // Shared department union for the per-department cost grid
-  const allDepts = [...new Set(selected.flatMap((u) => u.departments.map((d) => d.dept)))]
+  const allDepts = [...new Set(selected.flatMap((u) => u.departments.map((d) => d.name.en)))]
   const deptCost = (u, deptKey) => {
-    const d = u.departments.find((x) => x.dept === deptKey)
-    return d ? d.totalCost : null
+    const d = u.departments.find((x) => x.name.en === deptKey)
+    return d ? { min: d.costMin, max: d.costMax, mid: d.totalCost } : null
   }
   const cheapestFor = (deptKey) =>
     Math.min(
       ...selected
-        .map((u) => deptCost(u, deptKey))
+        .map((u) => deptCost(u, deptKey)?.mid)
         .filter((v) => v != null)
     )
+  const formatRange = (min, max) =>
+    min == null && max == null
+      ? '—'
+      : min === max
+        ? formatBDT(min)
+        : `${formatBDT(min)} – ${formatBDT(max)}`
 
   const statRow = (label, render) => (
     <tr className="border-b border-slate-100">
@@ -141,48 +146,38 @@ export default function ComparePage() {
                 </span>
               ))}
 
-              {statRow(t('universities.minTotalCost'), (u) => {
-                const min = Math.min(...u.departments.map((d) => d.totalCost))
-                const isCheapest = min === Math.min(...selected.map((x) => Math.min(...x.departments.map((d) => d.totalCost))))
+              {statRow(t('universities.shortlistRank', { rank: '' }), (u) => (
+                <span className="font-medium text-slate-700">{u.rank ?? '—'}</span>
+              ))}
+
+              {statRow(t('universities.estimatedDegreeCost'), (u) => {
+                const min = Math.min(...u.departments.map((d) => d.costMin ?? d.totalCost))
+                const max = Math.max(...u.departments.map((d) => d.costMax ?? d.totalCost))
+                const isCheapest =
+                  min === Math.min(...selected.map((x) => Math.min(...x.departments.map((d) => d.costMin ?? d.totalCost))))
                 return (
                   <span className={cn('font-semibold', isCheapest ? 'text-emerald-600' : 'text-slate-700')}>
-                    {formatBDT(min)}
+                    {formatRange(min, max)}
                     {isCheapest && ' ✓'}
                   </span>
                 )
               })}
 
-              {statRow(t('universities.tuitionPerCredit'), (u) => {
-                const min = Math.min(...u.departments.map((d) => d.tuitionPerCredit))
-                return <span className="font-medium text-slate-700">{formatBDT(min)}</span>
-              })}
-
-              {statRow(t('universities.maxWaiver', { pct: '' }), (u) => {
-                const max = Math.max(0, ...u.departments.map((d) => d.maxWaiverPct || 0))
-                const isBest = max === Math.max(...selected.map((x) => Math.max(0, ...x.departments.map((d) => d.maxWaiverPct || 0))))
-                return (
-                  <Badge variant={isBest ? 'success' : 'default'}>
-                    {max}%
-                  </Badge>
-                )
-              })}
-
-              {statRow(t('common.deadline'), (u) => (
-                <span className="flex items-center gap-1 text-slate-600">
-                  <CalendarDays className="h-3.5 w-3.5 text-brand-600" />
-                  {formatDate(u.admissionDeadline, lang)}
+              {statRow(t('universities.tuitionPerCredit'), (u) => (
+                <span className="font-medium text-slate-700">
+                  {u.perCreditMin == null ? '—' : formatRange(u.perCreditMin, u.perCreditMax)}
                 </span>
               ))}
 
               {/* per-department cost grid */}
               {allDepts.map((deptKey) =>
-                statRow(t(`profile.subjects.${deptKey}`), (u) => {
+                statRow(deptKey, (u) => {
                   const cost = deptCost(u, deptKey)
                   if (cost == null) return <span className="text-slate-300">—</span>
-                  const isCheapest = cost === cheapestFor(deptKey)
+                  const isCheapest = cost.mid === cheapestFor(deptKey)
                   return (
                     <span className={cn(isCheapest ? 'font-semibold text-emerald-600' : 'text-slate-700')}>
-                      {formatBDT(cost)}
+                      {formatRange(cost.min, cost.max)}
                       {isCheapest && ' ✓'}
                     </span>
                   )

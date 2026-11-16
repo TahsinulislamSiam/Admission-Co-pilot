@@ -16,6 +16,8 @@ import { ROUTES, route } from '@/routes/constants'
 import { Link } from 'react-router-dom'
 import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 
+const NO_UNIVERSITIES = []
+
 /**
  * FR-2 — Public university hub.
  * Cards + table views, filters (dates, eligibility, exam pattern, fees, seats),
@@ -25,7 +27,10 @@ export default function PublicHubPage() {
   useDocumentTitle('nav.publicUniversities')
   const { t } = useTranslation()
   const { loc, lang } = useLocale()
-  const { data: universities = [], isLoading, isError, error } = usePublicUniversities()
+  const { data, isLoading, isError, error } = usePublicUniversities()
+  // Stable reference while loading: a fresh `[]` each render made the filter
+  // re-notify the parent forever (infinite render loop).
+  const universities = data ?? NO_UNIVERSITIES
 
   const [filtered, setFiltered] = useState([])
   const [view, setView] = useState('cards')
@@ -110,18 +115,21 @@ export default function PublicHubPage() {
                     <TD>{loc(u.city)}</TD>
                     <TD>
                       <div className="flex flex-wrap gap-1">
-                        {u.groups.map((g) => (
+                        {(u.groups || []).map((g) => (
                           <Badge key={g} variant="outline">
                             {t(`profile.groups.${g}`)}
                           </Badge>
                         ))}
+                        {(u.groups || []).length === 0 && <span className="text-xs text-slate-300">—</span>}
                       </div>
                     </TD>
-                    <TD className="text-right font-medium">{u.seatsTotal.toLocaleString('en-IN')}</TD>
-                    <TD>{formatDate(u.deadline, lang)}</TD>
+                    <TD className="text-right font-medium">
+                      {u.seatsTotal != null ? u.seatsTotal.toLocaleString('en-IN') : '—'}
+                    </TD>
+                    <TD>{u.deadline ? formatDate(u.deadline, lang) : '—'}</TD>
                     <TD>{formatBDT(u.applicationFee)}</TD>
-                    <TD>{u.minHscGpa?.toFixed(2)}</TD>
-                    <TD className="text-xs">{u.examPattern}</TD>
+                    <TD>{u.minHscGpa != null ? u.minHscGpa.toFixed(2) : '—'}</TD>
+                    <TD className="text-xs">{u.examPattern || '—'}</TD>
                     <TD>
                       <div className="flex flex-col gap-1">
                         <SourceLink url={u.sourceUrl} compact />
