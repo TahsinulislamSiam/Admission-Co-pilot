@@ -20,7 +20,6 @@ import {
 import { useDebounce } from '@/hooks/useDebounce'
 import { useLocale } from '@/hooks/useLocale'
 import { useCompareStore } from '@/store/compareStore'
-import { DEPARTMENT_NAMES } from '@/lib/constants'
 import { ROUTES } from '@/routes/constants'
 import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 import { Button } from '@/components/ui/Button'
@@ -56,12 +55,11 @@ export default function PrivateDirectoryPage() {
       const hay = [loc(u.name), loc(u.shortName), loc(u.city)].join(' ').toLowerCase()
       return hay.includes(q)
     })
-    const minCost = (u) => Math.min(...u.departments.map((d) => d.totalCost))
-    const maxWaiver = (u) => Math.max(0, ...u.departments.map((d) => d.maxWaiverPct || 0))
+    const minCost = (u) => Math.min(...u.departments.map((d) => d.costMin ?? d.totalCost))
     list = [...list].sort((a, b) => {
       if (sort === 'costAsc') return minCost(a) - minCost(b)
       if (sort === 'costDesc') return minCost(b) - minCost(a)
-      if (sort === 'waiver') return maxWaiver(b) - maxWaiver(a)
+      if (sort === 'rank') return (a.rank ?? 99) - (b.rank ?? 99)
       if (sort === 'name') return loc(a.name).localeCompare(loc(b.name))
       return 0
     })
@@ -74,11 +72,9 @@ export default function PrivateDirectoryPage() {
     let rows = []
     for (const u of universities) {
       for (const d of u.departments) {
-        if (deptFilter !== 'all' && d.dept !== deptFilter) continue
+        if (deptFilter !== 'all' && d.name.en !== deptFilter) continue
         if (q) {
-          const hay = [loc(d.name), loc(u.name), t(`profile.subjects.${d.dept}`)]
-            .join(' ')
-            .toLowerCase()
+          const hay = [loc(d.name), loc(u.name)].join(' ').toLowerCase()
           if (!hay.includes(q)) continue
         }
         rows.push({ u, d })
@@ -87,12 +83,18 @@ export default function PrivateDirectoryPage() {
     rows = rows.sort((a, b) => {
       if (sort === 'costAsc') return a.d.totalCost - b.d.totalCost
       if (sort === 'costDesc') return b.d.totalCost - a.d.totalCost
-      if (sort === 'tuition') return a.d.tuitionPerCredit - b.d.tuitionPerCredit
-      if (sort === 'waiver') return (b.d.maxWaiverPct || 0) - (a.d.maxWaiverPct || 0)
+      if (sort === 'rank') return (a.u.rank ?? 99) - (b.u.rank ?? 99)
       return 0
     })
     return rows
-  }, [universities, debounced, deptFilter, sort, loc, t])
+  }, [universities, debounced, deptFilter, sort, loc])
+
+  // Department names actually present in the dataset (free text, not fixed keys)
+  const departmentOptions = useMemo(() => {
+    const seen = new Set()
+    for (const u of universities) for (const d of u.departments) seen.add(d.name.en)
+    return [...seen].sort((a, b) => a.localeCompare(b))
+  }, [universities])
 
   const handleCompare = (id) => {
     const result = toggleCompare(id)
@@ -104,14 +106,13 @@ export default function PrivateDirectoryPage() {
       ? [
           { value: 'costAsc', label: t('universities.sortTotalCost') },
           { value: 'costDesc', label: t('universities.sortTotalCostDesc') },
-          { value: 'waiver', label: t('universities.sortWaiver') },
+          { value: 'rank', label: t('universities.sortRank') },
           { value: 'name', label: t('universities.sortName') },
         ]
       : [
           { value: 'costAsc', label: t('universities.sortTotalCost') },
           { value: 'costDesc', label: t('universities.sortTotalCostDesc') },
-          { value: 'tuition', label: t('universities.sortTuition') },
-          { value: 'waiver', label: t('universities.sortWaiver') },
+          { value: 'rank', label: t('universities.sortRank') },
         ]
 
   return (
@@ -167,9 +168,9 @@ export default function PrivateDirectoryPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">{t('universities.allDepartments')}</SelectItem>
-              {Object.keys(DEPARTMENT_NAMES).map((d) => (
+              {departmentOptions.map((d) => (
                 <SelectItem key={d} value={d}>
-                  {t(`profile.subjects.${d}`)}
+                  {d}
                 </SelectItem>
               ))}
             </SelectContent>

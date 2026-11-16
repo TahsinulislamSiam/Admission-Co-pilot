@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Search, SlidersHorizontal, LayoutGrid, Table2 } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
@@ -74,8 +74,15 @@ export function PublicFilters({ universities, onFilter }) {
     loc,
   ])
 
-  // notify parent whenever the result set changes
-  useMemo(() => onFilter(results), [results, onFilter])
+  // Notify the parent whenever the result set changes.
+  //
+  // This MUST be an effect: calling onFilter() during render (e.g. inside
+  // useMemo) sets parent state, which re-renders this component, which filters
+  // again and calls onFilter again — an infinite render loop that froze the
+  // public-university page.
+  useEffect(() => {
+    onFilter(results)
+  }, [results, onFilter])
 
   const reset = () => {
     setSearch('')

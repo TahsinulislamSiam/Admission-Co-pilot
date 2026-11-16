@@ -3,7 +3,7 @@
  * Scores university-department pairs against the student profile and returns
  * the top 10 with match reasons, total cost and eligibility badges.
  */
-import { publicUniversities } from '../seed/publicUniversities'
+import { publicUniversities } from '../seed/publicUniversityData'
 import { privateUniversities } from '../seed/privateUniversities'
 
 /**
@@ -45,17 +45,13 @@ export function buildRecommendations(profile) {
     }
   }
 
-  // --- Private universities (dept level, waiver-adjusted cost) ---
+  // --- Private universities (dept level, estimated total degree cost) ---
   for (const u of privateUniversities) {
     for (const d of u.departments) {
-      if (!deptMatchesGroup(d.dept, profile.group)) continue
-      const waiver = bestWaiver(d.waiverRules, profile)
-      const costAfterWaiver = waiver
-        ? Math.round(d.totalCost * (1 - waiver.discountPct / 100))
-        : d.totalCost
-
       const gpaOk = (profile.hscGpa ?? 0) >= 4.0 && (profile.sscGpa ?? 0) >= 4.0
-      const withinBudget = profile.budget == null || costAfterWaiver <= profile.budget
+      // Budget is checked against the low end of the range so an affordable
+      // estimate is never hidden; the range itself is shown to the student.
+      const withinBudget = profile.budget == null || (d.costMin ?? d.totalCost) <= profile.budget
 
       out.push({
         kind: 'private',
@@ -66,17 +62,17 @@ export function buildRecommendations(profile) {
         city: u.city,
         department: d.name,
         deptKey: d.dept,
-        seats: d.seats,
-        totalCost: costAfterWaiver,
-        totalCostBeforeWaiver: d.totalCost,
-        waiverPct: waiver ? waiver.discountPct : 0,
-        deadline: d.deadline,
+        seats: null,
+        totalCost: d.totalCost,
+        totalCostMin: d.costMin,
+        totalCostMax: d.costMax,
+        deadline: null,
         examDate: null,
         sourceUrl: u.sourceUrl,
         lastVerified: u.lastVerified,
         eligibility: withinBudget ? (gpaOk ? 'eligible' : 'stretch') : 'ineligible',
-        matchScore: computePrivateScore(profile, u, d, costAfterWaiver, waiver, withinBudget),
-        reasons: buildPrivateReasons(profile, u, d, waiver, withinBudget),
+        matchScore: computePrivateScore(profile, u, d, withinBudget),
+        reasons: buildPrivateReasons(profile, u, d, withinBudget),
       })
     }
   }
@@ -93,12 +89,12 @@ const computePublicScore = (p, u, unit, gpaOk) => {
   return Math.min(99, Math.round(score))
 }
 
-const computePrivateScore = (p, u, d, cost, waiver, withinBudget) => {
+const computePrivateScore = (p, u, d, withinBudget) => {
   let score = 45
   if (withinBudget) score += 20
-  if (waiver) score += Math.round(waiver.discountPct / 3)
   if (p.preferredSubjects?.includes(d.dept)) score += 15
   if (p.preferredCities?.some((c) => c === u.city.en)) score += 5
+  if (u.rank) score += Math.max(0, 8 - u.rank) // shortlist rank nudge
   return Math.min(99, Math.round(score))
 }
 
@@ -116,12 +112,13 @@ const buildPublicReasons = (p, u, unit, gpaOk) => {
   return reasons
 }
 
-const buildPrivateReasons = (p, u, d, waiver, withinBudget) => {
+const buildPrivateReasons = (p, u, d, withinBudget) => {
   const reasons = []
-  if (waiver)
+  const fmt = (n) => `৳${Number(n).toLocaleString('en-IN')}`
+  if (d.costMin != null && d.costMax != null)
     reasons.push({
-      bn: `আপনার জিপিএ-তে ${waiver.discountPct}% ওয়েভার পাওয়া যাবে`,
-      en: `Your GPA qualifies for a ${waiver.discountPct}% waiver`,
+      bn: `আনুমানিক মোট খরচ ${fmt(d.costMin)} – ${fmt(d.costMax)}`,
+      en: `Estimated total degree cost ${fmt(d.costMin)} – ${fmt(d.costMax)}`,
     })
   if (p.preferredSubjects?.includes(d.dept))
     reasons.push({ bn: `আপনার পছন্দের বিভাগ`, en: 'One of your preferred subjects' })
@@ -129,18 +126,10 @@ const buildPrivateReasons = (p, u, d, waiver, withinBudget) => {
     reasons.push({ bn: `বাজেটের মধ্যে`, en: 'Within your budget' })
   else
     reasons.push({ bn: `বাজেটের চেয়ে বেশি খরচ`, en: 'Exceeds your budget' })
-  reasons.push({ bn: `${d.credits} ক্রেডিট, ৪ বছরের প্রোগ্রাম`, en: `${d.credits} credits, 4-year program` })
+  if (u.rank)
+    reasons.push({
+      bn: `শীর্ষ ১০ বেসরকারি বিশ্ববিদ্যালয়ের তালিকায় #${u.rank}`,
+      en: `Ranked #${u.rank} in the private university shortlist`,
+    })
   return reasons
 }
-
-const bestWaiver = (rules, profile) =>
-  (rules || [])
-    .filter((r) => (profile.sscGpa ?? 0) >= r.minSscGpa && (profile.hscGpa ?? 0) >= r.minHscGpa)
-    .sort((a, b) => b.discountPct - a.discountPct)[0] || null
-
-const deptGroupMap = {
-  science: ['CSE', 'EEE', 'CIVIL', 'PHARMACY', 'ENV', 'ECON', 'BBA', 'ENGLISH', 'LAW'],
-  commerce: ['BBA', 'ECON', 'ENGLISH', 'LAW'],
-  arts: ['ENGLISH', 'LAW', 'ECON', 'ENV', 'BBA'],
-}
-const deptMatchesGroup = (dept, group) => (deptGroupMap[group] || []).includes(dept)

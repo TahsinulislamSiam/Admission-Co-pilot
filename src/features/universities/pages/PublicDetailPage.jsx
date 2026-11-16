@@ -11,8 +11,10 @@ import {
   Timer,
   Percent,
   Layers,
+  Info,
 } from 'lucide-react'
 import { usePublicUniversity } from '../hooks/useUniversities'
+import { publicUniversitiesMeta } from '@/mocks/seed/publicUniversityData'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { PageLoader } from '@/components/common/Loader'
@@ -69,23 +71,37 @@ export default function PublicDetailPage() {
                 <div>
                   <h1 className="text-xl font-bold text-slate-900">{loc(u.name)}</h1>
                   <p className="mt-0.5 text-sm text-slate-500">
-                    {loc(u.shortName)} · {t('universities.established')} {u.established}
+                    {loc(u.shortName)}
+                    {u.established ? ` · ${t('universities.established')} ${u.established}` : ''}
                   </p>
                 </div>
               </div>
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="h-4 w-4 text-brand-600" />
-                  {loc(u.city)}
+                  {u.location || loc(u.city)}
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <Users className="h-4 w-4 text-brand-600" />
-                  {u.seatsTotal.toLocaleString('en-IN')} {t('common.seats')}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Layers className="h-4 w-4 text-brand-600" />
-                  {u.groups.map((g) => t(`profile.groups.${g}`)).join(' / ')}
-                </span>
+                {u.seatsTotal != null && (
+                  <span className="flex items-center gap-1.5">
+                    <Users className="h-4 w-4 text-brand-600" />
+                    {u.seatsTotal.toLocaleString('en-IN')} {t('common.seats')}
+                  </span>
+                )}
+                {u.groups?.length > 0 && (
+                  <span className="flex items-center gap-1.5">
+                    <Layers className="h-4 w-4 text-brand-600" />
+                    {u.groups.map((g) => t(`profile.groups.${g}`)).join(' / ')}
+                  </span>
+                )}
+                {u.costMin != null && (
+                  <span className="flex items-center gap-1.5">
+                    <Banknote className="h-4 w-4 text-brand-600" />
+                    {t('universities.estimatedDegreeCost')}:{' '}
+                    {u.costMin === u.costMax
+                      ? formatBDT(u.costMin)
+                      : `${formatBDT(u.costMin)} – ${formatBDT(u.costMax)}`}
+                  </span>
+                )}
               </div>
             </div>
             {/* FR-4 source + verified */}
@@ -97,27 +113,101 @@ export default function PublicDetailPage() {
         </CardContent>
       </Card>
 
-      {/* Dates & fee grid */}
-      <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { icon: CalendarDays, label: t('universities.detail.applyStart'), value: formatDate(u.applicationStart, lang) },
-          { icon: CalendarDays, label: t('universities.detail.applyDeadline'), value: formatDate(u.deadline, lang) },
-          { icon: CalendarDays, label: t('universities.detail.examDate'), value: formatDate(u.examDate, lang) },
-          { icon: Banknote, label: t('universities.detail.applicationFee'), value: formatBDT(u.applicationFee) },
-        ].map((item, i) => (
-          <Card key={i}>
-            <CardContent className="py-4">
-              <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400">
-                <item.icon className="h-3.5 w-3.5" />
-                {item.label}
+      {/* Dates & fee grid — only when the record has admission-schedule data */}
+      {u.applicationStart || u.deadline || u.examDate || u.applicationFee != null ? (
+        <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: CalendarDays, label: t('universities.detail.applyStart'), value: formatDate(u.applicationStart, lang) },
+            { icon: CalendarDays, label: t('universities.detail.applyDeadline'), value: formatDate(u.deadline, lang) },
+            { icon: CalendarDays, label: t('universities.detail.examDate'), value: formatDate(u.examDate, lang) },
+            { icon: Banknote, label: t('universities.detail.applicationFee'), value: formatBDT(u.applicationFee) },
+          ].map((item, i) => (
+            <Card key={i}>
+              <CardContent className="py-4">
+                <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400">
+                  <item.icon className="h-3.5 w-3.5" />
+                  {item.label}
+                </p>
+                <p className="mt-1.5 text-sm font-semibold text-slate-800">{item.value}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : null}
+
+      {/* Departments + estimated total degree cost (from public.json) */}
+      {(u.departments || []).length > 0 && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-brand-600" />
+              {t('universities.departments')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <Table className="min-w-full border-0">
+                <THead>
+                  <TR className="hover:bg-transparent">
+                    <TH>{t('universities.table.dept')}</TH>
+                    <TH className="text-right">{t('universities.estimatedDegreeCost')}</TH>
+                  </TR>
+                </THead>
+                <TBody>
+                  {[...u.departments]
+                    .sort((a, b) => a.totalCost - b.totalCost)
+                    .map((d) => (
+                      <TR key={d.id}>
+                        <TD>
+                          <span className="font-medium text-slate-800">{loc(d.name)}</span>
+                        </TD>
+                        <TD className="text-right font-semibold text-slate-900">
+                          {d.costMin == null && d.costMax == null
+                            ? '—'
+                            : d.costMin === d.costMax
+                              ? formatBDT(d.costMin)
+                              : `${formatBDT(d.costMin)} – ${formatBDT(d.costMax)}`}
+                        </TD>
+                      </TR>
+                    ))}
+                </TBody>
+              </Table>
+            </div>
+            {publicUniversitiesMeta.departmentNote && (
+              <p className="border-t border-slate-100 px-4 py-3 text-xs leading-relaxed text-slate-400">
+                {publicUniversitiesMeta.departmentNote}
               </p>
-              <p className="mt-1.5 text-sm font-semibold text-slate-800">{item.value}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Cost caveat for public-university fee ranges */}
+      {publicUniversitiesMeta.costWarning && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Info className="h-4 w-4 text-brand-600" />
+              {t('universities.costNote')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm leading-relaxed text-slate-600">
+              {publicUniversitiesMeta.costWarning}
+            </p>
+            {publicUniversitiesMeta.costExclusions?.length > 0 && (
+              <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-slate-500">
+                {publicUniversitiesMeta.costExclusions.map((x, i) => (
+                  <li key={i}>{x}</li>
+                ))}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Units */}
+      {unitsForGroup.length > 0 && (
       <Card>
         <CardHeader>
           <CardTitle>
@@ -184,6 +274,7 @@ export default function PublicDetailPage() {
           </div>
         </CardContent>
       </Card>
+      )}
     </div>
   )
 }

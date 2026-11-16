@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 /** Inline spinner (small) — used inside components. */
 export function Spinner({ className }) {
-  return <Loader2 className={cn('animate-spin', className || 'h-5 w-5 text-brand-600')} />
+  return <Loader2 className={cn('animate-spin', className || 'h-6 w-5 text-brand-600')} />
 }
 
 /** Full-page loader shown while lazy routes resolve. */

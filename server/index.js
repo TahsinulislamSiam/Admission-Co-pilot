@@ -1,7 +1,7 @@
 /**
  * Admission Copilot — token proxy for the AI assistant.
  *
- * Exists so the OpenAI API key never ships to the browser. Dev-only by
+ * Exists so the Gemini API key never ships to the browser. Dev-only by
  * default; in production deploy behind your real auth and enable CORS for
  * your own origin.
  *
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   return next()
 })
 
-// --- naive per-IP rate limit: protects your OpenAI bill ---
+// --- naive per-IP rate limit: protects your Gemini quota ---
 const WINDOW_MS = 60_000
 const MAX_PER_WINDOW = Number(process.env.ASSISTANT_RATE_LIMIT || 20)
 const hits = new Map()
@@ -64,8 +64,8 @@ function rateLimit(req, res, next) {
 app.get('/api/assistant/health', (_req, res) => {
   res.json({
     ok: true,
-    model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-    keyConfigured: Boolean(process.env.OPENAI_API_KEY),
+    model: process.env.GEMINI_MODEL || 'gemini-flash-lite-latest',
+    keyConfigured: Boolean(process.env.GEMINI_API_KEY),
   })
 })
 
@@ -75,12 +75,12 @@ app.get('/api/assistant/suggestions', suggestionsHandler)
 app.use((req, res) => res.status(404).json({ message: 'notFound' }))
 
 const server = app.listen(PORT, () => {
-  const configured = Boolean(process.env.OPENAI_API_KEY)
+  const configured = Boolean(process.env.GEMINI_API_KEY)
   console.log(`\n  Assistant proxy  →  http://localhost:${PORT}`)
-  console.log(`  Model            →  ${process.env.OPENAI_MODEL || 'gpt-4o-mini'}`)
-  console.log(`  API key          →  ${configured ? 'configured' : 'MISSING (set OPENAI_API_KEY in .env)'}\n`)
+  console.log(`  Model            →  ${process.env.GEMINI_MODEL || 'gemini-flash-lite-latest'}`)
+  console.log(`  API key          →  ${configured ? 'configured' : 'MISSING (set GEMINI_API_KEY in .env)'}\n`)
   if (!configured) {
-    console.warn('  The assistant will return 503 until OPENAI_API_KEY is set.\n')
+    console.warn('  The assistant will return 503 until GEMINI_API_KEY is set.\n')
   }
 })
 
