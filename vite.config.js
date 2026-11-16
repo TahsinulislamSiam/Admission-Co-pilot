@@ -17,16 +17,18 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       port: 5173,
-      // In live mode the assistant proxy in server/ handles these paths.
-      // Everything else stays with MSW.
       proxy: liveAssistant
         ? {
+            // live mode: OpenAI streaming proxy (server/index.js, `npm run dev:server`)
             '/api/assistant': {
               target: `http://localhost:${assistantPort}`,
               changeOrigin: true,
             },
           }
-        : undefined,
+        : {
+            // default: Gemini server (server/gemini.js, `npm run server`)
+            '/api/assistant/chat': 'http://localhost:3001',
+          },
     },
     test: {
       environment: 'jsdom',
@@ -34,17 +36,5 @@ export default defineConfig(({ mode }) => {
       globals: true,
       css: true,
     },
-  },
-  server: {
-    port: 5173,
-    // Assistant chat goes to the Node server that holds the OpenAI key
-    proxy: { '/api/assistant/chat': 'http://localhost:3001' },
-  },
-  test: {
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.js'],
-    globals: true,
-    css: true,
-  },
   }
 })
