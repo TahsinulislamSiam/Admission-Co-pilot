@@ -73,6 +73,17 @@
     "statsQuestionsValue": "1,000+",
     "statsSupport": "AI support",
     "statsSupportValue": "24/7",
+    "statsTests": "Mock tests",
+    "statsLive": "Live data",
+    "quotesLabel": "Motivational quotes for admission candidates",
+    "quotes": [
+      "A little study every day makes a huge difference on exam day",
+      "Preparation beats fear — that is the first step to success",
+      "Lost minutes never come back, but this one is still yours",
+      "Believe in your work, not in your luck",
+      "Small daily wins add up to the dream university",
+      "The seat is taken by whoever prepares for it"
+    ],
     "howTitle": "How it works",
     "howSubtitle": "From profile to final admission prep — in just 7 steps",
     "steps": {

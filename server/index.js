@@ -3,8 +3,7 @@
  * Run with:  npm run server   (port 8787; Vite proxies /api/assistant/chat to it)
  *
  * How answers are produced:
- *  1. Gemini gets ALL verified records (knowledge base + public + private
- *     universities) as context, so any phrasing in Bangla/English can match.
+ *  1. Gemini gets the verified records that match the question (see selectRecords).
  *  2. Facts found in those records are used and cited with sources.
  *  3. Everything else is answered from general knowledge, marked as unverified.
  *  4. If Gemini is unreachable -> keyword match on the knowledge base, else no_record.
@@ -292,6 +291,21 @@ app.post('/api/assistant/chat', async (req, res) => {
     // record exists" — report it as an error instead of a misleading answer.
     res.status(503).json({ message: 'assistantError' })
   }
+})
+
+/**
+ * Last-resort error handler (must sit after every route): malformed JSON and
+ * unexpected failures answer with a code, never a stack trace or internals.
+ */
+app.use((err, _req, res, _next) => {
+  if (err?.type === 'entity.parse.failed' || err?.status === 400) {
+    return res.status(400).json({ message: 'invalidJson' })
+  }
+  if (err?.type === 'entity.too.large') {
+    return res.status(413).json({ message: 'payloadTooLarge' })
+  }
+  console.error('Unhandled error:', err?.message)
+  return res.status(500).json({ message: 'serverError' })
 })
 
 app.listen(PORT, (err) => {
