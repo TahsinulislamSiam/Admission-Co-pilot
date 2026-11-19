@@ -20,6 +20,8 @@ import { Card } from '@/components/ui/Card'
 import { ROUTES } from '@/routes/constants'
 import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 import { useReveal } from '@/hooks/useReveal'
+import { useCountUp } from '@/hooks/useCountUp'
+import { useLandingStats } from '@/features/landing/hooks/useLandingStats'
 import { cn } from '@/lib/utils'
 
 /** Wrapper that fades + rises its children in the first time they scroll into view. */
@@ -34,6 +36,98 @@ function Reveal({ as: Tag = 'div', delay = 0, className, children, ...rest }) {
     >
       {children}
     </Tag>
+  )
+}
+
+/**
+ * One live figure in the hero strip: skeleton while the count loads, then the
+ * number counts up as the card scrolls into view, with a hover lift + accent bar.
+ */
+function StatCard({ icon: Icon, value, label, delay = 0, shown, failed }) {
+  const count = useCountUp(value, { enabled: shown })
+  const { i18n } = useTranslation()
+  const loading = value == null && !failed
+  const display = failed
+    ? '—'
+    : loading
+      ? null
+      : new Intl.NumberFormat(i18n.language?.startsWith('bn') ? 'bn-BD' : 'en-US').format(
+          count ?? value
+        )
+
+  return (
+    <div
+      className="group relative animate-pop-in overflow-hidden rounded-xl border border-slate-200 bg-white p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-card-hover"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {/* accent bar that sweeps in on hover */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-500 to-accent-500 transition-transform duration-300 group-hover:scale-x-100"
+      />
+      <span className="mx-auto flex h-7 w-7 items-center justify-center rounded-lg bg-brand-50 text-brand-700 transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
+        <Icon className="h-4 w-4" />
+      </span>
+
+      {loading ? (
+        <>
+          <span
+            aria-hidden="true"
+            className="mx-auto mt-2 block h-6 w-14 animate-pulse rounded bg-slate-200"
+          />
+          <span className="sr-only">{label}</span>
+        </>
+      ) : (
+        <p className="mt-1.5 text-xl font-extrabold text-brand-700 tabular-nums">{display}</p>
+      )}
+      <p className="mt-1 text-xs text-slate-500">{label}</p>
+    </div>
+  )
+}
+
+/** One pass of the quote list; rendered twice to make the loop seamless. */
+function QuoteRow({ quotes, duplicate = false }) {
+  return (
+    <ul className="flex shrink-0 items-center" aria-hidden={duplicate ? 'true' : undefined}>
+      {quotes.map((quote, i) => (
+        <li key={`${duplicate ? 'b' : 'a'}-${i}`} className="flex items-center whitespace-nowrap">
+          <Sparkles className="mx-6 h-3.5 w-3.5 shrink-0 text-accent-400" aria-hidden="true" />
+          <span className="text-sm font-medium text-brand-50/90">{quote}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/**
+ * Endless horizontal quote band.
+ *
+ * The track holds the list twice and slides by exactly -50%, so the second copy
+ * lands where the first started and the loop never jumps. Pauses while hovered
+ * and stays completely still for `prefers-reduced-motion` visitors.
+ */
+function QuoteMarquee({ quotes, label }) {
+  if (!quotes.length) return null
+  return (
+    <section
+      className="group relative overflow-hidden border-y border-brand-900/40 bg-brand-800 py-3.5"
+      aria-label={label}
+    >
+      {/* edge fades so quotes slide in/out instead of being cut off */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-800 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-800 to-transparent"
+      />
+
+      <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:px-4">
+        <QuoteRow quotes={quotes} />
+        <QuoteRow quotes={quotes} duplicate />
+      </div>
+    </section>
   )
 }
 
@@ -52,6 +146,34 @@ const FEATURE_ICONS = {
 export default function LandingPage() {
   useDocumentTitle('nav.home')
   const { t } = useTranslation()
+  const stats = useLandingStats()
+  const [statsRef, statsShown] = useReveal({ threshold: 0.25 })
+
+  // Motivational lines for the marquee band (one list per language).
+  const marqueeQuotes = t('landing.quotes', { returnObjects: true })
+  const quotes = Array.isArray(marqueeQuotes) ? marqueeQuotes : []
+
+  // Live figures — nothing here is hardcoded, the counts come from the API.
+  const statCards = [
+    {
+      key: 'universities',
+      icon: GraduationCap,
+      value: stats.data?.universities,
+      label: t('landing.statsUniversities', { defaultValue: 'University records' }),
+    },
+    {
+      key: 'questions',
+      icon: FileStack,
+      value: stats.data?.questions,
+      label: t('landing.statsQuestions', { defaultValue: 'Practice questions' }),
+    },
+    {
+      key: 'tests',
+      icon: Target,
+      value: stats.data?.tests,
+      label: t('landing.statsTests', { defaultValue: 'Mock tests' }),
+    },
+  ]
 
   const steps = ['s1', 's2', 's3', 's4', 's5', 's6', 's7'].map((k, i) => ({
     icon: STEP_ICONS[i],
@@ -103,22 +225,28 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* stats strip */}
-            <div className="mt-10 grid max-w-md grid-cols-3 gap-4">
-              {[
-                { v: t('landing.statsUniversitiesValue'), l: t('landing.statsUniversities') },
-                { v: t('landing.statsQuestionsValue'), l: t('landing.statsQuestions') },
-                { v: t('landing.statsSupportValue'), l: t('landing.statsSupport') },
-              ].map((s, i) => (
-                <div
-                  key={i}
-                  className="animate-pop-in rounded-xl border border-slate-200 bg-white p-4 text-center transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
-                  style={{ animationDelay: `${380 + i * 90}ms` }}
-                >
-                  <p className="text-xl font-extrabold text-brand-700">{s.v}</p>
-                  <p className="mt-1 text-xs text-slate-500">{s.l}</p>
-                </div>
-              ))}
+            {/* stats strip — live counts, animated */}
+            <div ref={statsRef} className="mt-10 max-w-md">
+              <p className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-slate-400">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-500" />
+                </span>
+                {t('landing.statsLive', { defaultValue: 'Live data' })}
+              </p>
+              <div className="mt-3 grid grid-cols-3 gap-4">
+                {statCards.map((card, i) => (
+                  <StatCard
+                    key={card.key}
+                    icon={card.icon}
+                    value={card.value}
+                    label={card.label}
+                    failed={stats.isError}
+                    shown={statsShown}
+                    delay={380 + i * 90}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
@@ -158,6 +286,14 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ---------- Motivational quote marquee ---------- */}
+      <QuoteMarquee
+        quotes={quotes}
+        label={t('landing.quotesLabel', {
+          defaultValue: 'Motivational quotes for admission candidates',
+        })}
+      />
 
       {/* ---------- How it works (7 steps) ---------- */}
       <section id="how-it-works" className="container-app py-20 scroll-mt-20">

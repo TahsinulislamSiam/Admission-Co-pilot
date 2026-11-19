@@ -1,12 +1,20 @@
 /**
  * Admission Copilot — token proxy for the AI assistant.
  *
+<<<<<<< HEAD
+ * How answers are produced:
+ *  1. Gemini gets the verified records that match the question (see selectRecords).
+ *  2. Facts found in those records are used and cited with sources.
+ *  3. Everything else is answered from general knowledge, marked as unverified.
+ *  4. If Gemini is unreachable -> keyword match on the knowledge base, else no_record.
+=======
  * Exists so the Gemini API key never ships to the browser. Dev-only by
  * default; in production deploy behind your real auth and enable CORS for
  * your own origin.
  *
  *   npm run dev:server      # start proxy on :8787
  *   npm run dev:all         # vite + proxy together
+>>>>>>> 5343c9e6787c25149e20fe1608d3a3239a8bc238
  */
 import 'dotenv/config'
 import express from 'express'
@@ -284,6 +292,35 @@ app.post('/api/assistant/chat', async (req, res) => {
   }
 })
 
+<<<<<<< HEAD
+/**
+ * Last-resort error handler (must sit after every route): malformed JSON and
+ * unexpected failures answer with a code, never a stack trace or internals.
+ */
+app.use((err, _req, res, _next) => {
+  if (err?.type === 'entity.parse.failed' || err?.status === 400) {
+    return res.status(400).json({ message: 'invalidJson' })
+  }
+  if (err?.type === 'entity.too.large') {
+    return res.status(413).json({ message: 'payloadTooLarge' })
+  }
+  console.error('Unhandled error:', err?.message)
+  return res.status(500).json({ message: 'serverError' })
+})
+
+app.listen(PORT, (err) => {
+  if (err) {
+    console.error(
+      err.code === 'EADDRINUSE'
+        ? `Port ${PORT} is already in use — another copy of the server is running. Stop it and retry.`
+        : err
+    )
+    process.exit(1)
+  }
+  console.log(`Assistant API on http://localhost:${PORT}`)
+})
+=======
 const shutdown = () => server.close(() => process.exit(0))
 process.on('SIGINT', shutdown)
 process.on('SIGTERM', shutdown)
+>>>>>>> 5343c9e6787c25149e20fe1608d3a3239a8bc238

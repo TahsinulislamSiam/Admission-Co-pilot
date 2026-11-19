@@ -90,6 +90,12 @@ export default {
           '0%, 100%': { transform: 'translateY(0) scale(1)' },
           '50%': { transform: 'translateY(16px) scale(1.06)' },
         },
+        // Seamless horizontal loop: the track holds two identical copies of the
+        // content, so shifting by exactly half its width looks endless.
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         'typing-dot': 'typing-dot 1.2s ease-in-out infinite',
@@ -100,6 +106,7 @@ export default {
         float: 'float 6s ease-in-out infinite',
         'drift-x': 'drift-x 14s ease-in-out infinite',
         'drift-y': 'drift-y 18s ease-in-out infinite',
+        marquee: 'marquee 45s linear infinite',
       },
     },
   },
