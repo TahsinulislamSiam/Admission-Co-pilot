@@ -1,9 +1,5 @@
 /**
- * Starts the assistant proxy and the Vite dev server together.
- *
- * Cross-platform on purpose (no `concurrently` dependency): spawns both
- * children, prefixes their output, and tears both down on Ctrl+C.
- *
+ 
  *   npm run dev:all
  */
 import { spawn } from 'node:child_process'

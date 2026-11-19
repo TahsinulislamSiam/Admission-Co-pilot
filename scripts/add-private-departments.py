@@ -1,20 +1,8 @@
-# One-off helper: add more departments to private.json (option A).
-#
-# Cost basis: each new department is assigned a tier and its range is derived
-# from the university's OWN existing departments in that tier, so the numbers
-# stay inside the bands already curated in the file.
-#
-#   lab   -> engineering / pharmacy / architecture style programmes (higher)
-#   sci   -> science / maths / health style programmes
-#   hum   -> humanities / social science / business style programmes (lower)
-#
-# Every added row gets a `basis` note so the UI can label it as a planning
-# estimate (same pattern the AIUB rows already use).
 import json, io, sys
 
 PATH = 'src/mocks/seed/private.json'
 
-# tier assignment for programmes being added
+
 NEW = {
     'NSU':   [('Accounting and Finance', 'hum'), ('Marketing', 'hum'),
               ('Public Health', 'sci'), ('Statistics', 'sci'),
