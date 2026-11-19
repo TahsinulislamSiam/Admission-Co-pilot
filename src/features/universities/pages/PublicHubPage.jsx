@@ -16,6 +16,8 @@ import { ROUTES, route } from '@/routes/constants'
 import { Link } from 'react-router-dom'
 import { useDocumentTitle } from '@/hooks/useDocumentTitle'
 
+const NO_UNIVERSITIES = []
+
 /**
  * FR-2 — Public university hub.
  * Cards + table views, filters (dates, eligibility, exam pattern, fees, seats),
@@ -25,7 +27,10 @@ export default function PublicHubPage() {
   useDocumentTitle('nav.publicUniversities')
   const { t } = useTranslation()
   const { loc, lang } = useLocale()
-  const { data: universities = [], isLoading, isError, error } = usePublicUniversities()
+  const { data, isLoading, isError, error } = usePublicUniversities()
+  // Stable reference while loading: a fresh `[]` each render made the filter
+  // re-notify the parent forever (infinite render loop).
+  const universities = data ?? NO_UNIVERSITIES
 
   const [filtered, setFiltered] = useState([])
   const [view, setView] = useState('cards')
