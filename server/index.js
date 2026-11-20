@@ -1,27 +1,20 @@
 /**
- * Admission Copilot — token proxy for the AI assistant.
+ * Backend for the AI assistant. Keeps the Gemini key on the server.
+ * Run with:  npm run server   (port 8787; Vite proxies /api/assistant/chat to it)
  *
-<<<<<<< HEAD
  * How answers are produced:
  *  1. Gemini gets the verified records that match the question (see selectRecords).
  *  2. Facts found in those records are used and cited with sources.
  *  3. Everything else is answered from general knowledge, marked as unverified.
  *  4. If Gemini is unreachable -> keyword match on the knowledge base, else no_record.
-=======
- * Exists so the Gemini API key never ships to the browser. Dev-only by
- * default; in production deploy behind your real auth and enable CORS for
- * your own origin.
- *
- *   npm run dev:server      # start proxy on :8787
- *   npm run dev:all         # vite + proxy together
->>>>>>> 5343c9e6787c25149e20fe1608d3a3239a8bc238
  */
 import 'dotenv/config'
 import express from 'express'
-import { chatHandler, suggestionsHandler } from './assistant.js'
-
-const PORT = Number(process.env.ASSISTANT_PORT || 8787)
-const app = express()
+import { pingDatabase, hasDatabase } from './db/index.js'
+import apiRouter from './routes/api.js'
+import { knowledgeBase } from '../src/mocks/seed/assistant.js'
+import { publicUniversities } from '../src/mocks/seed/publicUniversityData.js'
+import { privateUniversities } from '../src/mocks/seed/privateUniversities.js'
 
 // Must match the Vite proxy target (ASSISTANT_PORT in .env, default 8787).
 const PORT = process.env.ASSISTANT_PORT || process.env.PORT || 8787
@@ -184,29 +177,49 @@ function selectRecords(question, { max = 6, budget = 9000 } = {}) {
 const buildSystem = (selected) => `You are the admission assistant for Bangladeshi HSC students. Today is ${new Date().toISOString().slice(0, 10)}.
 You are given VERIFIED RECORDS, each tagged like [id].
 
-function rateLimit(req, res, next) {
-  const key = req.ip || 'unknown'
-  const now = Date.now()
-  const entry = hits.get(key) || { count: 0, resetAt: now + WINDOW_MS }
+Rules:
+1. Always answer the question helpfully. Never refuse and never say you have no record.
+2. If the verified records contain the answer, use them (they are the most accurate) and list their ids in "used",
+   with "mode":"verified".
+3. Otherwise answer from your general knowledge with "mode":"general" and "used":[]. For specific numbers/dates
+   (fees, deadlines, seats) that are not in the records, give your best estimate, say it may be outdated, and
+   suggest checking the official admission site.
+4. Reply in the same language as the user's question (Bangla or English). Use short Markdown.
 
 Return ONLY JSON: {"mode":"verified"|"general","answer":"...","used":["id",...]}
 
 VERIFIED RECORDS:
 ${selected.map((r) => r.text).join('\n\n')}`
 
-  if (entry.count > MAX_PER_WINDOW) {
-    res.setHeader('Retry-After', Math.ceil((entry.resetAt - now) / 1000))
-    return res.status(429).json({ message: 'assistantRateLimited' })
-  }
-  return next()
+const GENERAL_NOTE = {
+  bn: '\n\n_এটি সাধারণ তথ্য, যাচাই করা রেকর্ড নয়। গুরুত্বপূর্ণ সিদ্ধান্তের আগে অফিসিয়াল সাইট দেখুন।_',
+  en: '\n\n_This is general information, not a verified record. Please check official sites before important decisions._',
 }
 
-// --- routes ---
+/** Offline fallback: old keyword rule on the knowledge base. */
+const keywordRecord = (q) =>
+  knowledgeBase.find((k) => k.keywords.some((kw) => q.includes(kw.toLowerCase())))
+
+const app = express()
+app.use(express.json({ limit: '10kb' }))
+if (hasDatabase) app.use('/api', apiRouter)
+
+/** Quick check that the proxy is up and a key is configured (no model call). */
+app.get('/api/db/health', async (_req, res) => {
+  try {
+    res.json(await pingDatabase())
+  } catch (e) {
+    console.error('DB health failed:', e?.message)
+    res.status(503).json({ ok: false })
+  }
+})
+
 app.get('/api/assistant/health', (_req, res) => {
   res.json({
     ok: true,
-    model: process.env.GEMINI_MODEL || 'gemini-flash-lite-latest',
-    keyConfigured: Boolean(process.env.GEMINI_API_KEY),
+    provider: 'gemini',
+    models: GEMINI_MODELS,
+    keyConfigured: Boolean(GEMINI_KEY),
   })
 })
 
@@ -292,7 +305,6 @@ app.post('/api/assistant/chat', async (req, res) => {
   }
 })
 
-<<<<<<< HEAD
 /**
  * Last-resort error handler (must sit after every route): malformed JSON and
  * unexpected failures answer with a code, never a stack trace or internals.
@@ -319,8 +331,3 @@ app.listen(PORT, (err) => {
   }
   console.log(`Assistant API on http://localhost:${PORT}`)
 })
-=======
-const shutdown = () => server.close(() => process.exit(0))
-process.on('SIGINT', shutdown)
-process.on('SIGTERM', shutdown)
->>>>>>> 5343c9e6787c25149e20fe1608d3a3239a8bc238
