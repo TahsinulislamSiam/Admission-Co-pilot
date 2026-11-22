@@ -15,7 +15,14 @@
  */
 import { buildSystemPrompt, knownSources } from './prompt.js'
 
-const MODEL = process.env.GEMINI_MODEL || 'gemini-flash-lite-latest'
+// GEMINI_MODEL may hold a comma-separated list ("a,b"): tried in order, so one
+// overloaded or retired model does not take the assistant down. A single name
+// works exactly as before.
+const MODELS = (process.env.GEMINI_MODEL || 'gemini-flash-lite-latest')
+  .split(',')
+  .map((m) => m.trim().replace(/^=+/, '').replace(/^["']+|["']+$/g, '').trim())
+  .filter(Boolean)
+  .filter((m, i, all) => all.indexOf(m) === i)
 const BASE_URL =
   process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta'
 const MAX_HISTORY = 12 // keep the prompt bounded
@@ -38,29 +45,42 @@ function toContents(messages) {
   }))
 }
 
-/** One Gemini generateContent call. Returns the parsed JSON body. */
+/**
+ * One Gemini call, trying each configured model in order.
+ * Returns the successful Response (body not yet read) or throws the last error.
+ */
 async function generate({ system, contents, stream = false }) {
   const key = requireKey()
   const method = stream ? 'streamGenerateContent' : 'generateContent'
-  const url =
-    `${BASE_URL}/models/${MODEL}:${method}` + (stream ? '?alt=sse' : '')
-
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: system }] },
-      contents,
-      generationConfig: { temperature: 0.3, maxOutputTokens: 800 },
-    }),
-    signal: AbortSignal.timeout(30_000),
+  const body = JSON.stringify({
+    systemInstruction: { parts: [{ text: system }] },
+    contents,
+    generationConfig: { temperature: 0.3, maxOutputTokens: 800 },
   })
-  if (!res.ok) {
-    const err = new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 200)}`)
+
+  let lastErr
+  for (const model of MODELS) {
+    const url = `${BASE_URL}/models/${model}:${method}` + (stream ? '?alt=sse' : '')
+    let res
+    try {
+      res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+        body,
+        signal: AbortSignal.timeout(30_000),
+      })
+    } catch (e) {
+      lastErr = e
+      continue
+    }
+    if (res.ok) return res
+    const err = new Error(`Gemini ${model} ${res.status}: ${(await res.text()).slice(0, 200)}`)
     err.status = res.status
-    throw err
+    lastErr = err
+    // 401/403/429 are about the key or the quota, not this model — stop trying.
+    if ([401, 403, 429].includes(res.status)) break
   }
-  return res
+  throw lastErr
 }
 
 /** Keep only well-formed turns, cap the length, and drop the pending bubble. */
@@ -154,15 +174,34 @@ async function stream(messages, lang, res) {
     const decoder = new TextDecoder()
     let buffer = ''
 
-    // Parse the SSE stream and relay each text chunk as a delta.
+    // Markers can be split across chunks ("[[NO" + "_RECORD]]"), so the tail of
+    // every chunk that could still become one is held back instead of emitted.
+    let pending = ''
+    const heldBack = (text) => {
+      for (let k = Math.min(text.length, NO_RECORD.length - 1); k > 0; k -= 1) {
+        if (NO_RECORD.startsWith(text.slice(-k))) return k
+      }
+      return 0
+    }
+    const emit = (text, final = false) => {
+      pending += text
+      const cut = final ? pending.length : pending.length - heldBack(pending)
+      const chunk = pending.slice(0, cut).replaceAll(NO_RECORD, '')
+      pending = pending.slice(cut)
+      if (chunk) send('delta', { text: chunk })
+    }
+
+    // Parse the SSE stream and relay each text chunk as a delta. Gemini sends
+    // frames separated by CRLF CRLF (`\r\n\r\n`), so splitting on `\n\n` alone
+    // produced zero frames and the UI rendered an empty bubble.
     for (;;) {
       const { value, done } = await reader.read()
       if (done) break
       buffer += decoder.decode(value, { stream: true })
-      const events = buffer.split('\n\n')
+      const events = buffer.split(/\r?\n\r?\n/)
       buffer = events.pop() || ''
       for (const evt of events) {
-        for (const line of evt.split('\n')) {
+        for (const line of evt.split(/\r?\n/)) {
           if (!line.startsWith('data:')) continue
           const payload = line.slice(5).trim()
           if (!payload || payload === '[DONE]') continue
@@ -176,13 +215,13 @@ async function stream(messages, lang, res) {
             chunk.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') || ''
           if (!delta) continue
           full += delta
-          // Hold back the marker so it never renders mid-stream
-          send('delta', { text: delta.replaceAll(NO_RECORD, '') })
+          emit(delta)
         }
       }
     }
+    emit('', true)
 
-    send('sources', { sources: extractSources(full) })
+    send('sources', { sources: extractSources(full.replaceAll(NO_RECORD, '')) })
     send('done', { status: statusFor(full) })
     res.end()
   } catch (e) {
