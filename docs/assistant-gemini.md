@@ -59,11 +59,27 @@ line) and restart. The curated answers return and no key is used.
 
 ```bash
 curl http://localhost:8787/api/assistant/health
-# {"ok":true,"provider":"gemini","models":["gemini-flash-lite-latest","gemini-3.5-flash"],"keyConfigured":true}
+# {"ok":true,"provider":"gemini","model":"gemini-flash-lite-latest,gemini-3.5-flash","keyConfigured":true,"databaseConfigured":true}
+curl http://localhost:8787/api/db/health     # Postgres (Neon) status
 ```
 
-If `keyConfigured` is `false`, the chat endpoint returns `503 missingApiKey`
-and the UI shows a "not configured" message.
+If `keyConfigured` is `false`, the chat endpoint answers from the curated
+records instead of the model. `npm run db:check` tests the database directly.
+
+## Troubleshooting: "the assistant stopped working"
+
+The only symptom the UI shows is an error card, so check the proxy first:
+
+| What you see | Cause | Fix |
+| --- | --- | --- |
+| `networkError`, nothing answers | Vite is running but the proxy on `:8787` is not | `npm run dev:all` (not `npm run dev` alone) |
+| answers suddenly become short/Bangla curated text | Gemini quota (`429`) or key rejected; the proxy fell back to the knowledge base | check the console line `Gemini failed (quota/rate limit reached)` |
+| `assistantError` 502 | every model in `GEMINI_MODEL` failed | read `Gemini failed (…): …` in the proxy log, or test the key with `curl` |
+| amber "no verified record" card for a common question | model was unreachable **and** no local record matched | same as above |
+| works in curl, not in the browser | the page was loaded before the proxy started | reload the tab |
+
+The proxy never fails silently: every degraded reply logs a `Gemini failed (…)`
+line with the reason, and the JSON carries `"degraded": true`.
 
 ## Configuration
 
@@ -81,7 +97,12 @@ and the UI shows a "not configured" message.
 - **Grounding** — `server/prompt.js` injects the knowledge base and forbids
   inventing deadlines, fees, seat counts or eligibility rules.
 - **Model fallback** — if the first model in `GEMINI_MODEL` is overloaded or
-  retired, the next one in the list is tried.
+  retired, the next one in the list is tried; transient `5xx` errors get one
+  retry first.
+- **Degraded answers** — if every model fails (outage, `429` quota, bad key) the
+  proxy answers from the curated records with `"degraded": true` instead of
+  returning an error, so the chat keeps working. If nothing matches, it serves
+  the honesty card with official links.
 - **No verified record** — if the model returns an empty/`no_record` answer the
   proxy serves the curated record when keywords match, otherwise the existing
   amber honesty card with official links.
