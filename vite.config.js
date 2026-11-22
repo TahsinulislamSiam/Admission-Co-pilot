@@ -11,6 +11,15 @@ export default defineConfig(({ mode }) => {
 
   const assistantPort = env.ASSISTANT_PORT || '8787';
   const liveAssistant = env.VITE_ASSISTANT_MODE === 'live';
+  const useDb = env.VITE_USE_DB === 'true';
+  const dbProxy = useDb
+    ? Object.fromEntries(
+        ['/api/auth', '/api/users', '/api/universities', '/api/admin/universities'].map((p) => [
+          p,
+          { target: `http://localhost:${assistantPort}`, changeOrigin: true },
+        ])
+      )
+    : {};
 
   return {
     plugins: [react()],
@@ -25,7 +34,9 @@ export default defineConfig(({ mode }) => {
       port: 5173,
 
       // Assistant API proxy
-      proxy: liveAssistant
+      proxy: {
+        ...dbProxy,
+        ...(liveAssistant
         ? {
             // live mode: Gemini streaming proxy (server/index.js, `npm run dev:server`)
             '/api/assistant': {
