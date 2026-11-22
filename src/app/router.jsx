@@ -28,6 +28,7 @@ const AssistantPage = lazy(() => import('@/features/assistant/pages/AssistantPag
 const RecommendationsPage = lazy(() =>
   import('@/features/recommendations/pages/RecommendationsPage')
 )
+const PlatformPage = lazy(() => import('@/features/platform/pages/PlatformPage'))
 const TestListPage = lazy(() => import('@/features/mock-tests/pages/TestListPage'))
 const InstructionsPage = lazy(() => import('@/features/mock-tests/pages/InstructionsPage'))
 const TestEnginePage = lazy(() => import('@/features/mock-tests/pages/TestEnginePage'))
@@ -84,6 +85,7 @@ export const router = createBrowserRouter([
           { path: 'compare', element: lz(ComparePage) },
           { path: 'assistant', element: lz(AssistantPage) },
           { path: 'recommendations', element: lz(RecommendationsPage) },
+          { path: 'platform', element: lz(PlatformPage) },
           { path: 'tests', element: lz(TestListPage) },
           { path: 'results/:attemptId', element: lz(ResultPage) },
         ],

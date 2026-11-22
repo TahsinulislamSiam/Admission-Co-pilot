@@ -37,23 +37,24 @@ export default defineConfig(({ mode }) => {
       proxy: {
         ...dbProxy,
         ...(liveAssistant
-        ? {
-            // live mode: Gemini streaming proxy (server/index.js, `npm run dev:server`)
-            '/api/assistant': {
-              target: `http://localhost:${assistantPort}`,
-              changeOrigin: true,
-            },
-            // Postgres health (server/db.js) lives on the same API server.
-            '/api/db': `http://localhost:${assistantPort}`,
-            '/api/health': `http://localhost:${assistantPort}`,
-          }
-        : {
-            // default: Gemini server (server/gemini.js, `npm run server`)
-            '/api/assistant/chat': 'http://localhost:3001',
-            // Postgres health (server/db.js) lives on the same API server.
-            '/api/db': `http://localhost:${assistantPort}`,
-            '/api/health': `http://localhost:${assistantPort}`,
-          },
+          ? {
+              // live mode: Gemini streaming proxy (server/index.js, `npm run dev:server`)
+              '/api/assistant': {
+                target: `http://localhost:${assistantPort}`,
+                changeOrigin: true,
+              },
+              // Postgres health (server/db.js) lives on the same API server.
+              '/api/db': `http://localhost:${assistantPort}`,
+              '/api/health': `http://localhost:${assistantPort}`,
+            }
+          : {
+              // default: Gemini server (server/gemini.js, `npm run server`)
+              '/api/assistant/chat': 'http://localhost:3001',
+              // Postgres health (server/db.js) lives on the same API server.
+              '/api/db': `http://localhost:${assistantPort}`,
+              '/api/health': `http://localhost:${assistantPort}`,
+            }),
+      },
     },
 
     test: {

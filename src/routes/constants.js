@@ -17,6 +17,7 @@ export const ROUTES = {
   compare: '/app/compare',
   assistant: '/app/assistant',
   recommendations: '/app/recommendations',
+  platform: '/app/platform',
   tests: '/app/tests',
   testInstructions: '/app/tests/:id/instructions',
   testEngine: '/app/tests/:id/engine',
