@@ -10,6 +10,7 @@ import {
   Scale,
   MessagesSquare,
   Sparkles,
+  Layers,
   FileStack,
   LogOut,
   Menu,
@@ -32,6 +33,7 @@ const navItems = [
   { to: ROUTES.compare, icon: Scale, key: 'nav.compare' },
   { to: ROUTES.assistant, icon: MessagesSquare, key: 'nav.assistant' },
   { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
+  { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
   { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
 ]
 
