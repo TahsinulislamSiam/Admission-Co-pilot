@@ -22,6 +22,7 @@ export const ROUTES = {
   platform: '/app/platform',
   tests: '/app/tests',
   videos: '/app/videos',
+  newspaper: '/app/newspaper',
   mail: '/app/mail',
   testInstructions: '/app/tests/:id/instructions',
   testEngine: '/app/tests/:id/engine',

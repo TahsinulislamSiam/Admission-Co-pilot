@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
           '/api/mail',
           '/api/professors',
           '/api/admin/professors',
+          '/api/news',
         ].map((p) => [
           p,
           { target: `http://localhost:${assistantPort}`, changeOrigin: true },
