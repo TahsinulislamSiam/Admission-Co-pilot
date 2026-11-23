@@ -63,7 +63,8 @@
     "openMenu": "Open menu",
     "videos": "Video Lessons",
     "mail": "Mail",
-    "professors": "Faculty Directory"
+    "professors": "Faculty Directory",
+    "newspaper": "Newspaper"
   },
   "landing": {
     "badge": "AI-powered admission guidance",
@@ -850,5 +851,23 @@
     "emailUnavailable": "No public email",
     "emptyTitle": "No professors yet",
     "emptyBody": "An admin has not added faculty for these universities yet."
+  },
+  "newspaper": {
+    "title": "Newspaper",
+    "subtitle": "National and international headlines, refreshed automatically from each paper's feed",
+    "refresh": "Refresh",
+    "updated": "Updated {{when}}",
+    "all": "All",
+    "national": "National",
+    "international": "International",
+    "papersTitle": "Featured papers",
+    "papersSubtitle": "Tap a card to open the paper's own website",
+    "visitSite": "Visit site",
+    "readMore": "Read full story",
+    "emptyTitle": "No headlines right now",
+    "emptyBody": "Fresh stories appear here automatically as soon as the feeds publish them.",
+    "errorTitle": "Could not load the news",
+    "errorBody": "Check the connection and hit refresh.",
+    "disclaimer": "Headlines come straight from each publisher's feed — open the source site to read the full report."
   }
 }

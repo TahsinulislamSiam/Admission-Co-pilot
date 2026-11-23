@@ -133,6 +133,54 @@ const byPath = (url) => {
   if (path.startsWith('/admin/circulars')) return []
   if (path.startsWith('/admin/questions')) return []
   if (path.startsWith('/admin/universities')) return [uni]
+  if (path === '/news/papers')
+    return [
+      {
+        id: 'prothom-alo',
+        name: { en: 'Prothom Alo', bn: 'প্রথম আলো' },
+        url: 'https://www.prothomalo.com',
+        accent: '#e11d48',
+        thumbnail: 'https://example.com/pa.jpg',
+        headline: 'Latest from Prothom Alo',
+        headlineUrl: 'https://www.prothomalo.com/x',
+      },
+      {
+        id: 'daily-star',
+        name: { en: 'The Daily Star', bn: 'দ্য ডেইলি স্টার' },
+        url: 'https://www.thedailystar.net',
+        accent: '#0f766e',
+        thumbnail: null,
+        headline: 'Latest from The Daily Star',
+        headlineUrl: 'https://www.thedailystar.net/x',
+      },
+    ]
+  if (path === '/news')
+    return {
+      scope: 'all',
+      updatedAt: Date.now(),
+      counts: { national: 1, international: 1 },
+      failed: [],
+      items: [
+        {
+          id: 'n1',
+          title: 'জাতীয় সংবাদের শিরোনাম',
+          url: 'https://www.prothomalo.com/a',
+          summary: 'সংক্ষিপ্ত বিবরণ',
+          image: null,
+          publishedAt: new Date(Date.now() - 3600e3).toISOString(),
+          source: { id: 'prothom-alo', name: { en: 'Prothom Alo', bn: 'প্রথম আলো' }, scope: 'national' },
+        },
+        {
+          id: 'n2',
+          title: 'World headline',
+          url: 'https://www.bbc.com/b',
+          summary: 'Short summary',
+          image: 'https://example.com/b.jpg',
+          publishedAt: new Date(Date.now() - 7200e3).toISOString(),
+          source: { id: 'bbc-world', name: { en: 'BBC World', bn: 'বিবিসি' }, scope: 'international' },
+        },
+      ],
+    }
   if (path.startsWith('/videos'))
     return [
       {
@@ -204,6 +252,7 @@ const RecommendationsPage = pick(await import('@/features/recommendations/pages/
 const PlatformPage = pick(await import('@/features/platform/pages/PlatformPage'))
 const TestListPage = pick(await import('@/features/mock-tests/pages/TestListPage'))
 const VideoSectionPage = pick(await import('@/features/videos/pages/VideoSectionPage'))
+const NewspaperPage = pick(await import('@/features/news/pages/NewspaperPage'))
 const StudentMailPage = pick(await import('@/features/mail/pages/StudentMailPage'))
 const ProfessorsPage = pick(await import('@/features/professors/pages/ProfessorsPage'))
 const NotFoundPage = pick(await import('@/features/misc/pages/NotFoundPage'))
@@ -233,6 +282,7 @@ const PAGES = [
   ['PlatformPage', PlatformPage, '/app/platform'],
   ['TestListPage', TestListPage, '/app/tests'],
   ['VideoSectionPage', VideoSectionPage, '/app/videos'],
+  ['NewspaperPage', NewspaperPage, '/app/newspaper'],
   ['StudentMailPage', StudentMailPage, '/app/mail'],
   ['ProfessorsPage', ProfessorsPage, '/app/professors'],
   ['AdminOverviewPage', AdminOverviewPage, '/admin/overview'],

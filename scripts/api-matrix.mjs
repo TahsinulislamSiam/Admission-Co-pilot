@@ -99,6 +99,13 @@ const main = async () => {
     await req('PATCH', '/api/users/me/profile', { token: student, body: { phone: phoneBefore } })
   }
 
+  // --- newspaper (public RSS aggregation) ---
+  await check('news all', 200, 'GET', '/api/news')
+  await check('news national', 200, 'GET', '/api/news?scope=national&limit=5')
+  await check('news international', 200, 'GET', '/api/news?scope=international&limit=5')
+  await check('news unknown scope falls back', 200, 'GET', '/api/news?scope=bogus')
+  await check('news papers', 200, 'GET', '/api/news/papers')
+
   // --- mail ---
   await check('mail inbox', 200, 'GET', '/api/mail/inbox', { token: student })
   await check('mail sent', 200, 'GET', '/api/mail/sent', { token: student })

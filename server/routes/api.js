@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs'
 import { randomBytes, randomUUID } from 'node:crypto'
 import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm'
 import { db, schema } from '../db/index.js'
+import { getNews, getPapers } from '../lib/news.js'
 
 const { users, sessions, universities, videos, messages, professors } = schema
 const router = Router()
@@ -472,6 +473,29 @@ router.post('/mail/:id/read', requireUser(false), async (req, res) => {
     .returning({ id: messages.id })
   if (!updated.length) return fail(res, 404, 'notFound')
   res.json({ read: true })
+})
+
+// ---------------------------------------------------------------- newspaper
+// Public RSS aggregation (national + international), cached 10 minutes server-side.
+router.get('/news', async (req, res) => {
+  const scope = ['national', 'international'].includes(String(req.query.scope))
+    ? String(req.query.scope)
+    : 'all'
+  const limit = Number(req.query.limit) || 24
+  try {
+    res.json(await getNews({ scope, limit }))
+  } catch {
+    res.status(502).json({ message: 'newsUnavailable' })
+  }
+})
+
+// The two featured papers with a thumbnail (og:image of their latest story).
+router.get('/news/papers', async (_req, res) => {
+  try {
+    res.json(await getPapers())
+  } catch {
+    res.status(502).json({ message: 'newsUnavailable' })
+  }
 })
 
 export default router

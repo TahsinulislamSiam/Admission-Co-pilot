@@ -18,6 +18,7 @@ import {
   Menu,
   X,
   ShieldCheck,
+  Newspaper,
 } from 'lucide-react'
 import { ROUTES } from '@/routes/constants'
 import { useAuthStore } from '@/store/authStore'
@@ -39,6 +40,7 @@ const navItems = [
   { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
   { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
   { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
+  { to: ROUTES.newspaper, icon: Newspaper, key: 'nav.newspaper' },
   { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
 ]
 
