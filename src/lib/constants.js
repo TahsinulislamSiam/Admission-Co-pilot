@@ -17,7 +17,6 @@ export const ROLES = {
 }
 
 export const GROUPS = ['science', 'commerce', 'arts']
-
 export const GROUP_LABELS = {
   science: { en: 'Science', bn: 'বিজ্ঞান' },
   commerce: { en: 'Commerce', bn: 'ব্যবসায় শিক্ষা' },
@@ -25,6 +24,18 @@ export const GROUP_LABELS = {
 }
 
 export const EXAM_PATTERNS = ['MCQ', 'Written', 'MCQ + Written']
+
+/** Admission subjects — the buckets the video library is organised into. */
+export const SUBJECTS = [
+  { value: 'math', label: 'Mathematics' },
+  { value: 'physics', label: 'Physics' },
+  { value: 'chemistry', label: 'Chemistry' },
+  { value: 'biology', label: 'Biology' },
+  { value: 'english', label: 'English' },
+  { value: 'bangla', label: 'Bangla' },
+  { value: 'ict', label: 'ICT' },
+  { value: 'gk', label: 'General Knowledge' },
+]
 
 export const DEPARTMENT_NAMES = {
   CSE: { en: 'Computer Science & Engineering', bn: 'কম্পিউটার সায়েন্স ও ইঞ্জিনিয়ারিং' },

@@ -92,4 +92,12 @@ describe('LandingPage', () => {
 
     expect(container.querySelectorAll('.animate-marquee').length).toBe(1)
   })
+
+  it('offers a dedicated admin login button on the home page', () => {
+    renderLanding()
+    expect(screen.getByRole('link', { name: /অ্যাডমিন লগইন/ })).toHaveAttribute(
+      'href',
+      '/admin/login'
+    )
+  })
 })

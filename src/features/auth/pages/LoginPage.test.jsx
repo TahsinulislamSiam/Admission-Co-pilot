@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
@@ -7,9 +7,9 @@ import '@/lib/i18n'
 import LoginPage from './LoginPage'
 
 // i18n default language is Bangla (bn) — assertions use the bn strings.
-const renderLogin = () =>
+const renderLogin = (entry = '/login') =>
   render(
-    <MemoryRouter initialEntries={['/login']}>
+    <MemoryRouter initialEntries={[entry]}>
       <LoginPage />
     </MemoryRouter>
   )
@@ -55,5 +55,32 @@ describe('LoginPage', () => {
       'href',
       '/forgot-password'
     )
+  })
+
+  it('has no demo-account quick fill', () => {
+    renderLogin()
+    expect(screen.queryByText(/ডেমো অ্যাকাউন্ট/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/ডেমো/)).not.toBeInTheDocument()
+  })
+
+  it('renders in admin mode on /admin/login and rejects a student account', async () => {
+    const { authService } = await import('@/services/authService')
+    const login = vi
+      .spyOn(authService, 'login')
+      .mockResolvedValue({ user: { id: 'u1', role: 'student', email: 'student@example.com' } })
+    const logout = vi.spyOn(authService, 'logout').mockImplementation(() => {})
+    const user = userEvent.setup()
+
+    renderLogin('/admin/login')
+    expect(screen.getByRole('heading', { name: 'অ্যাডমিন সাইন ইন' })).toBeInTheDocument()
+
+    await user.type(screen.getByLabelText(/ইমেইল/), 'student@example.com')
+    await user.type(screen.getByLabelText(/পাসওয়ার্ড/), 'password123')
+    await user.click(screen.getByRole('button', { name: /লগইন/ }))
+
+    expect(login).toHaveBeenCalled()
+    expect(logout).toHaveBeenCalled()
+    login.mockRestore()
+    logout.mockRestore()
   })
 })

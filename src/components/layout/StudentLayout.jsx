@@ -12,6 +12,7 @@ import {
   Sparkles,
   Layers,
   FileStack,
+  PlayCircle,
   LogOut,
   Menu,
   X,
@@ -35,6 +36,7 @@ const navItems = [
   { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
   { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
   { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
+  { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
 ]
 
 /** Student app shell: fixed sidebar + topbar + content area. */

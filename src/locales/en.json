@@ -60,7 +60,8 @@
     "logout": "Logout",
     "admin": "Admin",
     "getStarted": "Get started",
-    "openMenu": "Open menu"
+    "openMenu": "Open menu",
+    "videos": "Video Lessons"
   },
   "landing": {
     "badge": "AI-powered admission guidance",
@@ -88,29 +89,69 @@
     "howTitle": "How it works",
     "howSubtitle": "From profile to final admission prep — in just 7 steps",
     "steps": {
-      "s1": { "title": "Create your profile", "desc": "Give your SSC & HSC GPA, group and budget." },
-      "s2": { "title": "Set preferences", "desc": "Tell us preferred subjects, cities and hostel needs." },
-      "s3": { "title": "Explore universities", "desc": "Public and private info in one place, with sources." },
-      "s4": { "title": "Compare side by side", "desc": "Cost, waivers and deadlines — not guesswork." },
-      "s5": { "title": "Ask the AI assistant", "desc": "Ask any admission question in Bangla or English." },
-      "s6": { "title": "Take mock tests", "desc": "Real-exam feel with timers and negative marking." },
-      "s7": { "title": "Analyse mistakes", "desc": "See where you went wrong and which strategy wins." }
+      "s1": {
+        "title": "Create your profile",
+        "desc": "Give your SSC & HSC GPA, group and budget."
+      },
+      "s2": {
+        "title": "Set preferences",
+        "desc": "Tell us preferred subjects, cities and hostel needs."
+      },
+      "s3": {
+        "title": "Explore universities",
+        "desc": "Public and private info in one place, with sources."
+      },
+      "s4": {
+        "title": "Compare side by side",
+        "desc": "Cost, waivers and deadlines — not guesswork."
+      },
+      "s5": {
+        "title": "Ask the AI assistant",
+        "desc": "Ask any admission question in Bangla or English."
+      },
+      "s6": {
+        "title": "Take mock tests",
+        "desc": "Real-exam feel with timers and negative marking."
+      },
+      "s7": {
+        "title": "Analyse mistakes",
+        "desc": "See where you went wrong and which strategy wins."
+      }
     },
     "featuresTitle": "Everything you need, in one place",
     "featuresSubtitle": "A dedicated tool for every step of admission prep",
-    "featureChat": { "title": "Bilingual AI assistant", "desc": "Ask in Bangla or English — every answer comes with source links." },
-    "featureVerified": { "title": "Verified records", "desc": "Every record shows the official source and a last-verified date. No rumours." },
-    "featureRecommend": { "title": "AI recommendations", "desc": "University–department matches based on your GPA and budget." },
-    "featureTests": { "title": "Realistic mock tests", "desc": "Countdown timer, question palette, review marks and negative marking." },
-    "featureAnalysis": { "title": "Mistake analysis", "desc": "Concept gap, careless error, time pressure or guess — every mistake is labelled." },
-    "featureCompare": { "title": "Cost breakdown", "desc": "Compare total cost, waivers and tuition across private universities." },
+    "featureChat": {
+      "title": "Bilingual AI assistant",
+      "desc": "Ask in Bangla or English — every answer comes with source links."
+    },
+    "featureVerified": {
+      "title": "Verified records",
+      "desc": "Every record shows the official source and a last-verified date. No rumours."
+    },
+    "featureRecommend": {
+      "title": "AI recommendations",
+      "desc": "University–department matches based on your GPA and budget."
+    },
+    "featureTests": {
+      "title": "Realistic mock tests",
+      "desc": "Countdown timer, question palette, review marks and negative marking."
+    },
+    "featureAnalysis": {
+      "title": "Mistake analysis",
+      "desc": "Concept gap, careless error, time pressure or guess — every mistake is labelled."
+    },
+    "featureCompare": {
+      "title": "Cost breakdown",
+      "desc": "Compare total cost, waivers and tuition across private universities."
+    },
     "ctaTitle": "Start your admission journey today",
     "ctaDesc": "Registration is free. Build a profile in minutes and get your first recommendations.",
     "ctaButton": "Create account",
     "heroCardTitle": "AI Assistant",
     "heroCardQ": "How many seats are there in DU 'A' unit?",
     "heroCardA": "The 'A' unit (Science faculty) has about 1,790 seats.",
-    "heroCardSource": "Source: DU admission portal"
+    "heroCardSource": "Source: DU admission portal",
+    "adminLogin": "Admin Login"
   },
   "footer": {
     "aboutTitle": "Admission Copilot",
@@ -146,9 +187,6 @@
     "backToLogin": "Back to login",
     "loginSuccess": "Logged in successfully",
     "registerSuccess": "Registered! Welcome {{name}}",
-    "demoAccounts": "Demo accounts",
-    "demoStudent": "Student",
-    "demoAdmin": "Admin",
     "fill": "Fill",
     "errors": {
       "emailRequired": "Email is required",
@@ -163,7 +201,11 @@
       "emailExists": "An account with this email already exists",
       "generic": "Request failed, please try again",
       "timeout": "Request timed out (10 seconds). Please try again."
-    }
+    },
+    "adminLoginTitle": "Admin sign in",
+    "adminLoginSubtitle": "Restricted area — administrator accounts only.",
+    "adminLoginHint": "Students should use the regular sign-in page.",
+    "notAdminAccount": "This account is not an administrator."
   },
   "profile": {
     "title": "Your profile",
@@ -175,7 +217,11 @@
     "hscGpa": "HSC GPA",
     "gpaHint": "Between 0 and 5 (up to 2 decimals)",
     "group": "Group",
-    "groups": { "science": "Science", "commerce": "Commerce", "arts": "Arts" },
+    "groups": {
+      "science": "Science",
+      "commerce": "Commerce",
+      "arts": "Arts"
+    },
     "budget": "Total budget (BDT)",
     "budgetHint": "Maximum you can afford for 4 years of study",
     "preferredSubjects": "Preferred subjects",
@@ -192,8 +238,27 @@
       "budgetMin": "Budget must be 0 or more",
       "budgetMax": "Budget looks too large — max 10 million"
     },
-    "subjects": { "CSE": "CSE", "EEE": "EEE", "BBA": "BBA", "CIVIL": "Civil", "ENGLISH": "English", "LAW": "Law", "PHARMACY": "Pharmacy", "ECON": "Economics", "ENV": "Env. Science" },
-    "cities": { "Dhaka": "Dhaka", "Chattogram": "Chattogram", "Rajshahi": "Rajshahi", "Khulna": "Khulna", "Sylhet": "Sylhet", "Gazipur": "Gazipur", "Bogura": "Bogura", "Cumilla": "Cumilla" }
+    "subjects": {
+      "CSE": "CSE",
+      "EEE": "EEE",
+      "BBA": "BBA",
+      "CIVIL": "Civil",
+      "ENGLISH": "English",
+      "LAW": "Law",
+      "PHARMACY": "Pharmacy",
+      "ECON": "Economics",
+      "ENV": "Env. Science"
+    },
+    "cities": {
+      "Dhaka": "Dhaka",
+      "Chattogram": "Chattogram",
+      "Rajshahi": "Rajshahi",
+      "Khulna": "Khulna",
+      "Sylhet": "Sylhet",
+      "Gazipur": "Gazipur",
+      "Bogura": "Bogura",
+      "Cumilla": "Cumilla"
+    }
   },
   "universities": {
     "publicTitle": "Public University Hub",
@@ -500,7 +565,10 @@
       "overview": "Overview",
       "circulars": "Circular Upload",
       "universities": "University Records",
-      "questions": "Question Review"
+      "questions": "Question Review",
+      "users": "Users",
+      "videos": "Videos",
+      "mail": "Mail"
     },
     "overview": {
       "title": "Overview",
@@ -614,6 +682,119 @@
       "rejected": "Question rejected",
       "updated": "Question updated",
       "noQuestions": "No questions for this filter"
+    },
+    "users": {
+      "title": "User accounts",
+      "subtitle": "Every registered account, with details and removal.",
+      "total": "{{count}} users",
+      "students": "{{count}} students",
+      "admins": "{{count}} admin",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "joined": "Joined",
+      "actions": "Actions",
+      "roleAdmin": "Admin",
+      "roleStudent": "Student",
+      "view": "View details",
+      "remove": "Remove user",
+      "searchPlaceholder": "Search by name or email",
+      "emptyTitle": "No accounts found",
+      "emptyBody": "Try a different search, or nobody has registered yet.",
+      "detailsTitle": "Account details",
+      "attempts": "Mock tests taken",
+      "group": "HSC group",
+      "hscGpa": "HSC GPA",
+      "phone": "Phone",
+      "confirmTitle": "Remove this account?",
+      "confirmBody": "{{name}} and all their results and mail will be deleted. This cannot be undone.",
+      "removing": "Removing…",
+      "deleted": "Account removed",
+      "footnote": "Removing an account deletes its sessions, test attempts and messages.",
+      "errors": {
+        "cannotDeleteSelf": "You cannot remove your own account.",
+        "lastAdmin": "The last admin account cannot be removed.",
+        "notFound": "That account no longer exists.",
+        "serverError": "Could not remove the account. Try again."
+      }
+    },
+    "videos": {
+      "title": "Video lessons",
+      "subtitle": "Add YouTube lessons by subject and topic; students see them in their Video section.",
+      "addHeading": "Add a lesson",
+      "videoTitle": "Video title",
+      "titlePlaceholder": "e.g. Integration basics in 20 minutes",
+      "subject": "Subject",
+      "topic": "Topic",
+      "topicPlaceholder": "e.g. Integration",
+      "youtubeUrl": "YouTube URL",
+      "urlHint": "Paste any youtube.com/watch, youtu.be, /shorts or /embed link.",
+      "channel": "Channel",
+      "channelPlaceholder": "e.g. 10 Minute School",
+      "add": "Add video",
+      "adding": "Adding…",
+      "added": "Video added",
+      "library": "Library ({{count}})",
+      "allSubjects": "All subjects",
+      "count": "{{count}} videos",
+      "open": "Watch",
+      "remove": "Remove video",
+      "removed": "Video removed",
+      "emptyTitle": "No videos yet",
+      "emptyBody": "Add the first lesson with the form above.",
+      "errors": {
+        "invalidYoutubeUrl": "That does not look like a YouTube link.",
+        "titleAndSubjectRequired": "Title and subject are required.",
+        "serverError": "Could not save the video. Try again."
+      }
+    },
+    "mail": {
+      "title": "Mail",
+      "subtitle": "Send notices to a student and read their replies — all inside the app.",
+      "inbox": "Inbox",
+      "sentTab": "Sent",
+      "unread": "{{count}} unread",
+      "emptyTitle": "Nothing here yet",
+      "emptyInbox": "No messages have arrived.",
+      "emptySent": "You have not sent anything yet.",
+      "from": "From",
+      "to": "To",
+      "reply": "Reply",
+      "replySubject": "Re: your message",
+      "compose": "New message",
+      "toLabel": "Recipient",
+      "toPlaceholder": "student@example.com",
+      "searchUsers": "Search registered users",
+      "subject": "Subject",
+      "message": "Message",
+      "messagePlaceholder": "Write your message…",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sent": "Message sent",
+      "errors": {
+        "recipientNotFound": "No account uses that email.",
+        "cannotMailSelf": "You cannot mail yourself.",
+        "subjectAndBodyRequired": "Subject and message are required.",
+        "serverError": "Could not send the message. Try again."
+      }
     }
+  },
+  "subjects": {
+    "math": "Mathematics",
+    "physics": "Physics",
+    "chemistry": "Chemistry",
+    "biology": "Biology",
+    "english": "English",
+    "bangla": "Bangla",
+    "ict": "ICT",
+    "gk": "General Knowledge"
+  },
+  "videos": {
+    "title": "Video Lessons",
+    "subtitle": "Short lessons picked for the admission syllabus, grouped by subject.",
+    "all": "All subjects",
+    "emptyTitle": "No videos yet",
+    "emptyBody": "An admin has not added any lesson to this subject yet.",
+    "openOnYoutube": "Open on YouTube"
   }
 }
