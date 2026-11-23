@@ -86,3 +86,49 @@ export const circulars = pgTable(
   },
   (t) => [index('circulars_status_idx').on(t.status)]
 )
+
+/**
+ * Video lessons, added by an admin and grouped by subject (math, physics,
+ * chemistry, ...) then topic ("Integration"). Only the YouTube URL is stored on
+ * top of the plain columns; the rest of the record is editable metadata.
+ */
+export const videos = pgTable(
+  'videos',
+  {
+    id: text('id').primaryKey(),
+    title: text('title').notNull(),
+    subject: text('subject').notNull(), // 'math' | 'physics' | 'chemistry' | ...
+    topic: text('topic').notNull().default(''),
+    youtubeUrl: text('youtube_url').notNull(),
+    youtubeId: text('youtube_id').notNull(), // 11-char id, used for the embed
+    channel: text('channel'),
+    addedBy: text('added_by').references(() => users.id, { onDelete: 'set null' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('videos_subject_idx').on(t.subject)]
+)
+
+/**
+ * In-app mailbox (admin <-> user). Not email: both parties read it inside the
+ * app, so it works without SMTP credentials and is fully backed by the database.
+ */
+export const messages = pgTable(
+  'messages',
+  {
+    id: text('id').primaryKey(),
+    fromUserId: text('from_user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    toUserId: text('to_user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    subject: text('subject').notNull(),
+    body: text('body').notNull(),
+    readAt: timestamp('read_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index('messages_to_idx').on(t.toUserId),
+    index('messages_from_idx').on(t.fromUserId),
+  ]
+)

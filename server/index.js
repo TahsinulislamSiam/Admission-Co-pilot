@@ -18,6 +18,8 @@ import 'dotenv/config'
 import express from 'express'
 import { chatHandler, suggestionsHandler } from './assistant.js'
 import { healthCheck, isConfigured, close as closeDb } from './db.js'
+import { hasDatabase } from './db/index.js'
+import apiRouter from './routes/api.js'
 
 const PORT = Number(process.env.ASSISTANT_PORT || process.env.PORT || 8787)
 const app = express()
@@ -36,8 +38,8 @@ app.use((req, res, next) => {
   if (origin && ALLOWED_ORIGINS.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin)
     res.setHeader('Vary', 'Origin')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,OPTIONS')
   } else if (origin) {
     // Unknown origin: no CORS headers, the browser blocks the response.
     res.setHeader('Vary', 'Origin')
@@ -92,6 +94,17 @@ app.get('/api/db/health', async (_req, res) => {
   const database = await healthCheck()
   res.status(database.ok ? 200 : 503).json(database)
 })
+
+// --- accounts, universities, videos and mail (Postgres) ---
+if (hasDatabase) {
+  app.use('/api', apiRouter)
+} else {
+  app.use('/api', (req, res, next) =>
+    req.path.startsWith('/assistant') || req.path === '/health' || req.path === '/db/health'
+      ? next()
+      : res.status(503).json({ message: 'databaseNotConfigured' })
+  )
+}
 
 // 404 for anything else, as JSON so the UI's error handling can read it.
 app.use((_req, res) => res.status(404).json({ message: 'notFound' }))

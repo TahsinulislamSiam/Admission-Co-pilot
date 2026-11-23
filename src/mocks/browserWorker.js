@@ -11,7 +11,18 @@ const LIVE_ASSISTANT = import.meta.env.VITE_ASSISTANT_MODE === 'live'
 const USE_DB = import.meta.env.VITE_USE_DB === 'true'
 
 /** Paths served by the real Express + Neon API when VITE_USE_DB=true. */
-const DB_PATHS = ['/api/auth', '/api/users/me/profile', '/api/universities', '/api/admin/universities']
+const DB_PATHS = [
+  '/api/auth',
+  '/api/users/me/profile',
+  '/api/universities',
+  // only the admin endpoints Express actually implements — overview, circulars
+  // and questions still come from the mock DB
+  '/api/admin/users',
+  '/api/admin/universities',
+  '/api/admin/videos',
+  '/api/videos',
+  '/api/mail',
+]
 
 const activeHandlers = handlers.filter((h) => {
   const path = String(h.info?.path)
