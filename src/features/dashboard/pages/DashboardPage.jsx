@@ -14,6 +14,7 @@ import {
   Building2,
   UserRound,
   Mail,
+  Newspaper,
 } from 'lucide-react'
 import {
   LineChart,
@@ -48,6 +49,7 @@ const quickLinks = [
   { to: ROUTES.publicUniversities, icon: Landmark, key: 'nav.publicUniversities' },
   { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
   { to: ROUTES.professors, icon: GraduationCap, key: 'nav.professors' },
+  { to: ROUTES.newspaper, icon: Newspaper, key: 'nav.newspaper' },
   { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
   { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
 ]
