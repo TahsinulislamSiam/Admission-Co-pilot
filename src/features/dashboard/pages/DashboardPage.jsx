@@ -12,6 +12,7 @@ import {
   Landmark,
   Building2,
   UserRound,
+  Mail,
 } from 'lucide-react'
 import {
   LineChart,
@@ -38,12 +39,14 @@ import { ROUTES, route } from '@/routes/constants'
 import { MISTAKE_TYPE_COLORS, MISTAKE_TYPES } from '@/lib/constants'
 import { useAuthStore } from '@/store/authStore'
 import { useDocumentTitle } from '@/hooks/useDocumentTitle'
+import { useUnreadMail } from '@/features/mail/hooks/useMail'
 
 const quickLinks = [
   { to: ROUTES.assistant, icon: MessagesSquare, key: 'nav.assistant' },
   { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
   { to: ROUTES.publicUniversities, icon: Landmark, key: 'nav.publicUniversities' },
   { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
+  { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
   { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
 ]
 
@@ -55,6 +58,7 @@ const quickLinks = [
 export default function DashboardPage() {
   useDocumentTitle('nav.dashboard')
   const { t } = useTranslation()
+  const { data: unreadMail = 0 } = useUnreadMail()
   const { lang } = useLocale()
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
@@ -303,6 +307,11 @@ export default function DashboardPage() {
                   >
                     <Icon className="h-4 w-4 text-brand-600" />
                     {t(key)}
+                    {key === 'nav.mail' && unreadMail > 0 && (
+                      <span className="rounded-full bg-brand-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                        {unreadMail}
+                      </span>
+                    )}
                     <ArrowRight className="ml-auto h-3.5 w-3.5 text-slate-300" />
                   </Link>
                 ))}

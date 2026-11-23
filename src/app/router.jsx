@@ -34,6 +34,7 @@ const InstructionsPage = lazy(() => import('@/features/mock-tests/pages/Instruct
 const TestEnginePage = lazy(() => import('@/features/mock-tests/pages/TestEnginePage'))
 const ResultPage = lazy(() => import('@/features/analysis/pages/ResultPage'))
 const VideoSectionPage = lazy(() => import('@/features/videos/pages/VideoSectionPage'))
+const StudentMailPage = lazy(() => import('@/features/mail/pages/StudentMailPage'))
 
 // --- admin pages (lazy) ---
 const AdminOverviewPage = lazy(() => import('@/features/admin/pages/AdminOverviewPage'))
@@ -96,6 +97,7 @@ export const router = createBrowserRouter([
           { path: 'platform', element: lz(PlatformPage) },
           { path: 'tests', element: lz(TestListPage) },
           { path: 'videos', element: lz(VideoSectionPage) },
+          { path: 'mail', element: lz(StudentMailPage) },
           { path: 'results/:attemptId', element: lz(ResultPage) },
         ],
       },

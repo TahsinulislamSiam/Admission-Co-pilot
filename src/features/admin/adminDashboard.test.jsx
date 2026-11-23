@@ -56,11 +56,19 @@ vi.mock('@/services/adminService', () => ({
     ]),
     addVideo: vi.fn(),
     deleteVideo: vi.fn(),
+  },
+}))
+
+vi.mock('@/services/mailService', () => ({
+  mailService: {
     inbox: vi.fn(async () => inboxMock),
     sent: vi.fn(async () => []),
-    sendMail: vi.fn(),
-    markMailRead: vi.fn(),
-    unreadMailCount: vi.fn(async () => 1),
+    send: vi.fn(),
+    markRead: vi.fn(),
+    unreadCount: vi.fn(async () => 1),
+    contacts: vi.fn(async () => [
+      { id: 'u1', name: 'Rakib Hasan', email: 'student@example.com', role: 'student' },
+    ]),
   },
 }))
 

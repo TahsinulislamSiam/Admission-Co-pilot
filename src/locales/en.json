@@ -61,7 +61,8 @@
     "admin": "Admin",
     "getStarted": "Get started",
     "openMenu": "Open menu",
-    "videos": "Video Lessons"
+    "videos": "Video Lessons",
+    "mail": "Mail"
   },
   "landing": {
     "badge": "AI-powered admission guidance",
@@ -747,36 +748,6 @@
         "titleAndSubjectRequired": "Title and subject are required.",
         "serverError": "Could not save the video. Try again."
       }
-    },
-    "mail": {
-      "title": "Mail",
-      "subtitle": "Send notices to a student and read their replies — all inside the app.",
-      "inbox": "Inbox",
-      "sentTab": "Sent",
-      "unread": "{{count}} unread",
-      "emptyTitle": "Nothing here yet",
-      "emptyInbox": "No messages have arrived.",
-      "emptySent": "You have not sent anything yet.",
-      "from": "From",
-      "to": "To",
-      "reply": "Reply",
-      "replySubject": "Re: your message",
-      "compose": "New message",
-      "toLabel": "Recipient",
-      "toPlaceholder": "student@example.com",
-      "searchUsers": "Search registered users",
-      "subject": "Subject",
-      "message": "Message",
-      "messagePlaceholder": "Write your message…",
-      "send": "Send message",
-      "sending": "Sending…",
-      "sent": "Message sent",
-      "errors": {
-        "recipientNotFound": "No account uses that email.",
-        "cannotMailSelf": "You cannot mail yourself.",
-        "subjectAndBodyRequired": "Subject and message are required.",
-        "serverError": "Could not send the message. Try again."
-      }
     }
   },
   "subjects": {
@@ -796,5 +767,36 @@
     "emptyTitle": "No videos yet",
     "emptyBody": "An admin has not added any lesson to this subject yet.",
     "openOnYoutube": "Open on YouTube"
+  },
+  "mail": {
+    "title": "Mail",
+    "subtitleStudent": "Read notices from your admission team and reply — messages stay inside the app.",
+    "subtitleAdmin": "Send notices to a student and read their replies — all inside the app.",
+    "inbox": "Inbox",
+    "sentTab": "Sent",
+    "unread": "{{count}} unread",
+    "emptyTitle": "Nothing here yet",
+    "emptyInbox": "No messages have arrived.",
+    "emptySent": "You have not sent anything yet.",
+    "from": "From",
+    "to": "To",
+    "reply": "Reply",
+    "replySubject": "Re: your message",
+    "compose": "New message",
+    "toLabel": "Recipient",
+    "toPlaceholder": "student@example.com",
+    "searchContacts": "Search people",
+    "subject": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Write your message…",
+    "send": "Send message",
+    "sending": "Sending…",
+    "sent": "Message sent",
+    "errors": {
+      "recipientNotFound": "No account uses that email.",
+      "cannotMailSelf": "You cannot mail yourself.",
+      "subjectAndBodyRequired": "Subject and message are required.",
+      "serverError": "Could not send the message. Try again."
+    }
   }
 }

@@ -202,51 +202,5 @@ export const adminService = {
     } catch (e) {
       throw normalizedError(e)
     }
-  },
-
-  // --- mail (in-app inbox) ---
-  async inbox() {
-    try {
-      const { data } = await api.get('/mail/inbox')
-      return data
-    } catch (e) {
-      throw normalizedError(e)
-    }
-  },
-
-  async sent() {
-    try {
-      const { data } = await api.get('/mail/sent')
-      return data
-    } catch (e) {
-      throw normalizedError(e)
-    }
-  },
-
-  async sendMail(payload) {
-    try {
-      const { data } = await api.post('/mail', payload)
-      return data
-    } catch (e) {
-      throw normalizedError(e)
-    }
-  },
-
-  async markMailRead(id) {
-    try {
-      const { data } = await api.post(`/mail/${id}/read`)
-      return data
-    } catch (e) {
-      throw normalizedError(e)
-    }
-  },
-
-  async unreadMailCount() {
-    try {
-      const { data } = await api.get('/mail/unread')
-      return data.total ?? 0
-    } catch (e) {
-      throw normalizedError(e)
-    }
-  },
+  }
 }

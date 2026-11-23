@@ -61,7 +61,8 @@
     "admin": "অ্যাডমিন",
     "getStarted": "শুরু করুন",
     "openMenu": "মেনু খুলুন",
-    "videos": "ভিডিও লেসন"
+    "videos": "ভিডিও লেসন",
+    "mail": "মেইল"
   },
   "landing": {
     "badge": "এআই-চালিত ভর্তি গাইডলাইন",
@@ -747,36 +748,6 @@
         "titleAndSubjectRequired": "নাম ও বিষয় দিতে হবে।",
         "serverError": "ভিডিও সেভ করা যায়নি। আবার চেষ্টা করুন।"
       }
-    },
-    "mail": {
-      "title": "মেইল",
-      "subtitle": "শিক্ষার্থীকে নোটিশ পাঠান এবং তাদের উত্তর পড়ুন — সব অ্যাপের ভেতরেই।",
-      "inbox": "ইনবক্স",
-      "sentTab": "পাঠানো",
-      "unread": "{{count}} অপঠিত",
-      "emptyTitle": "এখনো কিছু নেই",
-      "emptyInbox": "কোনো বার্তা আসেনি।",
-      "emptySent": "আপনি এখনো কিছু পাঠাননি।",
-      "from": "প্রেরক",
-      "to": "প্রাপক",
-      "reply": "উত্তর দিন",
-      "replySubject": "আপনার বার্তার উত্তর",
-      "compose": "নতুন বার্তা",
-      "toLabel": "প্রাপক",
-      "toPlaceholder": "student@example.com",
-      "searchUsers": "নিবন্ধিত ইউজার খুঁজুন",
-      "subject": "বিষয়",
-      "message": "বার্তা",
-      "messagePlaceholder": "বার্তা লিখুন…",
-      "send": "বার্তা পাঠান",
-      "sending": "পাঠানো হচ্ছে…",
-      "sent": "বার্তা পাঠানো হয়েছে",
-      "errors": {
-        "recipientNotFound": "এই ইমেইলে কোনো অ্যাকাউন্ট নেই।",
-        "cannotMailSelf": "নিজেকে মেইল পাঠানো যাবে না।",
-        "subjectAndBodyRequired": "বিষয় ও বার্তা দিতে হবে।",
-        "serverError": "বার্তা পাঠানো যায়নি। আবার চেষ্টা করুন।"
-      }
     }
   },
   "subjects": {
@@ -796,5 +767,36 @@
     "emptyTitle": "এখনো কোনো ভিডিও নেই",
     "emptyBody": "এই বিষয়ে অ্যাডমিন এখনো কোনো লেসন যোগ করেননি।",
     "openOnYoutube": "ইউটিউবে দেখুন"
+  },
+  "mail": {
+    "title": "মেইল",
+    "subtitleStudent": "ভর্তি টিমের নোটিশ পড়ুন ও উত্তর দিন — বার্তা অ্যাপের ভেতরেই থাকে।",
+    "subtitleAdmin": "শিক্ষার্থীকে নোটিশ পাঠান এবং তাদের উত্তর পড়ুন — সব অ্যাপের ভেতরেই।",
+    "inbox": "ইনবক্স",
+    "sentTab": "পাঠানো",
+    "unread": "{{count}} অপঠিত",
+    "emptyTitle": "এখনো কিছু নেই",
+    "emptyInbox": "কোনো বার্তা আসেনি।",
+    "emptySent": "আপনি এখনো কিছু পাঠাননি।",
+    "from": "প্রেরক",
+    "to": "প্রাপক",
+    "reply": "উত্তর দিন",
+    "replySubject": "আপনার বার্তার উত্তর",
+    "compose": "নতুন বার্তা",
+    "toLabel": "প্রাপক",
+    "toPlaceholder": "student@example.com",
+    "searchContacts": "নাম বা ইমেইল খুঁজুন",
+    "subject": "বিষয়",
+    "message": "বার্তা",
+    "messagePlaceholder": "বার্তা লিখুন…",
+    "send": "বার্তা পাঠান",
+    "sending": "পাঠানো হচ্ছে…",
+    "sent": "বার্তা পাঠানো হয়েছে",
+    "errors": {
+      "recipientNotFound": "এই ইমেইলে কোনো অ্যাকাউন্ট নেই।",
+      "cannotMailSelf": "নিজেকে মেইল পাঠানো যাবে না।",
+      "subjectAndBodyRequired": "বিষয় ও বার্তা দিতে হবে।",
+      "serverError": "বার্তা পাঠানো যায়নি। আবার চেষ্টা করুন।"
+    }
   }
 }
