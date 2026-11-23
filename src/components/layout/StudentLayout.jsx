@@ -13,6 +13,7 @@ import {
   Layers,
   FileStack,
   PlayCircle,
+  Mail,
   LogOut,
   Menu,
   X,
@@ -37,6 +38,7 @@ const navItems = [
   { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
   { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
   { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
+  { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
 ]
 
 /** Student app shell: fixed sidebar + topbar + content area. */

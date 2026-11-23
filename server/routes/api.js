@@ -358,6 +358,25 @@ const mailbox = (direction) => async (req, res) => {
 router.get('/mail/inbox', requireUser(false), mailbox('inbox'))
 router.get('/mail/sent', requireUser(false), mailbox('sent'))
 
+/**
+ * Who the caller may write to: admins write to anyone, students only to admins.
+ * (Students cannot read /admin/users, so they need this list.)
+ */
+router.get('/mail/contacts', requireUser(false), async (req, res) => {
+  const rows =
+    req.user.role === 'admin'
+      ? await db
+          .select({ id: users.id, name: users.name, email: users.email, role: users.role })
+          .from(users)
+          .orderBy(users.name)
+      : await db
+          .select({ id: users.id, name: users.name, email: users.email, role: users.role })
+          .from(users)
+          .where(eq(users.role, 'admin'))
+          .orderBy(users.name)
+  res.json(rows.filter((u) => u.id !== req.user.id))
+})
+
 router.get('/mail/unread', requireUser(false), async (req, res) => {
   const [row] = await db
     .select({ total: sql`count(*)::int` })

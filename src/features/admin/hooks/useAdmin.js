@@ -196,32 +196,3 @@ export function useDeleteVideo() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['videos'] }),
   })
 }
-
-// -------------------------------------------------------------------- mail
-export function useInbox() {
-  return useQuery({ queryKey: ['mail', 'inbox'], queryFn: adminService.inbox })
-}
-
-export function useSentMail() {
-  return useQuery({ queryKey: ['mail', 'sent'], queryFn: adminService.sent })
-}
-
-export function useUnreadMail() {
-  return useQuery({ queryKey: ['mail', 'unread'], queryFn: adminService.unreadMailCount })
-}
-
-export function useSendMail() {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: (payload) => adminService.sendMail(payload),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['mail'] }),
-  })
-}
-
-export function useMarkMailRead() {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: (id) => adminService.markMailRead(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['mail'] }),
-  })
-}
