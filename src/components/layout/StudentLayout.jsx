@@ -13,6 +13,7 @@ import {
   Layers,
   FileStack,
   PlayCircle,
+  Mail,
   LogOut,
   Menu,
   X,
@@ -31,12 +32,14 @@ const navItems = [
   { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
   { to: ROUTES.publicUniversities, icon: Landmark, key: 'nav.publicUniversities' },
   { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
+  { to: ROUTES.professors, icon: GraduationCap, key: 'nav.professors' },
   { to: ROUTES.compare, icon: Scale, key: 'nav.compare' },
   { to: ROUTES.assistant, icon: MessagesSquare, key: 'nav.assistant' },
   { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
   { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
   { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
   { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
+  { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
 ]
 
 /** Student app shell: fixed sidebar + topbar + content area. */

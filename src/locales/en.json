@@ -61,7 +61,9 @@
     "admin": "Admin",
     "getStarted": "Get started",
     "openMenu": "Open menu",
-    "videos": "Video Lessons"
+    "videos": "Video Lessons",
+    "mail": "Mail",
+    "professors": "Faculty Directory"
   },
   "landing": {
     "badge": "AI-powered admission guidance",
@@ -568,7 +570,8 @@
       "questions": "Question Review",
       "users": "Users",
       "videos": "Videos",
-      "mail": "Mail"
+      "mail": "Mail",
+      "professors": "Professors"
     },
     "overview": {
       "title": "Overview",
@@ -748,34 +751,41 @@
         "serverError": "Could not save the video. Try again."
       }
     },
-    "mail": {
-      "title": "Mail",
-      "subtitle": "Send notices to a student and read their replies — all inside the app.",
-      "inbox": "Inbox",
-      "sentTab": "Sent",
-      "unread": "{{count}} unread",
-      "emptyTitle": "Nothing here yet",
-      "emptyInbox": "No messages have arrived.",
-      "emptySent": "You have not sent anything yet.",
-      "from": "From",
-      "to": "To",
-      "reply": "Reply",
-      "replySubject": "Re: your message",
-      "compose": "New message",
-      "toLabel": "Recipient",
-      "toPlaceholder": "student@example.com",
-      "searchUsers": "Search registered users",
-      "subject": "Subject",
-      "message": "Message",
-      "messagePlaceholder": "Write your message…",
-      "send": "Send message",
-      "sending": "Sending…",
-      "sent": "Message sent",
+    "professors": {
+      "title": "Professors",
+      "subtitle": "Add or remove university faculty; students see them in their Faculty Directory.",
+      "addHeading": "Add a professor",
+      "universitySection": "University",
+      "professorSection": "Professor",
+      "university": "University name",
+      "universityPlaceholder": "e.g. Stanford University",
+      "rank": "QS rank (optional)",
+      "city": "City",
+      "country": "Country",
+      "website": "University website",
+      "directory": "Directory ({{count}})",
+      "name": "Professor name",
+      "namePlaceholder": "e.g. Fei-Fei Li",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Professor of Computer Science",
+      "email": "Email",
+      "department": "Department",
+      "profileUrl": "Profile URL",
+      "researchFields": "Research fields",
+      "researchFieldsPlaceholder": "Machine Learning, Computer Vision",
+      "researchFieldsHint": "Separate fields with commas — students can filter by them.",
+      "add": "Add professor",
+      "adding": "Adding…",
+      "added": "Professor added",
+      "removed": "{{name}} removed",
+      "searchPlaceholder": "Search the directory",
+      "remove": "Remove professor",
+      "noEmail": "No public email",
+      "emptyTitle": "No professors yet",
+      "emptyBody": "Add the first professor with the form above.",
       "errors": {
-        "recipientNotFound": "No account uses that email.",
-        "cannotMailSelf": "You cannot mail yourself.",
-        "subjectAndBodyRequired": "Subject and message are required.",
-        "serverError": "Could not send the message. Try again."
+        "nameAndUniversityRequired": "Professor name and university are required.",
+        "serverError": "Could not save the professor. Try again."
       }
     }
   },
@@ -796,5 +806,49 @@
     "emptyTitle": "No videos yet",
     "emptyBody": "An admin has not added any lesson to this subject yet.",
     "openOnYoutube": "Open on YouTube"
+  },
+  "mail": {
+    "title": "Mail",
+    "subtitleStudent": "Read notices from your admission team and reply — messages stay inside the app.",
+    "subtitleAdmin": "Send notices to a student and read their replies — all inside the app.",
+    "inbox": "Inbox",
+    "sentTab": "Sent",
+    "unread": "{{count}} unread",
+    "emptyTitle": "Nothing here yet",
+    "emptyInbox": "No messages have arrived.",
+    "emptySent": "You have not sent anything yet.",
+    "from": "From",
+    "to": "To",
+    "reply": "Reply",
+    "replySubject": "Re: your message",
+    "compose": "New message",
+    "toLabel": "Recipient",
+    "toPlaceholder": "student@example.com",
+    "searchContacts": "Search people",
+    "subject": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Write your message…",
+    "send": "Send message",
+    "sending": "Sending…",
+    "sent": "Message sent",
+    "errors": {
+      "recipientNotFound": "No account uses that email.",
+      "cannotMailSelf": "You cannot mail yourself.",
+      "subjectAndBodyRequired": "Subject and message are required.",
+      "serverError": "Could not send the message. Try again."
+    }
+  },
+  "professors": {
+    "title": "Faculty Directory",
+    "subtitle": "Professors at the universities on your list — their department, research fields and contact.",
+    "searchPlaceholder": "Search a professor or a university",
+    "allFields": "All research fields",
+    "rank": "QS #{{rank}}",
+    "website": "University site",
+    "email": "Email",
+    "profile": "Profile",
+    "emailUnavailable": "No public email",
+    "emptyTitle": "No professors yet",
+    "emptyBody": "An admin has not added faculty for these universities yet."
   }
 }
