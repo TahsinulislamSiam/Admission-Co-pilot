@@ -85,6 +85,9 @@ describe('assistantService.streamMessage', () => {
 
 describe('isLiveAssistant', () => {
   it('defaults to mock mode when the flag is not set', () => {
+    // .env may set VITE_ASSISTANT_MODE=live for local dev, so pin the flag here
+    vi.stubEnv('VITE_ASSISTANT_MODE', '')
     expect(isLiveAssistant()).toBe(false)
+    vi.unstubAllEnvs()
   })
 })

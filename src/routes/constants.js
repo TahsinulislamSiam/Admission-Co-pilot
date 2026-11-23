@@ -15,12 +15,14 @@ export const ROUTES = {
   publicUniversityDetail: '/app/public-universities/:id',
   privateUniversities: '/app/private-universities',
   privateUniversityDetail: '/app/private-universities/:id',
+  professors: '/app/professors',
   compare: '/app/compare',
   assistant: '/app/assistant',
   recommendations: '/app/recommendations',
   platform: '/app/platform',
   tests: '/app/tests',
   videos: '/app/videos',
+  mail: '/app/mail',
   testInstructions: '/app/tests/:id/instructions',
   testEngine: '/app/tests/:id/engine',
   testResult: '/app/results/:attemptId',
@@ -36,6 +38,7 @@ export const ROUTES = {
   adminUsers: '/admin/users',
   adminVideos: '/admin/videos',
   adminMail: '/admin/mail',
+  adminProfessors: '/admin/professors',
 }
 
 export const route = (path, params) => {
