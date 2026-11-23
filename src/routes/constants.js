@@ -5,6 +5,7 @@ export const ROUTES = {
   login: '/login',
   register: '/register',
   forgotPassword: '/forgot-password',
+  adminLogin: '/admin/login', // admin sign-in, public
 
   // student app (protected)
   app: '/app',
@@ -19,6 +20,7 @@ export const ROUTES = {
   recommendations: '/app/recommendations',
   platform: '/app/platform',
   tests: '/app/tests',
+  videos: '/app/videos',
   testInstructions: '/app/tests/:id/instructions',
   testEngine: '/app/tests/:id/engine',
   testResult: '/app/results/:attemptId',
@@ -31,6 +33,9 @@ export const ROUTES = {
   adminCircularReview: '/admin/circulars/:id/review',
   adminRecords: '/admin/records',
   adminQuestions: '/admin/questions',
+  adminUsers: '/admin/users',
+  adminVideos: '/admin/videos',
+  adminMail: '/admin/mail',
 }
 
 export const route = (path, params) => {

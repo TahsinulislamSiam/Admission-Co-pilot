@@ -14,7 +14,16 @@ export default defineConfig(({ mode }) => {
   const useDb = env.VITE_USE_DB === 'true';
   const dbProxy = useDb
     ? Object.fromEntries(
-        ['/api/auth', '/api/users', '/api/universities', '/api/admin/universities'].map((p) => [
+        [
+          '/api/auth',
+          '/api/users',
+          '/api/universities',
+          '/api/admin/users',
+          '/api/admin/universities',
+          '/api/admin/videos',
+          '/api/videos',
+          '/api/mail',
+        ].map((p) => [
           p,
           { target: `http://localhost:${assistantPort}`, changeOrigin: true },
         ])

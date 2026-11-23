@@ -5,10 +5,10 @@
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import { randomBytes, randomUUID } from 'node:crypto'
-import { and, eq } from 'drizzle-orm'
+import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm'
 import { db, schema } from '../db/index.js'
 
-const { users, sessions, universities } = schema
+const { users, sessions, universities, videos, messages } = schema
 const router = Router()
 
 const fail = (res, status, message) => res.status(status).json({ message })
@@ -207,6 +207,173 @@ router.delete('/admin/universities/:id', requireUser(true), async (req, res) => 
     .returning({ id: universities.id })
   if (!deleted.length) return fail(res, 404, 'notFound')
   res.json({ deleted: true })
+})
+
+// --------------------------------------------------------------- admin: users
+const userRow = (u) => ({
+  id: u.id,
+  email: u.email,
+  name: u.name,
+  nameEn: u.nameEn,
+  role: u.role,
+  createdAt: u.createdAt,
+  profile: u.profile ?? {},
+})
+
+router.get('/admin/users', requireUser(true), async (req, res) => {
+  const q = String(req.query.q ?? '').trim()
+  const rows = q
+    ? await db
+        .select()
+        .from(users)
+        .where(or(ilike(users.email, `%${q}%`), ilike(users.name, `%${q}%`)))
+        .orderBy(desc(users.createdAt))
+    : await db.select().from(users).orderBy(desc(users.createdAt))
+  res.json(rows.map(userRow))
+})
+
+router.get('/admin/users/:id', requireUser(true), async (req, res) => {
+  const [row] = await db.select().from(users).where(eq(users.id, req.params.id))
+  if (!row) return fail(res, 404, 'notFound')
+  const [attempts] = await db
+    .select({ total: sql`count(*)::int` })
+    .from(schema.attempts)
+    .where(eq(schema.attempts.userId, row.id))
+  res.json({ ...userRow(row), attempts: Number(attempts?.total ?? 0) })
+})
+
+router.delete('/admin/users/:id', requireUser(true), async (req, res) => {
+  if (req.params.id === req.user.id) return fail(res, 400, 'cannotDeleteSelf')
+  const [row] = await db.select().from(users).where(eq(users.id, req.params.id))
+  if (!row) return fail(res, 404, 'notFound')
+  if (row.role === 'admin') {
+    const admins = await db.select({ id: users.id }).from(users).where(eq(users.role, 'admin'))
+    if (admins.length <= 1) return fail(res, 400, 'lastAdmin')
+  }
+  await db.delete(users).where(eq(users.id, row.id)) // sessions/attempts/messages cascade
+  res.json({ deleted: true })
+})
+
+// ------------------------------------------------------------------- videos
+/** Accepts watch?v=, youtu.be/, /embed/, /shorts/ and /live/ URLs. */
+const YOUTUBE_ID = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/
+const parseYoutubeId = (url) => String(url ?? '').match(YOUTUBE_ID)?.[1] ?? null
+
+router.get('/videos', async (req, res) => {
+  const subject = String(req.query.subject ?? '').trim()
+  const query = db.select().from(videos)
+  const rows = subject
+    ? await query.where(eq(videos.subject, subject)).orderBy(desc(videos.createdAt))
+    : await query.orderBy(desc(videos.createdAt))
+  res.json(rows)
+})
+
+router.post('/admin/videos', requireUser(true), async (req, res) => {
+  const b = req.body ?? {}
+  const title = String(b.title ?? '').trim().slice(0, 200)
+  const subject = String(b.subject ?? '').trim().toLowerCase().slice(0, 40)
+  const youtubeId = parseYoutubeId(b.youtubeUrl)
+  if (!title || !subject) return fail(res, 400, 'titleAndSubjectRequired')
+  if (!youtubeId) return fail(res, 400, 'invalidYoutubeUrl')
+  const [row] = await db
+    .insert(videos)
+    .values({
+      id: `v-${randomUUID()}`,
+      title,
+      subject,
+      topic: String(b.topic ?? '').trim().slice(0, 120),
+      youtubeUrl: String(b.youtubeUrl).trim(),
+      youtubeId,
+      channel: b.channel ? String(b.channel).trim().slice(0, 120) : null,
+      addedBy: req.user.id,
+    })
+    .returning()
+  res.json(row)
+})
+
+router.delete('/admin/videos/:id', requireUser(true), async (req, res) => {
+  const deleted = await db
+    .delete(videos)
+    .where(eq(videos.id, req.params.id))
+    .returning({ id: videos.id })
+  if (!deleted.length) return fail(res, 404, 'notFound')
+  res.json({ deleted: true })
+})
+
+// --------------------------------------------------------------------- mail
+router.post('/mail', requireUser(false), async (req, res) => {
+  const b = req.body ?? {}
+  const toEmail = normalizeEmail(b.toEmail)
+  let to = null
+  if (b.toUserId) [to] = await db.select().from(users).where(eq(users.id, String(b.toUserId)))
+  else if (toEmail) [to] = await db.select().from(users).where(eq(users.email, toEmail))
+  if (!to) return fail(res, 404, 'recipientNotFound')
+  if (to.id === req.user.id) return fail(res, 400, 'cannotMailSelf')
+  const subject = String(b.subject ?? '').trim().slice(0, 200)
+  const body = String(b.body ?? '').trim().slice(0, 5000)
+  if (!subject || !body) return fail(res, 400, 'subjectAndBodyRequired')
+  const [row] = await db
+    .insert(messages)
+    .values({
+      id: `m-${randomUUID()}`,
+      fromUserId: req.user.id,
+      toUserId: to.id,
+      subject,
+      body,
+    })
+    .returning()
+  res.json({ ...row, peer: { id: to.id, name: to.name, email: to.email } })
+})
+
+const mailbox = (direction) => async (req, res) => {
+  const mine = direction === 'inbox' ? messages.toUserId : messages.fromUserId
+  const peerColumn = direction === 'inbox' ? messages.fromUserId : messages.toUserId
+  const rows = await db
+    .select({
+      id: messages.id,
+      subject: messages.subject,
+      body: messages.body,
+      readAt: messages.readAt,
+      createdAt: messages.createdAt,
+      peerId: users.id,
+      peerName: users.name,
+      peerEmail: users.email,
+    })
+    .from(messages)
+    .innerJoin(users, eq(users.id, peerColumn))
+    .where(eq(mine, req.user.id))
+    .orderBy(desc(messages.createdAt))
+  res.json(
+    rows.map((r) => ({
+      id: r.id,
+      subject: r.subject,
+      body: r.body,
+      readAt: r.readAt,
+      createdAt: r.createdAt,
+      peer: { id: r.peerId, name: r.peerName, email: r.peerEmail },
+    }))
+  )
+}
+
+router.get('/mail/inbox', requireUser(false), mailbox('inbox'))
+router.get('/mail/sent', requireUser(false), mailbox('sent'))
+
+router.get('/mail/unread', requireUser(false), async (req, res) => {
+  const [row] = await db
+    .select({ total: sql`count(*)::int` })
+    .from(messages)
+    .where(and(eq(messages.toUserId, req.user.id), isNull(messages.readAt)))
+  res.json({ total: Number(row?.total ?? 0) })
+})
+
+router.post('/mail/:id/read', requireUser(false), async (req, res) => {
+  const updated = await db
+    .update(messages)
+    .set({ readAt: new Date() })
+    .where(and(eq(messages.id, req.params.id), eq(messages.toUserId, req.user.id)))
+    .returning({ id: messages.id })
+  if (!updated.length) return fail(res, 404, 'notFound')
+  res.json({ read: true })
 })
 
 export default router
