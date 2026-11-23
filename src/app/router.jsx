@@ -35,6 +35,7 @@ const TestEnginePage = lazy(() => import('@/features/mock-tests/pages/TestEngine
 const ResultPage = lazy(() => import('@/features/analysis/pages/ResultPage'))
 const VideoSectionPage = lazy(() => import('@/features/videos/pages/VideoSectionPage'))
 const StudentMailPage = lazy(() => import('@/features/mail/pages/StudentMailPage'))
+const ProfessorsPage = lazy(() => import('@/features/professors/pages/ProfessorsPage'))
 
 // --- admin pages (lazy) ---
 const AdminOverviewPage = lazy(() => import('@/features/admin/pages/AdminOverviewPage'))
@@ -45,6 +46,7 @@ const QuestionReviewPage = lazy(() => import('@/features/admin/pages/QuestionRev
 const AdminUsersPage = lazy(() => import('@/features/admin/pages/AdminUsersPage'))
 const AdminVideosPage = lazy(() => import('@/features/admin/pages/AdminVideosPage'))
 const AdminMailPage = lazy(() => import('@/features/admin/pages/AdminMailPage'))
+const AdminProfessorsPage = lazy(() => import('@/features/admin/pages/AdminProfessorsPage'))
 
 /** Wrap a lazy page in the shared Suspense loader. */
 const lz = (Component) => (
@@ -91,6 +93,7 @@ export const router = createBrowserRouter([
           { path: 'public-universities/:id', element: lz(PublicDetailPage) },
           { path: 'private-universities', element: lz(PrivateDirectoryPage) },
           { path: 'private-universities/:id', element: lz(PrivateDetailPage) },
+          { path: 'professors', element: lz(ProfessorsPage) },
           { path: 'compare', element: lz(ComparePage) },
           { path: 'assistant', element: lz(AssistantPage) },
           { path: 'recommendations', element: lz(RecommendationsPage) },
@@ -123,6 +126,7 @@ export const router = createBrowserRouter([
           { path: 'users', element: lz(AdminUsersPage) },
           { path: 'videos', element: lz(AdminVideosPage) },
           { path: 'mail', element: lz(AdminMailPage) },
+          { path: 'professors', element: lz(AdminProfessorsPage) },
         ],
       },
       { path: 'circulars/:id/review', element: lz(CircularReviewPage) },

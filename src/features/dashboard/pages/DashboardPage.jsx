@@ -10,6 +10,7 @@ import {
   Sparkles,
   MessagesSquare,
   Landmark,
+  GraduationCap,
   Building2,
   UserRound,
   Mail,
@@ -46,6 +47,7 @@ const quickLinks = [
   { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
   { to: ROUTES.publicUniversities, icon: Landmark, key: 'nav.publicUniversities' },
   { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
+  { to: ROUTES.professors, icon: GraduationCap, key: 'nav.professors' },
   { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
   { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
 ]
@@ -224,7 +226,7 @@ export default function DashboardPage() {
                         <Pie
                           data={MISTAKE_TYPES.map((mt) => ({
                             name: t(`analysis.mistakeTypes.${mt}`),
-                            value: analytics.mistakeCounts[mt] || 0,
+                            value: analytics.mistakeCounts?.[mt] || 0,
                             key: mt,
                           }))}
                           dataKey="value"
@@ -391,7 +393,7 @@ function suggestedTests(analytics) {
   ]
 
   for (const s of suggestions) {
-    s.mistakes = (analytics.weakTopics || []).filter(
+    s.mistakes = (analytics.weakTopics ?? []).filter(
       (wt) => s.topicKeys.includes(wt.topic) || s.topicKeys.includes(wt.topicLabel)
     ).length
   }

@@ -67,8 +67,12 @@ export default function TestListPage() {
                       <h3 className="text-base font-semibold text-slate-800">{loc(test.title)}</h3>
                       <p className="mt-0.5 text-xs text-slate-500">{loc(test.subject)}</p>
                     </div>
-                    <Badge variant={difficultyVariant[test.difficulty]}>
-                      {t(`tests.difficulty${test.difficulty.charAt(0).toUpperCase()}${test.difficulty.slice(1)}`)}
+                    <Badge variant={difficultyVariant[test.difficulty] ?? 'default'}>
+                      {test.difficulty
+                        ? t(
+                            `tests.difficulty${test.difficulty.charAt(0).toUpperCase()}${test.difficulty.slice(1)}`
+                          )
+                        : t('tests.difficultyMedium')}
                     </Badge>
                   </div>
 
@@ -77,7 +81,7 @@ export default function TestListPage() {
                     <div>
                       <ListChecks className="mx-auto h-4 w-4 text-brand-600" />
                       <p className="mt-1 text-sm font-semibold text-slate-800">
-                        {test.questionIds.length}
+                        {test.questionIds?.length ?? test.questionCount ?? 0}
                       </p>
                       <p className="text-[11px] text-slate-400">{t('tests.questions')}</p>
                     </div>

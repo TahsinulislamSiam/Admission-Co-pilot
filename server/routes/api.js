@@ -8,7 +8,7 @@ import { randomBytes, randomUUID } from 'node:crypto'
 import { and, desc, eq, ilike, isNull, or, sql } from 'drizzle-orm'
 import { db, schema } from '../db/index.js'
 
-const { users, sessions, universities, videos, messages } = schema
+const { users, sessions, universities, videos, messages, professors } = schema
 const router = Router()
 
 const fail = (res, status, message) => res.status(status).json({ message })
@@ -296,6 +296,85 @@ router.delete('/admin/videos/:id', requireUser(true), async (req, res) => {
     .delete(videos)
     .where(eq(videos.id, req.params.id))
     .returning({ id: videos.id })
+  if (!deleted.length) return fail(res, 404, 'notFound')
+  res.json({ deleted: true })
+})
+
+// -------------------------------------------------------------- professors
+router.get('/professors', async (req, res) => {
+  const q = String(req.query.q ?? '').trim()
+  const rows = q
+    ? await db
+        .select()
+        .from(professors)
+        .where(or(ilike(professors.name, `%${q}%`), ilike(professors.university, `%${q}%`)))
+        .orderBy(professors.university, professors.name)
+    : await db.select().from(professors).orderBy(professors.university, professors.name)
+  res.json(rows.map(professorRow))
+})
+
+const professorRow = (p) => ({
+  id: p.id,
+  university: p.university,
+  city: p.city,
+  country: p.country,
+  universityRank: p.universityRank,
+  universityWebsite: p.universityWebsite,
+  facultyDirectory: p.facultyDirectory,
+  name: p.name,
+  title: p.title,
+  email: p.email,
+  emailStatus: p.emailStatus,
+  department: p.department,
+  researchFields: p.researchFields ?? [],
+  profileUrl: p.profileUrl,
+  createdAt: p.createdAt,
+})
+
+router.post('/admin/professors', requireUser(true), async (req, res) => {
+  const b = req.body ?? {}
+  const name = String(b.name ?? '').trim().slice(0, 160)
+  const university = String(b.university ?? '').trim().slice(0, 160)
+  if (!name || !university) return fail(res, 400, 'nameAndUniversityRequired')
+
+  const fields = Array.isArray(b.researchFields)
+    ? b.researchFields.map((f) => String(f).trim()).filter(Boolean).slice(0, 12)
+    : String(b.researchFields ?? '')
+        .split(',')
+        .map((f) => f.trim())
+        .filter(Boolean)
+        .slice(0, 12)
+
+  const [row] = await db
+    .insert(professors)
+    .values({
+      id: `p-${randomUUID()}`,
+      university,
+      country: b.country ? String(b.country).trim().slice(0, 80) : null,
+      city: b.city ? String(b.city).trim().slice(0, 80) : null,
+      universityRank: Number.isFinite(Number(b.universityRank))
+        ? Number(b.universityRank)
+        : null,
+      universityWebsite: b.universityWebsite ? String(b.universityWebsite).trim() : null,
+      facultyDirectory: b.facultyDirectory ? String(b.facultyDirectory).trim() : null,
+      name,
+      title: b.title ? String(b.title).trim().slice(0, 200) : null,
+      email: b.email ? normalizeEmail(b.email) : null,
+      emailStatus: b.emailStatus ? String(b.emailStatus).trim().slice(0, 200) : null,
+      department: b.department ? String(b.department).trim().slice(0, 200) : null,
+      researchFields: fields,
+      profileUrl: b.profileUrl ? String(b.profileUrl).trim() : null,
+      addedBy: req.user.id,
+    })
+    .returning()
+  res.json(professorRow(row))
+})
+
+router.delete('/admin/professors/:id', requireUser(true), async (req, res) => {
+  const deleted = await db
+    .delete(professors)
+    .where(eq(professors.id, req.params.id))
+    .returning({ id: professors.id })
   if (!deleted.length) return fail(res, 404, 'notFound')
   res.json({ deleted: true })
 })

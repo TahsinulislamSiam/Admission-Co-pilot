@@ -15,6 +15,7 @@ export const ROUTES = {
   publicUniversityDetail: '/app/public-universities/:id',
   privateUniversities: '/app/private-universities',
   privateUniversityDetail: '/app/private-universities/:id',
+  professors: '/app/professors',
   compare: '/app/compare',
   assistant: '/app/assistant',
   recommendations: '/app/recommendations',
@@ -37,6 +38,7 @@ export const ROUTES = {
   adminUsers: '/admin/users',
   adminVideos: '/admin/videos',
   adminMail: '/admin/mail',
+  adminProfessors: '/admin/professors',
 }
 
 export const route = (path, params) => {

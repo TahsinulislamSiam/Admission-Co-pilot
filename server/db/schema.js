@@ -4,7 +4,7 @@
  * already consumes stays in `data` (jsonb), so the API returns the same shapes
  * the MSW mocks did.
  */
-import { pgTable, text, boolean, timestamp, jsonb, index } from 'drizzle-orm/pg-core'
+import { pgTable, text, boolean, timestamp, integer, jsonb, index } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: text('id').primaryKey(),
@@ -130,5 +130,36 @@ export const messages = pgTable(
   (t) => [
     index('messages_to_idx').on(t.toUserId),
     index('messages_from_idx').on(t.fromUserId),
+  ]
+)
+
+/**
+ * University faculty contacts (from professor.json). Denormalised on purpose —
+ * one row per professor repeating the university fields — because the student
+ * view only groups by university and the admin form edits a whole row at once.
+ */
+export const professors = pgTable(
+  'professors',
+  {
+    id: text('id').primaryKey(),
+    university: text('university').notNull(),
+    country: text('country'),
+    city: text('city'),
+    universityRank: integer('university_rank'),
+    universityWebsite: text('university_website'),
+    facultyDirectory: text('faculty_directory'),
+    name: text('name').notNull(),
+    title: text('title'),
+    email: text('email'),
+    emailStatus: text('email_status'),
+    department: text('department'),
+    researchFields: jsonb('research_fields').$type().default([]),
+    profileUrl: text('profile_url'),
+    addedBy: text('added_by').references(() => users.id, { onDelete: 'set null' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index('professors_university_idx').on(t.university),
+    index('professors_name_idx').on(t.name),
   ]
 )

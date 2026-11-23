@@ -25,6 +25,7 @@ const adminNav = [
   { to: ROUTES.adminCirculars, icon: FileUp, key: 'admin.nav.circulars' },
   { to: ROUTES.adminRecords, icon: Database, key: 'admin.nav.universities' },
   { to: ROUTES.adminQuestions, icon: ClipboardCheck, key: 'admin.nav.questions' },
+  { to: ROUTES.adminProfessors, icon: GraduationCap, key: 'admin.nav.professors' },
   { to: ROUTES.adminUsers, icon: Users, key: 'admin.nav.users' },
   { to: ROUTES.adminVideos, icon: Youtube, key: 'admin.nav.videos' },
   { to: ROUTES.adminMail, icon: Mail, key: 'admin.nav.mail' },

@@ -22,6 +22,8 @@ const DB_PATHS = [
   '/api/admin/videos',
   '/api/videos',
   '/api/mail',
+  '/api/professors',
+  '/api/admin/professors',
 ]
 
 const activeHandlers = handlers.filter((h) => {
