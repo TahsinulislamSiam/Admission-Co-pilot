@@ -62,7 +62,8 @@
     "getStarted": "Get started",
     "openMenu": "Open menu",
     "videos": "Video Lessons",
-    "mail": "Mail"
+    "mail": "Mail",
+    "professors": "Faculty Directory"
   },
   "landing": {
     "badge": "AI-powered admission guidance",
@@ -569,7 +570,8 @@
       "questions": "Question Review",
       "users": "Users",
       "videos": "Videos",
-      "mail": "Mail"
+      "mail": "Mail",
+      "professors": "Professors"
     },
     "overview": {
       "title": "Overview",
@@ -748,6 +750,43 @@
         "titleAndSubjectRequired": "Title and subject are required.",
         "serverError": "Could not save the video. Try again."
       }
+    },
+    "professors": {
+      "title": "Professors",
+      "subtitle": "Add or remove university faculty; students see them in their Faculty Directory.",
+      "addHeading": "Add a professor",
+      "universitySection": "University",
+      "professorSection": "Professor",
+      "university": "University name",
+      "universityPlaceholder": "e.g. Stanford University",
+      "rank": "QS rank (optional)",
+      "city": "City",
+      "country": "Country",
+      "website": "University website",
+      "directory": "Directory ({{count}})",
+      "name": "Professor name",
+      "namePlaceholder": "e.g. Fei-Fei Li",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Professor of Computer Science",
+      "email": "Email",
+      "department": "Department",
+      "profileUrl": "Profile URL",
+      "researchFields": "Research fields",
+      "researchFieldsPlaceholder": "Machine Learning, Computer Vision",
+      "researchFieldsHint": "Separate fields with commas — students can filter by them.",
+      "add": "Add professor",
+      "adding": "Adding…",
+      "added": "Professor added",
+      "removed": "{{name}} removed",
+      "searchPlaceholder": "Search the directory",
+      "remove": "Remove professor",
+      "noEmail": "No public email",
+      "emptyTitle": "No professors yet",
+      "emptyBody": "Add the first professor with the form above.",
+      "errors": {
+        "nameAndUniversityRequired": "Professor name and university are required.",
+        "serverError": "Could not save the professor. Try again."
+      }
     }
   },
   "subjects": {
@@ -798,5 +837,18 @@
       "subjectAndBodyRequired": "Subject and message are required.",
       "serverError": "Could not send the message. Try again."
     }
+  },
+  "professors": {
+    "title": "Faculty Directory",
+    "subtitle": "Professors at the universities on your list — their department, research fields and contact.",
+    "searchPlaceholder": "Search a professor or a university",
+    "allFields": "All research fields",
+    "rank": "QS #{{rank}}",
+    "website": "University site",
+    "email": "Email",
+    "profile": "Profile",
+    "emailUnavailable": "No public email",
+    "emptyTitle": "No professors yet",
+    "emptyBody": "An admin has not added faculty for these universities yet."
   }
 }

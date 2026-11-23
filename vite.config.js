@@ -23,6 +23,8 @@ export default defineConfig(({ mode }) => {
           '/api/admin/videos',
           '/api/videos',
           '/api/mail',
+          '/api/professors',
+          '/api/admin/professors',
         ].map((p) => [
           p,
           { target: `http://localhost:${assistantPort}`, changeOrigin: true },
@@ -71,6 +73,9 @@ export default defineConfig(({ mode }) => {
       setupFiles: ['./vitest.setup.js'],
       globals: true,
       css: true,
+      // heavy pages (charts, MSW round-trips) exceed 5s when all files run in parallel
+      testTimeout: 20000,
+      hookTimeout: 20000,
     },
   }
 })
