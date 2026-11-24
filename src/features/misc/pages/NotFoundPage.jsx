@@ -11,7 +11,7 @@ export function NotFoundPage() {
       <div className="rounded-full bg-brand-50 p-5">
         <Compass className="h-10 w-10 text-brand-600" />
       </div>
-      <h1 className="text-2xl font-bold text-slate-800">{t('common.notFoundTitle')}</h1>
+      <h1 className="text-2xl font-semibold text-slate-800">{t('common.notFoundTitle')}</h1>
       <p className="max-w-sm text-slate-500">{t('common.notFoundDesc')}</p>
       <Link to={ROUTES.landing}>
         <Button>{t('common.backHome')}</Button>

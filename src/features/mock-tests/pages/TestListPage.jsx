@@ -42,7 +42,7 @@ export default function TestListPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
           <FileStack className="h-5 w-5 text-brand-600" />
           {t('tests.title')}
         </h1>
@@ -79,26 +79,26 @@ export default function TestListPage() {
                       <p className="mt-1 text-sm font-semibold text-slate-800">
                         {test.questionIds.length}
                       </p>
-                      <p className="text-[11px] text-slate-400">{t('tests.questions')}</p>
+                      <p className="text-xs text-slate-400">{t('tests.questions')}</p>
                     </div>
                     <div>
                       <Clock className="mx-auto h-4 w-4 text-brand-600" />
                       <p className="mt-1 text-sm font-semibold text-slate-800">
                         {Math.round(test.durationSec / 60)}
                       </p>
-                      <p className="text-[11px] text-slate-400">{t('tests.minutes')}</p>
+                      <p className="text-xs text-slate-400">{t('tests.minutes')}</p>
                     </div>
                     <div>
                       <Percent className="mx-auto h-4 w-4 text-brand-600" />
                       <p className="mt-1 text-sm font-semibold text-slate-800">0.25</p>
-                      <p className="text-[11px] text-slate-400">{t('tests.negativeMarking')}</p>
+                      <p className="text-xs text-slate-400">{t('tests.negativeMarking')}</p>
                     </div>
                     <div>
                       <Users className="mx-auto h-4 w-4 text-brand-600" />
                       <p className="mt-1 text-sm font-semibold text-slate-800">
                         {(test.attemptsCount / 1000).toFixed(1)}k
                       </p>
-                      <p className="text-[11px] text-slate-400">{t('tests.attempts')}</p>
+                      <p className="text-xs text-slate-400">{t('tests.attempts')}</p>
                     </div>
                   </div>
 
@@ -120,7 +120,7 @@ export default function TestListPage() {
                     <div className="mt-2 flex items-center gap-2 rounded-lg border border-brand-100 bg-brand-50/50 px-3 py-2 text-xs">
                       <Trophy className="h-3.5 w-3.5 text-accent-500" />
                       <span className="text-slate-600">{t('tests.lastResult')}:</span>
-                      <span className="font-bold text-brand-700">{last.percentage}%</span>
+                      <span className="font-semibold text-brand-700">{last.percentage}%</span>
                       <Link
                         to={route(ROUTES.testResult, { attemptId: last.id })}
                         className="ml-auto font-medium text-brand-700 hover:underline"

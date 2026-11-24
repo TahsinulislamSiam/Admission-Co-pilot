@@ -145,7 +145,7 @@ export function ChatMessage({ message, onRetry }) {
         {/* sources under each reply */}
         {message.sources?.length > 0 && (
           <div className="mt-3 border-t border-slate-200/70 pt-2.5">
-            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
               {isNoRecord ? `${t('assistant.checkOfficial')} · ${t('assistant.sources')}` : t('assistant.sources')}
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -166,7 +166,7 @@ export function SuggestedQuestions({ questions, onPick, pending }) {
   if (!questions?.length) return null
   return (
     <div>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+      <p className="mb-2 text-xs font-semibold  text-slate-400">
         {t('assistant.suggested')}
       </p>
       <div className="flex flex-wrap gap-2">

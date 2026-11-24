@@ -144,7 +144,7 @@ export default function TestEnginePage() {
         {/* countdown */}
         <div
           className={cn(
-            'flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-lg font-bold tabular-nums',
+            'flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-lg font-semibold tabular-nums',
             timeCritical ? 'animate-pulse bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-700'
           )}
           role="timer"
@@ -166,7 +166,7 @@ export default function TestEnginePage() {
           <div className="mx-auto w-full max-w-3xl">
             {/* negative marking notice */}
             <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-medium text-rose-700">
-              ⚠️ {t('tests.rules.r3', { penalty: 0.25 })}
+              {t('tests.rules.r3', { penalty: 0.25 })}
             </div>
 
             <p className="mb-4 text-sm font-medium text-slate-500">
@@ -197,7 +197,7 @@ export default function TestEnginePage() {
                       >
                         <span
                           className={cn(
-                            'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-bold',
+                            'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-semibold',
                             selected
                               ? 'border-brand-600 bg-brand-600 text-white'
                               : 'border-slate-300 text-slate-500'
@@ -332,15 +332,15 @@ export default function TestEnginePage() {
       >
         <div className="grid grid-cols-3 gap-3 text-center">
           <div className="rounded-lg bg-slate-50 py-3">
-            <p className="text-2xl font-bold text-brand-600">{answeredCount}</p>
+            <p className="text-2xl font-semibold text-brand-600">{answeredCount}</p>
             <p className="text-xs text-slate-500">{t('tests.engine.answered')}</p>
           </div>
           <div className="rounded-lg bg-slate-50 py-3">
-            <p className="text-2xl font-bold text-slate-400">{questions.length - answeredCount}</p>
+            <p className="text-2xl font-semibold text-slate-400">{questions.length - answeredCount}</p>
             <p className="text-xs text-slate-500">{t('tests.engine.unanswered')}</p>
           </div>
           <div className="rounded-lg bg-slate-50 py-3">
-            <p className="text-2xl font-bold text-accent-500">{markedCount}</p>
+            <p className="text-2xl font-semibold text-accent-500">{markedCount}</p>
             <p className="text-xs text-slate-500">{t('tests.engine.markedForReview')}</p>
           </div>
         </div>

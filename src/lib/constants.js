@@ -42,10 +42,10 @@ export const MISTAKE_TYPES = ['concept', 'careless', 'time', 'guess']
 
 /** Color mapping used for mistake-type badges and charts. */
 export const MISTAKE_TYPE_COLORS = {
-  concept: '#e11d48',
-  careless: '#d97706',
-  time: '#0284c7',
-  guess: '#7c3aed',
+  concept: '#B85C47',
+  careless: '#C8B48A',
+  time: '#52766B',
+  guess: '#7F8C6A',
 }
 
 export const ELIGIBILITY_STATUS = {

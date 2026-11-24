@@ -11,7 +11,7 @@ export function Table({ className, children }) {
 
 export function THead({ children }) {
   return (
-    <thead className="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+    <thead className="border-b border-slate-200 bg-slate-50 text-xs  text-slate-500">
       {children}
     </thead>
   )

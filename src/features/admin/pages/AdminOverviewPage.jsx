@@ -69,7 +69,7 @@ export default function AdminOverviewPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
           <LayoutDashboard className="h-5 w-5 text-brand-600" />
           {t('admin.overview.title')}
         </h1>
@@ -86,7 +86,7 @@ export default function AdminOverviewPage() {
                   <Icon className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-2xl font-bold text-slate-900">{value}</p>
+                  <p className="text-2xl font-semibold text-slate-900">{value}</p>
                   <p className="truncate text-xs font-medium text-slate-500">{label}</p>
                 </div>
               </CardContent>

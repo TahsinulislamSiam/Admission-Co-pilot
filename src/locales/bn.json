@@ -450,7 +450,7 @@
   },
   "dashboard": {
     "title": "ড্যাশবোর্ড",
-    "welcome": "স্বাগতম, {{name}} 👋",
+    "welcome": "স্বাগতম, {{name}}",
     "subtitle": "আজকের প্রস্তুতি কেমন চলছে দেখে নিন",
     "testsTaken": "দেওয়া টেস্ট",
     "avgScore": "গড় স্কোর",

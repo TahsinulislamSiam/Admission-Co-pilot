@@ -9,6 +9,7 @@ import { buildRecommendations } from './engine/recommendations'
 import { knowledgeBase, suggestedQuestions } from './seed/assistant'
 import { ASSISTANT_TIMEOUT_MS } from '@/lib/constants'
 import { publicUser } from './seed/users'
+import { useAuthStore } from '@/store/authStore'
 
 /** Emails are matched case-insensitively and trimmed, like a real backend. */
 const normalizeEmail = (value) => String(value ?? '').trim().toLowerCase()
@@ -21,7 +22,21 @@ const fail = (status, message, code) =>
 const authUser = (request) => {
   const header = request.headers.get('Authorization') || ''
   const token = header.replace('Bearer ', '')
-  return db.users.find((u) => u.token === token) || null
+  const mockUser = db.users.find((u) => u.token === token)
+  if (mockUser) return mockUser
+
+  // With VITE_USE_DB=true, login is served by the real API, so the token is a
+  // database session the mock cannot check. The real API already validated it
+  // (and /auth/me re-checks on load), so trust the signed-in user held by the
+  // auth store and map them onto the matching seeded mock user (same id) or a
+  // blank one for newly registered accounts. Remove once every endpoint is real.
+  if (import.meta.env.VITE_USE_DB === 'true' && token) {
+    const { user, token: storedToken } = useAuthStore.getState()
+    if (user && storedToken === token) {
+      return db.users.find((u) => u.id === user.id) || { ...user, profile: user.profile ?? {} }
+    }
+  }
+  return null
 }
 
 // ---------------------------------------------------------------- auth

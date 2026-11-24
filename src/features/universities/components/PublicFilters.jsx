@@ -123,7 +123,7 @@ export function PublicFilters({ universities, onFilter }) {
         </div>
 
         {/* group checkboxes */}
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="mb-2 text-xs font-semibold  text-slate-400">
           {t('universities.filterGroup')}
         </p>
         <div className="mb-4 space-y-2">
@@ -146,7 +146,7 @@ export function PublicFilters({ universities, onFilter }) {
         </div>
 
         {/* city */}
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="mb-2 text-xs font-semibold  text-slate-400">
           {t('universities.filterCity')}
         </p>
         <Select value={city} onValueChange={setCity} className="mb-4">
@@ -164,7 +164,7 @@ export function PublicFilters({ universities, onFilter }) {
         </Select>
 
         {/* deadline window */}
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="mb-2 text-xs font-semibold  text-slate-400">
           {t('universities.filterDeadline')}
         </p>
         <Select value={deadline} onValueChange={setDeadline} className="mb-4">
@@ -179,7 +179,7 @@ export function PublicFilters({ universities, onFilter }) {
         </Select>
 
         {/* exam pattern */}
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <p className="mb-2 text-xs font-semibold  text-slate-400">
           {t('universities.filterPattern')}
         </p>
         <Select value={pattern} onValueChange={setPattern} className="mb-4">
@@ -199,7 +199,7 @@ export function PublicFilters({ universities, onFilter }) {
         {/* numeric filters */}
         <div className="grid grid-cols-1 gap-3">
           <div>
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
               {t('universities.filterFeeMax')}
             </p>
             <Input
@@ -211,7 +211,7 @@ export function PublicFilters({ universities, onFilter }) {
             />
           </div>
           <div>
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
               {t('universities.filterSeatsMin')}
             </p>
             <Input
@@ -223,7 +223,7 @@ export function PublicFilters({ universities, onFilter }) {
             />
           </div>
           <div>
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
               {t('universities.filterMinHsc')}
             </p>
             <Input

@@ -16,6 +16,18 @@
     font-family: 'Hind Siliguri', 'Noto Sans Bengali', 'Inter', sans-serif;
   }
 
+  /* Serif headlines for English; Bangla keeps Hind Siliguri */
+  h1,
+  h2 {
+    font-family: theme('fontFamily.display');
+    letter-spacing: -0.01em;
+  }
+  html[lang='bn'] h1,
+  html[lang='bn'] h2 {
+    font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+    letter-spacing: 0;
+  }
+
   ::selection {
     @apply bg-brand-200 text-brand-900;
   }

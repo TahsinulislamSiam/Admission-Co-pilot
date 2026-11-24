@@ -67,7 +67,7 @@ export default function PrivateDetailPage() {
                   <Building2 className="h-6 w-6" />
                 </span>
                 <div>
-                  <h1 className="text-xl font-bold text-slate-900">{loc(u.name)}</h1>
+                  <h1 className="text-xl font-semibold text-slate-900">{loc(u.name)}</h1>
                   <p className="mt-0.5 text-sm text-slate-500">
                     {loc(u.shortName)}
                     {u.rank ? ` · ${t('universities.shortlistRank', { rank: u.rank })}` : ''}
@@ -119,7 +119,7 @@ export default function PrivateDetailPage() {
                     <TD>
                       <span className="font-medium text-slate-800">{loc(d.name)}</span>
                       {d.basis && (
-                        <span className="ml-2 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                        <span className="ml-2 rounded-full bg-amber-50 px-1.5 py-0.5 text-xs font-medium text-amber-700">
                           {t('universities.estimate')}
                         </span>
                       )}

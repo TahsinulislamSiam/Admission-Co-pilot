@@ -73,7 +73,7 @@ export default function ResultPage() {
       {/* header */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+          <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
             <BarChart3 className="h-5 w-5 text-brand-600" />
             {t('analysis.resultTitle')}
           </h1>
@@ -107,7 +107,7 @@ export default function ResultPage() {
         <CardContent>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             <div className="rounded-xl bg-brand-600 px-4 py-4 text-center text-white">
-              <p className="text-3xl font-extrabold">{totals.score}</p>
+              <p className="text-3xl font-semibold">{totals.score}</p>
               <p className="mt-1 text-xs opacity-80">
                 {t('analysis.score')} / {totals.totalMarks}
               </p>
@@ -122,8 +122,8 @@ export default function ResultPage() {
             ].map((s, i) => (
               <div key={i} className="rounded-xl bg-slate-50 px-3 py-4 text-center">
                 <s.icon className={`mx-auto h-5 w-5 ${s.tone}`} />
-                <p className="mt-1.5 text-xl font-bold text-slate-800">{s.value}</p>
-                <p className="mt-0.5 text-[11px] text-slate-400">{s.label}</p>
+                <p className="mt-1.5 text-xl font-semibold text-slate-800">{s.value}</p>
+                <p className="mt-0.5 text-xs text-slate-400">{s.label}</p>
               </div>
             ))}
           </div>

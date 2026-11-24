@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
-  Sparkles,
+  Compass,
+  Bot,
+  Send,
+  Link2,
   MessagesSquare,
   ShieldCheck,
   Target,
@@ -9,9 +12,6 @@ import {
   BarChart3,
   Scale,
   GraduationCap,
-  Bot,
-  Send,
-  Link2,
   ArrowRight,
 } from 'lucide-react'
 import { Navbar, Footer } from '@/components/layout/Navbar'
@@ -41,9 +41,9 @@ function Reveal({ as: Tag = 'div', delay = 0, className, children, ...rest }) {
 
 /**
  * One live figure in the hero strip: skeleton while the count loads, then the
- * number counts up as the card scrolls into view, with a hover lift + accent bar.
+ * number counts up as it scrolls into view.
  */
-function StatCard({ icon: Icon, value, label, delay = 0, shown, failed }) {
+function StatCard({ value, label, delay = 0, shown, failed }) {
   const count = useCountUp(value, { enabled: shown })
   const { i18n } = useTranslation()
   const loading = value == null && !failed
@@ -57,28 +57,16 @@ function StatCard({ icon: Icon, value, label, delay = 0, shown, failed }) {
 
   return (
     <div
-      className="group relative animate-pop-in overflow-hidden rounded-xl border border-slate-200 bg-white p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-card-hover"
+      className="animate-pop-in px-6 first:pl-0"
       style={{ animationDelay: `${delay}ms` }}
     >
-      {/* accent bar that sweeps in on hover */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-500 to-accent-500 transition-transform duration-300 group-hover:scale-x-100"
-      />
-      <span className="mx-auto flex h-7 w-7 items-center justify-center rounded-lg bg-brand-50 text-brand-700 transition-transform duration-300 group-hover:rotate-3 group-hover:scale-110">
-        <Icon className="h-4 w-4" />
-      </span>
-
       {loading ? (
         <>
-          <span
-            aria-hidden="true"
-            className="mx-auto mt-2 block h-6 w-14 animate-pulse rounded bg-slate-200"
-          />
+          <span aria-hidden="true" className="block h-8 w-14 animate-pulse rounded bg-slate-200" />
           <span className="sr-only">{label}</span>
         </>
       ) : (
-        <p className="mt-1.5 text-xl font-extrabold text-brand-700 tabular-nums">{display}</p>
+        <p className="font-display text-3xl font-medium text-brand-700 tabular-nums">{display}</p>
       )}
       <p className="mt-1 text-xs text-slate-500">{label}</p>
     </div>
@@ -91,7 +79,7 @@ function QuoteRow({ quotes, duplicate = false }) {
     <ul className="flex shrink-0 items-center" aria-hidden={duplicate ? 'true' : undefined}>
       {quotes.map((quote, i) => (
         <li key={`${duplicate ? 'b' : 'a'}-${i}`} className="flex items-center whitespace-nowrap">
-          <Sparkles className="mx-6 h-3.5 w-3.5 shrink-0 text-accent-400" aria-hidden="true" />
+          <span className="mx-6 h-1 w-1 shrink-0 rounded-full bg-accent-500" aria-hidden="true" />
           <span className="text-sm font-medium text-brand-50/90">{quote}</span>
         </li>
       ))}
@@ -110,17 +98,17 @@ function QuoteMarquee({ quotes, label }) {
   if (!quotes.length) return null
   return (
     <section
-      className="group relative overflow-hidden border-y border-brand-900/40 bg-brand-800 py-3.5"
+      className="group relative overflow-hidden border-y border-brand-900/40 bg-brand-600 py-3.5"
       aria-label={label}
     >
       {/* edge fades so quotes slide in/out instead of being cut off */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-800 to-transparent"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-600 to-transparent"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-800 to-transparent"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-600 to-transparent"
       />
 
       <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none motion-reduce:px-4">
@@ -131,12 +119,12 @@ function QuoteMarquee({ quotes, label }) {
   )
 }
 
-const STEP_ICONS = [GraduationCap, Target, Sparkles, Scale, MessagesSquare, FileStack, BarChart3]
+const STEP_ICONS = [GraduationCap, Target, Compass, Scale, MessagesSquare, FileStack, BarChart3]
 
 const FEATURE_ICONS = {
   chat: MessagesSquare,
   verified: ShieldCheck,
-  recommend: Sparkles,
+  recommend: Compass,
   tests: FileStack,
   analysis: BarChart3,
   compare: Scale,
@@ -191,97 +179,103 @@ export default function LandingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
 
       {/* ---------- Hero ---------- */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white">
-        {/* soft drifting blobs */}
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -left-24 -top-24 h-72 w-72 animate-drift-x rounded-full bg-brand-200/40 blur-3xl" />
-          <div className="absolute -right-16 top-10 h-80 w-80 animate-drift-y rounded-full bg-accent-200/40 blur-3xl" />
-        </div>
-
-        <div className="container-app relative grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
-          <div>
-            <span className="mb-5 inline-flex animate-pop-in items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t('landing.badge')}
-            </span>
-            <h1 className="animate-fade-in-up text-3xl font-normal leading-tight text-brand-900 [animation-delay:80ms] sm:text-4xl lg:text-[2.75rem]">
-              {t('landing.heroTitle')}
-            </h1>
-            <p className="mt-5 max-w-xl animate-fade-in-up text-base leading-relaxed text-slate-600 [animation-delay:180ms]">
-              {t('landing.heroSubtitle')}
-            </p>
-            <div className="mt-8 flex animate-fade-in-up flex-wrap gap-3 [animation-delay:280ms]">
-              <Link to={ROUTES.register}>
-                <Button size="lg">{t('landing.ctaPrimary')}</Button>
-              </Link>
-              <Link to={ROUTES.login}>
-                <Button size="lg" variant="outline">
-                  {t('landing.ctaSecondary')}
-                </Button>
-              </Link>
+      <section className="relative isolate overflow-hidden border-b border-slate-200 bg-slate-50">
+        {/* photo of the product's world: books and reading glasses, kept to the right */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-cover bg-[position:85%_35%] bg-no-repeat"
+          style={{ backgroundImage: "url('/Images/landing-hero.webp')" }}
+        />
+        {/* cream fade keeps the text on calm space; it also hands the bottom over to the stats strip */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-slate-50/85 lg:bg-transparent lg:bg-[linear-gradient(to_right,#F5F0E6_0%,#F5F0E6_38%,rgba(245,240,230,0.55)_52%,rgba(245,240,230,0)_66%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-slate-50 to-slate-50/0"
+        />
+        <div className="container-app relative pt-14 lg:pt-20">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <span className="mb-5 inline-flex animate-pop-in items-center rounded-full bg-accent-100 px-3.5 py-1 text-sm text-accent-800">
+                {t('landing.badge')}
+              </span>
+              <h1 className="max-w-[34rem] animate-fade-in-up font-display text-4xl font-medium leading-[1.15] text-brand-700 [animation-delay:80ms] sm:text-5xl">
+                {t('landing.heroTitle')}
+              </h1>
+              <p className="mt-6 max-w-xl animate-fade-in-up text-base leading-relaxed text-slate-600 [animation-delay:180ms]">
+                {t('landing.heroSubtitle')}
+              </p>
+              <div className="mt-8 flex animate-fade-in-up flex-wrap gap-3 [animation-delay:280ms]">
+                <Link to={ROUTES.register}>
+                  <Button size="lg">{t('landing.ctaPrimary')}</Button>
+                </Link>
+                <Link to={ROUTES.login}>
+                  <Button size="lg" variant="ghost">
+                    {t('landing.ctaSecondary')}
+                  </Button>
+                </Link>
+              </div>
             </div>
 
-            {/* stats strip — live counts, animated */}
-            <div ref={statsRef} className="mt-10 max-w-md">
-              <p className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-slate-400">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-500" />
-                </span>
-                {t('landing.statsLive', { defaultValue: 'Live data' })}
-              </p>
-              <div className="mt-3 grid grid-cols-3 gap-4">
-                {statCards.map((card, i) => (
-                  <StatCard
-                    key={card.key}
-                    icon={card.icon}
-                    value={card.value}
-                    label={card.label}
-                    failed={stats.isError}
-                    shown={statsShown}
-                    delay={380 + i * 90}
-                  />
-                ))}
+            {/* Mock chat card */}
+            <div className="relative hidden animate-fade-in-up [animation-delay:220ms] lg:block">
+              <div className="animate-float rounded-2xl border border-slate-200 bg-white p-5 shadow-card-hover">
+                <div className="mb-4 flex items-center gap-2 border-b border-slate-100 pb-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
+                    <Bot className="h-4 w-4" />
+                  </span>
+                  <p className="text-sm font-semibold text-slate-800">{t('landing.heroCardTitle')}</p>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-brand-600 px-4 py-2.5 text-sm text-white">
+                    {t('landing.heroCardQ')}
+                  </div>
+                  <div className="max-w-[92%] rounded-2xl rounded-bl-sm bg-slate-100 px-4 py-3 text-sm leading-relaxed text-slate-700">
+                    {t('landing.heroCardA')}
+                    <div className="mt-2 flex items-center gap-1.5 text-xs font-medium text-brand-700">
+                      <Link2 className="h-3 w-3" />
+                      {t('landing.heroCardSource')}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-2xl bg-slate-100 px-4 py-3" style={{ width: 'fit-content' }}>
+                    <span className="h-2 w-2 animate-typing-dot rounded-full bg-slate-400" />
+                    <span className="h-2 w-2 animate-typing-dot rounded-full bg-slate-400 [animation-delay:150ms]" />
+                    <span className="h-2 w-2 animate-typing-dot rounded-full bg-slate-400 [animation-delay:300ms]" />
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5">
+                  <span className="flex-1 text-sm text-slate-400">{t('assistant.placeholder')}</span>
+                  <Send className="h-4 w-4 text-brand-600" />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Mock chat card */}
-          <div className="relative hidden animate-fade-in-up [animation-delay:220ms] lg:block">
-            <div className="animate-float rounded-2xl border border-slate-200 bg-white p-5 shadow-card-hover">
-              <div className="mb-4 flex items-center gap-2 border-b border-slate-100 pb-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
-                  <Bot className="h-4 w-4" />
-                </span>
-                <p className="text-sm font-semibold text-slate-800">{t('landing.heroCardTitle')}</p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-brand-600 px-4 py-2.5 text-sm text-white">
-                  {t('landing.heroCardQ')}
-                </div>
-                <div className="max-w-[92%] rounded-2xl rounded-bl-sm bg-slate-100 px-4 py-3 text-sm leading-relaxed text-slate-700">
-                  {t('landing.heroCardA')}
-                  <div className="mt-2 flex items-center gap-1.5 text-xs font-medium text-brand-700">
-                    <Link2 className="h-3 w-3" />
-                    {t('landing.heroCardSource')}
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 rounded-2xl bg-slate-100 px-4 py-3" style={{ width: 'fit-content' }}>
-                  <span className="h-2 w-2 animate-typing-dot rounded-full bg-slate-400" />
-                  <span className="h-2 w-2 animate-typing-dot rounded-full bg-slate-400 [animation-delay:150ms]" />
-                  <span className="h-2 w-2 animate-typing-dot rounded-full bg-slate-400 [animation-delay:300ms]" />
-                </div>
-              </div>
-
-              <div className="mt-4 flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5">
-                <span className="flex-1 text-sm text-slate-400">{t('assistant.placeholder')}</span>
-                <Send className="h-4 w-4 text-brand-600" />
-              </div>
+          {/* ledger strip: live counts across the full width */}
+          <div ref={statsRef} className="mt-14 border-t border-slate-300 lg:mt-20">
+            <p className="flex items-center gap-2 pt-4 text-xs text-slate-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-400" aria-hidden="true" />
+              {t('landing.statsLive', { defaultValue: 'Live data' })}
+            </p>
+            <div data-testid="live-stats" className="grid grid-cols-3 divide-x divide-slate-300 pb-10 pt-3">
+              {statCards.map((card, i) => (
+                <StatCard
+                  key={card.key}
+                  value={card.value}
+                  label={card.label}
+                  failed={stats.isError}
+                  shown={statsShown}
+                  delay={380 + i * 90}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -298,7 +292,7 @@ export default function LandingPage() {
       {/* ---------- How it works (7 steps) ---------- */}
       <section id="how-it-works" className="container-app py-20 scroll-mt-20">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
+          <h2 className="font-display text-3xl font-medium text-slate-900 sm:text-4xl">
             {t('landing.howTitle')}
           </h2>
           <p className="mt-3 text-slate-500">{t('landing.howSubtitle')}</p>
@@ -307,11 +301,11 @@ export default function LandingPage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <Reveal key={i} delay={i * 70}>
-              <Card className="group relative h-full p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover">
-                <span className="absolute right-4 top-4 text-3xl font-black text-slate-100 transition-colors group-hover:text-brand-100">
+              <Card className="group relative h-full p-5 transition-colors duration-200 hover:border-brand-300">
+                <span className="absolute right-4 top-4 font-display text-3xl text-slate-300 transition-colors group-hover:text-accent-500">
                   {i + 1}
                 </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 transition-transform duration-200 group-hover:scale-110">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
                   <s.icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 text-sm font-semibold text-slate-800">{s.title}</h3>
@@ -323,10 +317,10 @@ export default function LandingPage() {
       </section>
 
       {/* ---------- Features ---------- */}
-      <section id="features" className="bg-slate-50 py-20 scroll-mt-20">
+      <section id="features" className="border-y border-slate-200 bg-slate-100 py-20 scroll-mt-20">
         <div className="container-app">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
+            <h2 className="font-display text-3xl font-medium text-slate-900 sm:text-4xl">
               {t('landing.featuresTitle')}
             </h2>
             <p className="mt-3 text-slate-500">{t('landing.featuresSubtitle')}</p>
@@ -334,8 +328,8 @@ export default function LandingPage() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {features.map(({ key, icon: Icon }, i) => (
               <Reveal key={key} delay={i * 70}>
-                <Card className="group h-full p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-white transition-transform duration-200 group-hover:rotate-6 group-hover:scale-110">
+                <Card className="group h-full p-6 transition-colors duration-200 hover:border-brand-300">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-600 text-white">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="mt-4 font-semibold text-slate-800">
@@ -353,15 +347,8 @@ export default function LandingPage() {
 
       {/* ---------- CTA ---------- */}
       <section className="container-app py-20">
-        <Reveal className="relative overflow-hidden rounded-3xl bg-brand-800 px-8 py-14 text-center sm:px-14">
-          <div
-            className="pointer-events-none absolute inset-0 animate-drift-x opacity-20"
-            style={{
-              background:
-                'radial-gradient(circle at 20% 20%, #34d399 0, transparent 40%), radial-gradient(circle at 80% 80%, #fbbf24 0, transparent 40%)',
-            }}
-          />
-          <h2 className="relative text-2xl font-extrabold text-white sm:text-3xl">
+        <Reveal className="relative overflow-hidden rounded-2xl bg-brand-600 px-8 py-14 text-center sm:px-14">
+          <h2 className="relative font-display text-3xl font-medium text-white sm:text-4xl">
             {t('landing.ctaTitle')}
           </h2>
           <p className="relative mx-auto mt-3 max-w-xl text-brand-100">{t('landing.ctaDesc')}</p>

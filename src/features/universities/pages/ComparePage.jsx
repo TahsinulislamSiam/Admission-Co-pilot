@@ -69,7 +69,7 @@ export default function ComparePage() {
 
   const statRow = (label, render) => (
     <tr className="border-b border-slate-100">
-      <th className="w-44 bg-slate-50 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <th className="w-44 bg-slate-50 px-4 py-3 text-left text-xs font-semibold  text-slate-500">
         {label}
       </th>
       {selected.map((u) => (
@@ -83,7 +83,7 @@ export default function ComparePage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
           <Scale className="h-5 w-5 text-brand-600" />
           {t('universities.compareTitle')}
         </h1>

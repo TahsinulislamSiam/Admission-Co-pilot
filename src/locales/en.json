@@ -450,7 +450,7 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "welcome": "Welcome, {{name}} 👋",
+    "welcome": "Welcome, {{name}}",
     "subtitle": "Here is how your preparation is going",
     "testsTaken": "Tests taken",
     "avgScore": "Average score",

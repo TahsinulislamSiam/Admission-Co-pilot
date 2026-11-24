@@ -41,7 +41,7 @@ export function QuestionReviewItem({ review, question, index, defaultOpen = fals
         className="flex w-full items-center gap-3 px-4 py-3 text-left"
       >
         {statusIcon}
-        <span className="text-xs font-bold text-slate-400">Q{index + 1}</span>
+        <span className="text-xs font-semibold text-slate-400">Q{index + 1}</span>
         <span className="min-w-0 flex-1 truncate text-sm text-slate-700">{loc(question.text)}</span>
 
         {review.isCorrect ? (
@@ -85,17 +85,17 @@ export function QuestionReviewItem({ review, question, index, defaultOpen = fals
                         : 'border-slate-200 text-slate-600'
                   )}
                 >
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-[10px] font-bold">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">
                     {String.fromCharCode(65 + i)}
                   </span>
                   <span className="flex-1">{loc(opt)}</span>
                   {isCorrect && (
-                    <span className="text-[11px] font-semibold text-emerald-600">
+                    <span className="text-xs font-semibold text-emerald-600">
                       ✓ {t('analysis.correctAnswer')}
                     </span>
                   )}
                   {isMine && !isCorrect && (
-                    <span className="text-[11px] font-semibold text-rose-600">
+                    <span className="text-xs font-semibold text-rose-600">
                       ✗ {t('analysis.yourAnswer')}
                     </span>
                   )}

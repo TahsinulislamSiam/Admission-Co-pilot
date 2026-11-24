@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@/lib/i18n'
@@ -43,9 +43,6 @@ describe('LandingPage', () => {
     for (const cls of [
       'animate-fade-in-up',
       'animate-pop-in',
-      'animate-float',
-      'animate-drift-x',
-      'animate-drift-y',
     ]) {
       expect(container.querySelectorAll(`.${cls}`).length, cls).toBeGreaterThan(0)
     }
@@ -64,9 +61,12 @@ describe('LandingPage', () => {
     // universities = 3 public + 2 private, questions = 4 unique ids, tests = 2
     await waitFor(
       () => {
-        expect(screen.getByText('5')).toBeInTheDocument()
-        expect(screen.getByText('4')).toBeInTheDocument()
-        expect(screen.getByText('2')).toBeInTheDocument()
+        const stats = within(screen.getByTestId('live-stats'))
+        // The figures follow the UI language (Bangla digits when the app is in Bangla).
+        const fmt = new Intl.NumberFormat(i18n.language?.startsWith('bn') ? 'bn-BD' : 'en-US')
+        expect(stats.getByText(fmt.format(5))).toBeInTheDocument()
+        expect(stats.getByText(fmt.format(4))).toBeInTheDocument()
+        expect(stats.getByText(fmt.format(2))).toBeInTheDocument()
       },
       { timeout: 3000 }
     )

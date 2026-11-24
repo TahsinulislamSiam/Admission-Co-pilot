@@ -203,7 +203,7 @@ export default function RecordsPage() {
     <div>
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <div className="mr-auto">
-          <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+          <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
             <Database className="h-5 w-5 text-brand-600" />
             {t('admin.records.title')}
           </h1>
