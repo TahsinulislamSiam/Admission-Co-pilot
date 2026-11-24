@@ -48,8 +48,8 @@ export function AdminLayout() {
             <GraduationCap className="h-5 w-5" />
           </span>
           <div>
-            <p className="text-sm font-bold text-white">{t('admin.title')}</p>
-            <p className="text-[11px] text-slate-400">{t('common.appName')}</p>
+            <p className="text-sm font-semibold text-white">{t('admin.title')}</p>
+            <p className="text-xs text-slate-400">{t('common.appName')}</p>
           </div>
         </Link>
 

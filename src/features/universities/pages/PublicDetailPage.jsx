@@ -69,7 +69,7 @@ export default function PublicDetailPage() {
                   <Landmark className="h-6 w-6" />
                 </span>
                 <div>
-                  <h1 className="text-xl font-bold text-slate-900">{loc(u.name)}</h1>
+                  <h1 className="text-xl font-semibold text-slate-900">{loc(u.name)}</h1>
                   <p className="mt-0.5 text-sm text-slate-500">
                     {loc(u.shortName)}
                     {u.established ? ` · ${t('universities.established')} ${u.established}` : ''}
@@ -124,7 +124,7 @@ export default function PublicDetailPage() {
           ].map((item, i) => (
             <Card key={i}>
               <CardContent className="py-4">
-                <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400">
+                <p className="flex items-center gap-1.5 text-xs font-medium  text-slate-400">
                   <item.icon className="h-3.5 w-3.5" />
                   {item.label}
                 </p>

@@ -50,7 +50,7 @@ export default function PublicHubPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
           <Landmark className="h-5 w-5 text-brand-600" />
           {t('universities.publicTitle')}
         </h1>

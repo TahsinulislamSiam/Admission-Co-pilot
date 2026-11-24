@@ -98,19 +98,19 @@ export default function InstructionsPage() {
           <div className="mb-6 grid grid-cols-3 gap-3 text-center">
             <div className="rounded-lg bg-slate-50 px-3 py-3">
               <BookOpenCheck className="mx-auto h-5 w-5 text-brand-600" />
-              <p className="mt-1 text-lg font-bold text-slate-800">{test.questionIds.length}</p>
+              <p className="mt-1 text-lg font-semibold text-slate-800">{test.questionIds.length}</p>
               <p className="text-xs text-slate-400">{t('tests.questions')}</p>
             </div>
             <div className="rounded-lg bg-slate-50 px-3 py-3">
               <Timer className="mx-auto h-5 w-5 text-brand-600" />
-              <p className="mt-1 text-lg font-bold text-slate-800">
+              <p className="mt-1 text-lg font-semibold text-slate-800">
                 {Math.round(test.durationSec / 60)}
               </p>
               <p className="text-xs text-slate-400">{t('tests.minutes')}</p>
             </div>
             <div className="rounded-lg bg-slate-50 px-3 py-3">
               <Percent className="mx-auto h-5 w-5 text-brand-600" />
-              <p className="mt-1 text-lg font-bold text-rose-600">0.25</p>
+              <p className="mt-1 text-lg font-semibold text-rose-600">0.25</p>
               <p className="text-xs text-slate-400">{t('tests.negativeMarking')}</p>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function InstructionsPage() {
           <ul className="space-y-3">
             {rules.map((r, i) => (
               <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-slate-600">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[11px] font-bold text-brand-700">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-700">
                   {i + 1}
                 </span>
                 {r}

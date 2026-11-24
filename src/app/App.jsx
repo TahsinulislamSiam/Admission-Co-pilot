@@ -36,13 +36,13 @@ export default function App() {
         toastOptions={{
           duration: 3500,
           style: {
-            background: '#064e3b',
+            background: '#1E3B2F',
             color: '#fff',
             fontSize: '0.9rem',
             maxWidth: '480px',
           },
-          success: { iconTheme: { primary: '#34d399', secondary: '#fff' } },
-          error: { iconTheme: { primary: '#fda4af', secondary: '#fff' } },
+          success: { iconTheme: { primary: '#C8B48A', secondary: '#fff' } },
+          error: { iconTheme: { primary: '#DF9C8C', secondary: '#fff' } },
         }}
       />
     </QueryClientProvider>

@@ -14,13 +14,13 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-slate-50">
       <div className="container-app flex h-16 items-center justify-between">
         <Link to={ROUTES.landing} className="flex items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
             <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="text-lg font-bold text-slate-900">{t('common.appName')}</span>
+          <span className="font-display text-xl font-semibold text-slate-900">{t('common.appName')}</span>
         </Link>
 
         {/* desktop */}
@@ -110,7 +110,7 @@ export function Footer() {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
               <GraduationCap className="h-4 w-4" />
             </span>
-            <span className="font-bold text-slate-900">{t('common.appName')}</span>
+            <span className="font-semibold text-slate-900">{t('common.appName')}</span>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-slate-500">{t('footer.aboutDesc')}</p>
         </div>
@@ -161,7 +161,7 @@ export function AuthNavbar() {
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
             <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="text-lg font-bold text-slate-900">{t('common.appName')}</span>
+          <span className="font-display text-xl font-semibold text-slate-900">{t('common.appName')}</span>
         </Link>
         <LanguageSwitcher />
       </div>
