@@ -71,7 +71,7 @@ export default function PrivateDirectoryPage() {
     const q = debounced.trim().toLowerCase()
     let rows = []
     for (const u of universities) {
-      for (const d of u.departments) {
+      for (const d of u.departments ?? []) {
         if (deptFilter !== 'all' && d.name.en !== deptFilter) continue
         if (q) {
           const hay = [loc(d.name), loc(u.name)].join(' ').toLowerCase()

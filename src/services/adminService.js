@@ -147,4 +147,60 @@ export const adminService = {
       throw normalizedError(e)
     }
   },
+
+  // --- users ---
+  async listUsers(q = '') {
+    try {
+      const { data } = await api.get('/admin/users', { params: q ? { q } : undefined })
+      return data
+    } catch (e) {
+      throw normalizedError(e)
+    }
+  },
+
+  async getUser(id) {
+    try {
+      const { data } = await api.get(`/admin/users/${id}`)
+      return data
+    } catch (e) {
+      throw normalizedError(e)
+    }
+  },
+
+  async deleteUser(id) {
+    try {
+      const { data } = await api.delete(`/admin/users/${id}`)
+      return data
+    } catch (e) {
+      throw normalizedError(e)
+    }
+  },
+
+  // --- videos ---
+  async listVideos(subject = '') {
+    try {
+      const { data } = await api.get('/videos', { params: subject ? { subject } : undefined })
+      return data
+    } catch (e) {
+      throw normalizedError(e)
+    }
+  },
+
+  async addVideo(payload) {
+    try {
+      const { data } = await api.post('/admin/videos', payload)
+      return data
+    } catch (e) {
+      throw normalizedError(e)
+    }
+  },
+
+  async deleteVideo(id) {
+    try {
+      const { data } = await api.delete(`/admin/videos/${id}`)
+      return data
+    } catch (e) {
+      throw normalizedError(e)
+    }
+  }
 }

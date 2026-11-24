@@ -4,7 +4,7 @@
  * already consumes stays in `data` (jsonb), so the API returns the same shapes
  * the MSW mocks did.
  */
-import { pgTable, text, boolean, timestamp, jsonb, index } from 'drizzle-orm/pg-core'
+import { pgTable, text, boolean, timestamp, integer, jsonb, index } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: text('id').primaryKey(),
@@ -85,4 +85,81 @@ export const circulars = pgTable(
     uploadedAt: timestamp('uploaded_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index('circulars_status_idx').on(t.status)]
+)
+
+/**
+ * Video lessons, added by an admin and grouped by subject (math, physics,
+ * chemistry, ...) then topic ("Integration"). Only the YouTube URL is stored on
+ * top of the plain columns; the rest of the record is editable metadata.
+ */
+export const videos = pgTable(
+  'videos',
+  {
+    id: text('id').primaryKey(),
+    title: text('title').notNull(),
+    subject: text('subject').notNull(), // 'math' | 'physics' | 'chemistry' | ...
+    topic: text('topic').notNull().default(''),
+    youtubeUrl: text('youtube_url').notNull(),
+    youtubeId: text('youtube_id').notNull(), // 11-char id, used for the embed
+    channel: text('channel'),
+    addedBy: text('added_by').references(() => users.id, { onDelete: 'set null' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('videos_subject_idx').on(t.subject)]
+)
+
+/**
+ * In-app mailbox (admin <-> user). Not email: both parties read it inside the
+ * app, so it works without SMTP credentials and is fully backed by the database.
+ */
+export const messages = pgTable(
+  'messages',
+  {
+    id: text('id').primaryKey(),
+    fromUserId: text('from_user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    toUserId: text('to_user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    subject: text('subject').notNull(),
+    body: text('body').notNull(),
+    readAt: timestamp('read_at', { withTimezone: true }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index('messages_to_idx').on(t.toUserId),
+    index('messages_from_idx').on(t.fromUserId),
+  ]
+)
+
+/**
+ * University faculty contacts (from professor.json). Denormalised on purpose —
+ * one row per professor repeating the university fields — because the student
+ * view only groups by university and the admin form edits a whole row at once.
+ */
+export const professors = pgTable(
+  'professors',
+  {
+    id: text('id').primaryKey(),
+    university: text('university').notNull(),
+    country: text('country'),
+    city: text('city'),
+    universityRank: integer('university_rank'),
+    universityWebsite: text('university_website'),
+    facultyDirectory: text('faculty_directory'),
+    name: text('name').notNull(),
+    title: text('title'),
+    email: text('email'),
+    emailStatus: text('email_status'),
+    department: text('department'),
+    researchFields: jsonb('research_fields').$type().default([]),
+    profileUrl: text('profile_url'),
+    addedBy: text('added_by').references(() => users.id, { onDelete: 'set null' }),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index('professors_university_idx').on(t.university),
+    index('professors_name_idx').on(t.name),
+  ]
 )

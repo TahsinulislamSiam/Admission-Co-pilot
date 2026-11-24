@@ -1,0 +1,160 @@
+          "title": "Professor of AI & Neuroscience",
+          "email": "a.faisal@imperial.ac.uk",
+          "department": "Computing / Neuroscience",
+          "research_fields": [
+            "Machine Learning",
+            "Neurotechnology",
+            "Biomedical Engineering",
+            "Human Behavior Prediction"
+          ],
+          "profile_url": "https://www.imperial.ac.uk/computing/research/artificial-intelligence/"
+        },
+        {
+          "name": "Ben Glocker",
+          "title": "Professor in Machine Learning for Imaging",
+          "email": "b.glocker@imperial.ac.uk",
+          "department": "Computing",
+          "research_fields": [
+            "Machine Learning",
+            "Medical Imaging",
+            "Computer Vision",
+            "Semantic Image Understanding"
+          ],
+          "profile_url": "https://www.imperial.ac.uk/computing/research/artificial-intelligence/"
+        },
+        {
+          "name": "Yingzhen Li",
+          "title": "Associate Professor in Machine Learning",
+          "email": "yingzhen.li@imperial.ac.uk",
+          "department": "Computing",
+          "research_fields": [
+            "Machine Learning",
+            "Bayesian Statistics",
+            "Generative Models",
+            "Robust Learning"
+          ],
+          "profile_url": "https://www.imperial.ac.uk/computing/research/artificial-intelligence/"
+        }
+      ]
+    },
+    {
+      "rank_qs_2027": 2,
+      "university": "Stanford University",
+      "location": {
+        "city": "Stanford",
+        "country": "United States"
+      },
+      "website": "https://www.stanford.edu/",
+      "faculty_directory": "https://ai.stanford.edu/faculty/",
+      "faculty": [
+        {
+          "name": "Emma Brunskill",
+          "title": "Professor (faculty title may vary by current appointment)",
+          "email": null,
+          "department": "Computer Science",
+          "research_fields": [
+            "Reinforcement Learning",
+            "Interactive Learning",
+            "AI"
+          ],
+          "profile_url": "https://ai.stanford.edu/faculty/",
+          "email_status": "Not verified from retrieved official page"
+        },
+        {
+          "name": "Stefano Ermon",
+          "title": "Professor",
+          "email": null,
+          "department": "Computer Science",
+          "research_fields": [
+            "Machine Learning",
+            "Probabilistic Reasoning",
+            "Sustainability"
+          ],
+          "profile_url": "https://ai.stanford.edu/faculty/",
+          "email_status": "Not verified from retrieved official page"
+        },
+        {
+          "name": "Chelsea Finn",
+          "title": "Professor",
+          "email": null,
+          "department": "Computer Science",
+          "research_fields": [
+            "Robotics",
+            "Machine Learning",
+            "Robot Learning"
+          ],
+          "profile_url": "https://ai.stanford.edu/faculty/",
+          "email_status": "Not verified from retrieved official page"
+        },
+        {
+          "name": "Fei-Fei Li",
+          "title": "Professor",
+          "email": null,
+          "department": "Computer Science",
+          "research_fields": [
+            "Artificial Intelligence",
+            "Computer Vision",
+            "Human-Centered AI"
+          ],
+          "profile_url": "https://ai.stanford.edu/faculty/",
+          "email_status": "Not verified from retrieved official page"
+        },
+        {
+          "name": "Jure Leskovec",
+          "title": "Professor",
+          "email": null,
+          "department": "Computer Science",
+          "research_fields": [
+            "Machine Learning",
+            "Graph Mining",
+            "Data Science",
+            "Network Science"
+          ],
+          "profile_url": "https://ai.stanford.edu/faculty/",
+          "email_status": "Not verified from retrieved official page"
+        }
+      ]
+    },
+    {
+      "rank_qs_2027": 4,
+      "university": "University of Oxford",
+      "location": {
+        "city": "Oxford",
+        "country": "United Kingdom"
+      },
+      "website": "https://www.ox.ac.uk/",
+      "faculty_directory": "https://eng.ox.ac.uk/people/",
+      "faculty": [
+        {
+          "name": "Stephen Roberts",
+          "title": "Professor of Machine Learning",
+          "email": "sjrob@robots.ox.ac.uk",
+          "department": "Engineering Science",
+          "research_fields": [
+            "Machine Learning",
+            "Sequential Data",
+            "Dynamical Systems",
+            "Probabilistic Modeling"
+          ],
+          "profile_url": "https://eng.ox.ac.uk/people/stephen-roberts"
+        },
+        {
+          "name": "Ingmar Posner",
+          "title": "Professor of Applied Artificial Intelligence",
+          "email": "ingmar@robots.ox.ac.uk",
+          "department": "Engineering Science / Oxford Robotics Institute",
+          "research_fields": [
+            "Artificial Intelligence",
+            "Robotics",
+            "Representation Learning",
+            "Autonomous Vehicles"
+          ],
+          "profile_url": "https://eng.ox.ac.uk/people/ingmar-posner"
+        },
+        {
+          "name": "David Clifton",
+          "title": "Professor; Royal Academy of Engineering Chair of Clinical Machine Learning",
+          "email": "davidc@robots.ox.ac.uk",
+          "department": "Engineering Science / Biomedical Engineering",
+          "research_fields": [
+            "Clinical Machine Learning",
