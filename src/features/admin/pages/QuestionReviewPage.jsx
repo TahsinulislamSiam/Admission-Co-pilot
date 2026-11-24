@@ -140,7 +140,7 @@ export default function QuestionReviewPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
           <ClipboardCheck className="h-5 w-5 text-brand-600" />
           {t('admin.questions.title')}
         </h1>
@@ -177,7 +177,7 @@ export default function QuestionReviewPage() {
                   <Badge variant={difficultyVariant[q.difficulty]}>
                     {t(`tests.difficulty${q.difficulty.charAt(0).toUpperCase()}${q.difficulty.slice(1)}`)}
                   </Badge>
-                  <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
+                  <span className="text-xs font-medium  text-slate-400">
                     {q.subject} · {q.topic}
                   </span>
                   <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
@@ -214,7 +214,7 @@ export default function QuestionReviewPage() {
                     >
                       <span
                         className={cn(
-                          'flex h-5 w-5 shrink-0 items-center justify-center rounded text-xs font-bold',
+                          'flex h-5 w-5 shrink-0 items-center justify-center rounded text-xs font-semibold',
                           i === q.correct ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-500'
                         )}
                       >
@@ -359,7 +359,7 @@ export default function QuestionReviewPage() {
               <div className="space-y-2">
                 {editForm.options.map((o, i) => (
                   <div key={i} className="flex items-center gap-2">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-slate-100 text-sm font-bold text-slate-500">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-slate-100 text-sm font-semibold text-slate-500">
                       {optionLetters[i]}
                     </span>
                     <Input

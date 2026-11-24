@@ -83,7 +83,7 @@ export default function DashboardPage() {
       {/* header */}
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+          <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
             <LayoutDashboard className="h-5 w-5 text-brand-600" />
             {t('dashboard.welcome', { name: user?.name || '' })}
           </h1>
@@ -120,7 +120,7 @@ export default function DashboardPage() {
               <Card key={i}>
                 <CardContent className="py-4">
                   <s.icon className={`h-5 w-5 ${s.tone}`} />
-                  <p className="mt-2 text-2xl font-extrabold text-slate-800">{s.value}</p>
+                  <p className="mt-2 text-2xl font-semibold text-slate-800">{s.value}</p>
                   <p className="text-xs text-slate-400">{s.label}</p>
                 </CardContent>
               </Card>
@@ -140,19 +140,19 @@ export default function DashboardPage() {
                     <XAxis
                       dataKey="label"
                       tickFormatter={(v, i) => `${i + 1}`}
-                      tick={{ fontSize: 11, fill: '#94a3b8' }}
+                      tick={{ fontSize: 11, fill: '#8A9279' }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <YAxis
                       domain={[0, 100]}
-                      tick={{ fontSize: 11, fill: '#94a3b8' }}
+                      tick={{ fontSize: 11, fill: '#8A9279' }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <Tooltip
-                      cursor={{ stroke: '#10b981', strokeDasharray: '4 4' }}
-                      contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }}
+                      cursor={{ stroke: '#7F8C6A', strokeDasharray: '4 4' }}
+                      contentStyle={{ borderRadius: 12, border: '1px solid #DED7C4', fontSize: 13 }}
                       formatter={(value) => [`${value}%`, t('dashboard.score')]}
                       labelFormatter={(v, payload) => {
                         const p = payload?.[0]?.payload
@@ -162,9 +162,9 @@ export default function DashboardPage() {
                     <Line
                       type="monotone"
                       dataKey="percentage"
-                      stroke="#059669"
+                      stroke="#1E3B2F"
                       strokeWidth={2.5}
-                      dot={{ r: 4, fill: '#059669' }}
+                      dot={{ r: 4, fill: '#1E3B2F' }}
                       activeDot={{ r: 6 }}
                     />
                   </LineChart>
@@ -183,7 +183,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 {analytics.weakTopics.length === 0 ? (
-                  <p className="py-10 text-center text-sm text-slate-400">🎉 {t('analysis.correctBadge')} 100%</p>
+                  <p className="py-10 text-center text-sm text-slate-400">{t('analysis.correctBadge')} 100%</p>
                 ) : (
                   <div className="h-64">
                     <ResponsiveContainer width="100%" height="100%">
@@ -197,16 +197,16 @@ export default function DashboardPage() {
                           type="category"
                           dataKey="topicLabel"
                           width={130}
-                          tick={{ fontSize: 11, fill: '#475569' }}
+                          tick={{ fontSize: 11, fill: '#4B5A46' }}
                           axisLine={false}
                           tickLine={false}
                         />
                         <Tooltip
                           cursor={{ fill: 'rgba(16,185,129,0.06)' }}
-                          contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }}
+                          contentStyle={{ borderRadius: 12, border: '1px solid #DED7C4', fontSize: 13 }}
                           formatter={(v) => [v, t('dashboard.wrongCount')]}
                         />
-                        <Bar dataKey="wrong" radius={[0, 8, 8, 0]} fill="#e11d48" barSize={18} />
+                        <Bar dataKey="wrong" radius={[0, 8, 8, 0]} fill="#B85C47" barSize={18} />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -242,7 +242,7 @@ export default function DashboardPage() {
                           ))}
                         </Pie>
                         <Tooltip
-                          contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }}
+                          contentStyle={{ borderRadius: 12, border: '1px solid #DED7C4', fontSize: 13 }}
                         />
                       </PieChart>
                     </ResponsiveContainer>
@@ -255,7 +255,7 @@ export default function DashboardPage() {
                           style={{ background: MISTAKE_TYPE_COLORS[mt] }}
                         />
                         <span className="flex-1 text-slate-600">{t(`analysis.mistakeTypes.${mt}`)}</span>
-                        <span className="font-bold text-slate-800">
+                        <span className="font-semibold text-slate-800">
                           {analytics.mistakeCounts[mt] || 0}
                         </span>
                       </div>

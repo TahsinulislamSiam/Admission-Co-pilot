@@ -54,12 +54,12 @@ export function PrivateUniversityCard({ university: u }) {
           <div className="rounded-lg bg-slate-50 px-2 py-2.5">
             <Layers className="mx-auto h-4 w-4 text-brand-600" />
             <p className="mt-1 text-sm font-semibold text-slate-800">{u.departments.length}</p>
-            <p className="text-[11px] text-slate-400">{t('universities.departmentCount', { count: '' })}</p>
+            <p className="text-xs text-slate-400">{t('universities.departmentCount', { count: '' })}</p>
           </div>
           <div className="col-span-2 rounded-lg bg-slate-50 px-2 py-2.5">
             <Wallet className="mx-auto h-4 w-4 text-brand-600" />
             <p className="mt-1 text-sm font-semibold text-slate-800">{formatRange(minCost, maxCost)}</p>
-            <p className="text-[11px] text-slate-400">{t('universities.estimatedDegreeCost')}</p>
+            <p className="text-xs text-slate-400">{t('universities.estimatedDegreeCost')}</p>
           </div>
         </div>
 
@@ -118,22 +118,22 @@ export function DepartmentCard({ university: u, dept: d, showUniversity = false 
           <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-400">
             {u ? u.name.en : ''}
             {d.basis && (
-              <span className="rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+              <span className="rounded-full bg-amber-50 px-1.5 py-0.5 text-xs font-medium text-amber-700">
                 {t('universities.estimate')}
               </span>
             )}
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm font-bold text-slate-900">
+          <p className="text-sm font-semibold text-slate-900">
             {d.costMin === d.costMax ? formatBDT(d.costMin) : `${formatBDT(d.costMin)} – ${formatBDT(d.costMax)}`}
           </p>
-          <p className="text-[11px] text-slate-400">{t('universities.estimatedDegreeCost')}</p>
+          <p className="text-xs text-slate-400">{t('universities.estimatedDegreeCost')}</p>
         </div>
       </div>
 
       {/* cost scope note from the dataset */}
-      {d.includes && <p className="mt-3 text-[11px] leading-relaxed text-slate-400">{d.includes}</p>}
+      {d.includes && <p className="mt-3 text-xs leading-relaxed text-slate-400">{d.includes}</p>}
     </Card>
   )
 }

@@ -51,7 +51,7 @@ export default function AssistantPage() {
       {/* header */}
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+          <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
             <MessagesSquare className="h-5 w-5 text-brand-600" />
             {t('assistant.title')}
           </h1>
@@ -102,7 +102,7 @@ export default function AssistantPage() {
               {t('assistant.send')}
             </Button>
           </div>
-          <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-relaxed text-slate-400">
+          <p className="mt-2 flex items-start gap-1.5 text-xs leading-relaxed text-slate-400">
             <Info className="mt-0.5 h-3 w-3 shrink-0" />
             {t('assistant.disclaimer')}
           </p>

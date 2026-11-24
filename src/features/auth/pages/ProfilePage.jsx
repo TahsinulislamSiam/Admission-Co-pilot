@@ -85,7 +85,7 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-3xl">
       <div className="mb-6">
-        <h1 className="text-xl font-bold text-slate-900">{t('profile.title')}</h1>
+        <h1 className="text-xl font-semibold text-slate-900">{t('profile.title')}</h1>
         <p className="mt-1 text-sm text-slate-500">{t('profile.subtitle')}</p>
       </div>
 
@@ -94,7 +94,7 @@ export default function ProfilePage() {
         <CardContent className="py-4">
           <div className="mb-2 flex items-center justify-between text-sm">
             <span className="font-medium text-slate-700">{t('profile.completeness')}</span>
-            <span className="font-bold text-brand-700">{completeness}%</span>
+            <span className="font-semibold text-brand-700">{completeness}%</span>
           </div>
           <Progress value={completeness} />
           {completeness < 60 && (

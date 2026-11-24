@@ -118,7 +118,7 @@ export default function PrivateDirectoryPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
           <Building2 className="h-5 w-5 text-brand-600" />
           {t('universities.privateTitle')}
         </h1>

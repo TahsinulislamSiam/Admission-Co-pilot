@@ -105,7 +105,7 @@ export function StudentLayout() {
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white transition-transform duration-200 hover:scale-105">
                 <GraduationCap className="h-4 w-4" />
               </span>
-              <span className="font-bold text-slate-900">{t('common.appName')}</span>
+              <span className="font-semibold text-slate-900">{t('common.appName')}</span>
             </Link>
           </div>
           <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ function SidebarContent({ user, isAdmin, onLogout, t, onClose }) {
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
             <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="text-base font-bold text-slate-900">{t('common.appName')}</span>
+          <span className="text-base font-semibold text-slate-900">{t('common.appName')}</span>
         </Link>
         {onClose && (
           <button onClick={onClose} className="p-1 text-slate-400 hover:text-slate-600">
