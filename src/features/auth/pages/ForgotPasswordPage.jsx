@@ -41,8 +41,8 @@ export default function ForgotPasswordPage() {
     <div className="relative isolate flex min-h-screen flex-col bg-slate-50">
       <AuthNavbar />
       <AuthBackground />
-      <div className="flex flex-1 items-center justify-center px-4 py-12 lg:justify-start lg:pl-[10vw]">
-        <div className="w-full max-w-md rounded-2xl border border-slate-300 bg-white p-8 shadow-card-hover">
+      <div className="flex flex-1 items-center justify-center px-4 py-12">
+        <div className="w-full rounded-2xl border border-white/60 bg-white/45 p-8 shadow-[0_8px_32px_rgba(30,59,47,0.12)] backdrop-blur-xl lg:w-[45%]">
           {sent ? (
             <div className="py-8 text-center">
               <div className="mx-auto mb-4 w-fit rounded-full bg-brand-50 p-4">
