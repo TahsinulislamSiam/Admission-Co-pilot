@@ -6,6 +6,11 @@ import { ROUTES, route } from '@/routes/constants'
 import { useAuthStore, selectIsAuthenticated } from '@/store/authStore'
 import { LanguageSwitcher } from '@/components/common/LanguageSwitcher'
 import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
+
+/** Language toggle styling for the dark forest header. */
+const LANG_ON_DARK =
+  'border-white/25 bg-transparent text-white hover:border-accent-500 hover:text-accent-300'
 
 /** Top navbar for public pages (landing / auth). */
 export function Navbar() {
@@ -14,37 +19,45 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-slate-50">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-brand-600">
       <div className="container-app flex h-16 items-center justify-between">
         <Link to={ROUTES.landing} className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent-500 text-brand-900">
             <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="font-display text-xl font-semibold text-slate-900">{t('common.appName')}</span>
+          <span className="font-display text-xl font-semibold text-white">{t('common.appName')}</span>
         </Link>
 
         {/* desktop */}
-        <nav className="hidden items-center gap-4 md:flex">
-          <a href="#how-it-works" className="text-sm font-medium text-slate-600 hover:text-brand-700">
+        <nav className="hidden items-center gap-6 md:flex">
+          <a href="#how-it-works" className="relative py-1 text-sm font-medium text-white/80 transition-colors hover:text-white after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent-500 after:transition-transform hover:after:scale-x-100">
             {t('landing.howTitle')}
           </a>
-          <a href="#features" className="text-sm font-medium text-slate-600 hover:text-brand-700">
+          <a href="#features" className="relative py-1 text-sm font-medium text-white/80 transition-colors hover:text-white after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-accent-500 after:transition-transform hover:after:scale-x-100">
             {t('landing.featuresTitle')}
           </a>
-          <LanguageSwitcher />
+          <LanguageSwitcher className={LANG_ON_DARK} />
           {isAuthenticated ? (
             <Link to={ROUTES.dashboard}>
-              <Button size="sm">{t('nav.dashboard')}</Button>
+              <Button variant="accent" size="sm">
+                {t('nav.dashboard')}
+              </Button>
             </Link>
           ) : (
             <>
               <Link to={ROUTES.login}>
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white/90 hover:bg-white/10 hover:text-white"
+                >
                   {t('nav.login')}
                 </Button>
               </Link>
               <Link to={ROUTES.register}>
-                <Button size="sm">{t('nav.getStarted')}</Button>
+                <Button variant="accent" size="sm">
+                  {t('nav.getStarted')}
+                </Button>
               </Link>
             </>
           )}
@@ -52,10 +65,10 @@ export function Navbar() {
 
         {/* mobile */}
         <div className="flex items-center gap-2 md:hidden">
-          <LanguageSwitcher className="px-2" />
+          <LanguageSwitcher className={cn(LANG_ON_DARK, 'px-2')} />
           <button
             onClick={() => setOpen(!open)}
-            className="rounded-lg p-2 text-slate-600 hover:bg-slate-100"
+            className="rounded-lg p-2 text-white/90 hover:bg-white/10"
             aria-label={t('nav.openMenu')}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -64,29 +77,33 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-slate-100 bg-white px-4 py-3 md:hidden">
+        <div className="border-t border-white/10 bg-brand-700 px-4 py-3 md:hidden">
           <div className="flex flex-col gap-3">
-            <a href="#how-it-works" onClick={() => setOpen(false)} className="text-sm font-medium text-slate-700">
+            <a href="#how-it-works" onClick={() => setOpen(false)} className="text-sm font-medium text-white/90">
               {t('landing.howTitle')}
             </a>
-            <a href="#features" onClick={() => setOpen(false)} className="text-sm font-medium text-slate-700">
+            <a href="#features" onClick={() => setOpen(false)} className="text-sm font-medium text-white/90">
               {t('landing.featuresTitle')}
             </a>
             {isAuthenticated ? (
               <Link to={ROUTES.dashboard}>
-                <Button className="w-full" size="sm">
+                <Button variant="accent" className="w-full" size="sm">
                   {t('nav.dashboard')}
                 </Button>
               </Link>
             ) : (
               <div className="flex gap-2">
                 <Link to={ROUTES.login} className="flex-1">
-                  <Button variant="outline" className="w-full" size="sm">
+                  <Button
+                    variant="ghost"
+                    className="w-full border border-white/25 text-white hover:bg-white/10 hover:text-white"
+                    size="sm"
+                  >
                     {t('nav.login')}
                   </Button>
                 </Link>
                 <Link to={ROUTES.register} className="flex-1">
-                  <Button className="w-full" size="sm">
+                  <Button variant="accent" className="w-full" size="sm">
                     {t('nav.getStarted')}
                   </Button>
                 </Link>
@@ -155,15 +172,15 @@ export function Footer() {
 export function AuthNavbar() {
   const { t } = useTranslation()
   return (
-    <header className="border-b border-slate-200 bg-white">
+    <header className="border-b border-white/10 bg-brand-600">
       <div className="container-app flex h-16 items-center justify-between">
         <Link to={ROUTES.landing} className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent-500 text-brand-900">
             <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="font-display text-xl font-semibold text-slate-900">{t('common.appName')}</span>
+          <span className="font-display text-xl font-semibold text-white">{t('common.appName')}</span>
         </Link>
-        <LanguageSwitcher />
+        <LanguageSwitcher className={LANG_ON_DARK} />
       </div>
     </header>
   )

@@ -26,7 +26,7 @@ export function LanguageSwitcher({ className }) {
     >
       <Languages className="h-4 w-4" />
       <span className={current === 'bn' ? 'font-semibold' : ''}>বাংলা</span>
-      <span className="text-slate-300">|</span>
+      <span className="opacity-40">|</span>
       <span className={current === 'en' ? 'font-semibold' : ''}>EN</span>
     </button>
   )

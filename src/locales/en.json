@@ -90,15 +90,11 @@
       "The seat is taken by whoever prepares for it"
     ],
     "howTitle": "How it works",
-    "howSubtitle": "From profile to final admission prep — in just 7 steps",
+    "howSubtitle": "From profile to final admission prep — in just 6 steps",
     "steps": {
       "s1": {
-        "title": "Create your profile",
-        "desc": "Give your SSC & HSC GPA, group and budget."
-      },
-      "s2": {
-        "title": "Set preferences",
-        "desc": "Tell us preferred subjects, cities and hostel needs."
+        "title": "Set up your profile",
+        "desc": "SSC & HSC GPA, group, budget, preferred subjects, cities and hostel needs."
       },
       "s3": {
         "title": "Explore universities",

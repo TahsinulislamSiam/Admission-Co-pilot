@@ -119,7 +119,7 @@ function QuoteMarquee({ quotes, label }) {
   )
 }
 
-const STEP_ICONS = [GraduationCap, Target, Compass, Scale, MessagesSquare, FileStack, BarChart3]
+const STEP_ICONS = [GraduationCap, Compass, Scale, MessagesSquare, FileStack, BarChart3]
 
 const FEATURE_ICONS = {
   chat: MessagesSquare,
@@ -163,7 +163,7 @@ export default function LandingPage() {
     },
   ]
 
-  const steps = ['s1', 's2', 's3', 's4', 's5', 's6', 's7'].map((k, i) => ({
+  const steps = ['s1', 's3', 's4', 's5', 's6', 's7'].map((k, i) => ({
     icon: STEP_ICONS[i],
     title: t(`landing.steps.${k}.title`),
     desc: t(`landing.steps.${k}.desc`),
@@ -295,36 +295,71 @@ export default function LandingPage() {
         })}
       />
 
-      {/* ---------- How it works (7 steps) ---------- */}
-      <section id="how-it-works" className="container-app py-20 scroll-mt-20">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-medium text-slate-900 sm:text-4xl">
-            {t('landing.howTitle')}
-          </h2>
-          <p className="mt-3 text-slate-500">{t('landing.howSubtitle')}</p>
-        </Reveal>
+      {/* ---------- How it works (6 steps) ---------- */}
+      <section id="how-it-works" className="relative isolate overflow-hidden scroll-mt-20">
+        {/* photo in a faded sepia tone (no overlay); the headline and cards sit on top */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-cover bg-[position:center_35%] bg-no-repeat"
+          style={{ backgroundImage: "url('/Images/landing-steps.webp')" }}
+        />
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s, i) => (
-            <Reveal key={i} delay={i * 70}>
-              <Card className="group relative h-full p-5 transition-colors duration-200 hover:border-brand-300">
-                <span className="absolute right-4 top-4 font-display text-3xl text-slate-300 transition-colors group-hover:text-accent-500">
-                  {i + 1}
-                </span>
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
-                  <s.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-4 text-sm font-semibold text-slate-800">{s.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{s.desc}</p>
-              </Card>
-            </Reveal>
-          ))}
+        {/* two crops of this section's own photo, tucked into the corners (z-0), behind the cards */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-2 right-0 z-0 hidden h-[261px] w-[480px] bg-[length:922px_auto] bg-[position:-127px_-127px] bg-no-repeat [mask-image:linear-gradient(to_bottom,black_55%,transparent),linear-gradient(to_left,black_60%,transparent)] [mask-composite:intersect] lg:block"
+          style={{ backgroundImage: "url('/Images/landing-steps.webp')" }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-2 left-0 z-0 hidden h-[210px] w-[420px] bg-[length:1200px_auto] bg-[position:-270px_-500px] bg-no-repeat [mask-image:linear-gradient(to_top,black_55%,transparent),linear-gradient(to_right,black_60%,transparent)] [mask-composite:intersect] lg:block"
+          style={{ backgroundImage: "url('/Images/landing-steps.webp')" }}
+        />
+
+        <div className="container-app relative z-10 py-20">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-3xl font-medium text-brand-900 sm:text-4xl">
+              {t('landing.howTitle')}
+            </h2>
+            <p className="mt-3 text-brand-900/90">{t('landing.howSubtitle')}</p>
+          </Reveal>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {steps.map((s, i) => (
+              <Reveal key={i} delay={i * 70}>
+                <Card className="group relative h-full border-slate-200 bg-white/90 p-6 transition-colors duration-200 hover:bg-white">
+                  <span className="absolute right-5 top-4 font-display text-3xl text-slate-300 transition-colors group-hover:text-accent-600">
+                    {i + 1}
+                  </span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+                    <s.icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-4 text-sm font-semibold text-slate-800">{s.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ---------- Features ---------- */}
-      <section id="features" className="border-y border-slate-200 bg-slate-100 py-20 scroll-mt-20">
-        <div className="container-app">
+      <section
+        id="features"
+        className="relative isolate overflow-hidden border-y border-slate-200 bg-slate-100 py-20 scroll-mt-20"
+      >
+        {/* books tucked into two corners, behind the cards (z-0); both are crops of one photo */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-6 right-0 z-0 hidden h-[600px] w-[360px] bg-[length:1056px_auto] bg-[position:-696px_-29px] bg-no-repeat mix-blend-multiply [mask-image:linear-gradient(to_bottom,black_55%,transparent),linear-gradient(to_left,black_70%,transparent)] [mask-composite:intersect] lg:block"
+          style={{ backgroundImage: "url('/Images/auth-bg.webp')" }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-2 left-0 z-0 hidden h-[290px] w-[590px] bg-[length:1210px_auto] bg-[position:-44px_-429px] bg-no-repeat mix-blend-multiply [mask-image:linear-gradient(to_top,black_55%,transparent),linear-gradient(to_right,black_70%,transparent)] [mask-composite:intersect] lg:block"
+          style={{ backgroundImage: "url('/Images/auth-bg.webp')" }}
+        />
+        <div className="container-app relative z-10">
           <Reveal className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-medium text-slate-900 sm:text-4xl">
               {t('landing.featuresTitle')}
