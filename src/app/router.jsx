@@ -28,10 +28,15 @@ const AssistantPage = lazy(() => import('@/features/assistant/pages/AssistantPag
 const RecommendationsPage = lazy(() =>
   import('@/features/recommendations/pages/RecommendationsPage')
 )
+const PlatformPage = lazy(() => import('@/features/platform/pages/PlatformPage'))
 const TestListPage = lazy(() => import('@/features/mock-tests/pages/TestListPage'))
 const InstructionsPage = lazy(() => import('@/features/mock-tests/pages/InstructionsPage'))
 const TestEnginePage = lazy(() => import('@/features/mock-tests/pages/TestEnginePage'))
 const ResultPage = lazy(() => import('@/features/analysis/pages/ResultPage'))
+const VideoSectionPage = lazy(() => import('@/features/videos/pages/VideoSectionPage'))
+const NewspaperPage = lazy(() => import('@/features/news/pages/NewspaperPage'))
+const StudentMailPage = lazy(() => import('@/features/mail/pages/StudentMailPage'))
+const ProfessorsPage = lazy(() => import('@/features/professors/pages/ProfessorsPage'))
 
 // --- admin pages (lazy) ---
 const AdminOverviewPage = lazy(() => import('@/features/admin/pages/AdminOverviewPage'))
@@ -39,6 +44,10 @@ const CircularUploadPage = lazy(() => import('@/features/admin/pages/CircularUpl
 const CircularReviewPage = lazy(() => import('@/features/admin/pages/CircularReviewPage'))
 const RecordsPage = lazy(() => import('@/features/admin/pages/RecordsPage'))
 const QuestionReviewPage = lazy(() => import('@/features/admin/pages/QuestionReviewPage'))
+const AdminUsersPage = lazy(() => import('@/features/admin/pages/AdminUsersPage'))
+const AdminVideosPage = lazy(() => import('@/features/admin/pages/AdminVideosPage'))
+const AdminMailPage = lazy(() => import('@/features/admin/pages/AdminMailPage'))
+const AdminProfessorsPage = lazy(() => import('@/features/admin/pages/AdminProfessorsPage'))
 
 /** Wrap a lazy page in the shared Suspense loader. */
 const lz = (Component) => (
@@ -65,6 +74,10 @@ export const router = createBrowserRouter([
     path: ROUTES.forgotPassword,
     element: lz(ForgotPasswordPage),
   },
+  {
+    path: ROUTES.adminLogin,
+    element: lz(LoginPage),
+  },
 
   // -------- student (protected) --------
   {
@@ -81,10 +94,15 @@ export const router = createBrowserRouter([
           { path: 'public-universities/:id', element: lz(PublicDetailPage) },
           { path: 'private-universities', element: lz(PrivateDirectoryPage) },
           { path: 'private-universities/:id', element: lz(PrivateDetailPage) },
+          { path: 'professors', element: lz(ProfessorsPage) },
           { path: 'compare', element: lz(ComparePage) },
           { path: 'assistant', element: lz(AssistantPage) },
           { path: 'recommendations', element: lz(RecommendationsPage) },
+          { path: 'platform', element: lz(PlatformPage) },
           { path: 'tests', element: lz(TestListPage) },
+          { path: 'videos', element: lz(VideoSectionPage) },
+          { path: 'newspaper', element: lz(NewspaperPage) },
+          { path: 'mail', element: lz(StudentMailPage) },
           { path: 'results/:attemptId', element: lz(ResultPage) },
         ],
       },
@@ -107,6 +125,10 @@ export const router = createBrowserRouter([
           { path: 'circulars', element: lz(CircularUploadPage) },
           { path: 'records', element: lz(RecordsPage) },
           { path: 'questions', element: lz(QuestionReviewPage) },
+          { path: 'users', element: lz(AdminUsersPage) },
+          { path: 'videos', element: lz(AdminVideosPage) },
+          { path: 'mail', element: lz(AdminMailPage) },
+          { path: 'professors', element: lz(AdminProfessorsPage) },
         ],
       },
       { path: 'circulars/:id/review', element: lz(CircularReviewPage) },

@@ -144,3 +144,55 @@ export function useRejectQuestion() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'questions'] }),
   })
 }
+
+// ------------------------------------------------------------------- users
+/** Every user account (searchable by name or email). */
+export function useAdminUsers(q = '') {
+  return useQuery({
+    queryKey: ['admin', 'users', q],
+    queryFn: () => adminService.listUsers(q),
+  })
+}
+
+/** One account with its attempt count. */
+export function useAdminUser(id) {
+  return useQuery({
+    queryKey: ['admin', 'users', id],
+    queryFn: () => adminService.getUser(id),
+    enabled: Boolean(id),
+  })
+}
+
+/** Permanently remove an account. */
+export function useDeleteUser() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id) => adminService.deleteUser(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'users'] }),
+  })
+}
+
+// ------------------------------------------------------------------ videos
+/** Video lessons, optionally filtered by subject. */
+export function useVideos(subject = '') {
+  return useQuery({
+    queryKey: ['videos', subject],
+    queryFn: () => adminService.listVideos(subject),
+  })
+}
+
+export function useAddVideo() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload) => adminService.addVideo(payload),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['videos'] }),
+  })
+}
+
+export function useDeleteVideo() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id) => adminService.deleteVideo(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['videos'] }),
+  })
+}

@@ -7,9 +7,8 @@ import db, { createAttemptId, persistDb } from './db'
 import { buildResult, buildDashboardAnalytics } from './engine/analysis'
 import { buildRecommendations } from './engine/recommendations'
 import { knowledgeBase, suggestedQuestions } from './seed/assistant'
-import { ASSISTANT_TIMEOUT_MS } from '@/lib/constants'
+import { ASSISTANT_TIMEOUT_MS, STORAGE_KEYS } from '@/lib/constants'
 import { publicUser } from './seed/users'
-import { useAuthStore } from '@/store/authStore'
 
 /** Emails are matched case-insensitively and trimmed, like a real backend. */
 const normalizeEmail = (value) => String(value ?? '').trim().toLowerCase()
@@ -18,25 +17,65 @@ const ok = (data) => HttpResponse.json(data)
 const fail = (status, message, code) =>
   HttpResponse.json({ message, code }, { status })
 
-/** Validate bearer token on protected endpoints. */
+/**
+ * Validate bearer token on protected endpoints.
+ *
+ * Auth itself now lives in Postgres (`VITE_USE_DB`), so a real 64-char token is
+ * never in the mock db. Those requests used to 401 — and the axios interceptor
+ * treats any 401 as "session expired", wiping a perfectly valid login. So when
+ * the mock db does not know the token, we mirror the user the client persisted
+ * and answer from there instead of logging them out.
+ */
+const AUTH_STORAGE_KEY = STORAGE_KEYS.auth
+
+const persistedSession = () => {
+  if (typeof window === 'undefined' || !window.localStorage) return null
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(AUTH_STORAGE_KEY) || 'null')
+    return parsed?.state ?? null
+  } catch {
+    return null
+  }
+}
+
 const authUser = (request) => {
   const header = request.headers.get('Authorization') || ''
-  const token = header.replace('Bearer ', '')
-  const mockUser = db.users.find((u) => u.token === token)
-  if (mockUser) return mockUser
+  const token = header.replace('Bearer ', '').trim()
+  const seeded = db.users.find((u) => u.token === token)
+  if (seeded) return seeded
+  if (!token) return null
 
-  // With VITE_USE_DB=true, login is served by the real API, so the token is a
-  // database session the mock cannot check. The real API already validated it
-  // (and /auth/me re-checks on load), so trust the signed-in user held by the
-  // auth store and map them onto the matching seeded mock user (same id) or a
-  // blank one for newly registered accounts. Remove once every endpoint is real.
-  if (import.meta.env.VITE_USE_DB === 'true' && token) {
-    const { user, token: storedToken } = useAuthStore.getState()
-    if (user && storedToken === token) {
-      return db.users.find((u) => u.id === user.id) || { ...user, profile: user.profile ?? {} }
-    }
+  const session = persistedSession()
+  const real = session?.token === token ? session.user : null
+  if (!real?.id) return null
+
+  // Mirror the real account so profile edits (PATCH /users/me/profile) work
+  const existing = db.users.find((u) => u.id === real.id)
+  if (existing) {
+    existing.token = token
+    return existing
   }
-  return null
+
+  const mirrored = {
+    ...real,
+    password: '',
+    token,
+    createdAt: real.createdAt || new Date().toISOString(),
+    profile: {
+      sscGpa: null,
+      hscGpa: null,
+      group: null,
+      budget: null,
+      preferredSubjects: [],
+      preferredCities: [],
+      needsHostel: false,
+      phone: '',
+      ...(real.profile ?? {}),
+    },
+  }
+  db.users.push(mirrored)
+  persistDb()
+  return mirrored
 }
 
 // ---------------------------------------------------------------- auth

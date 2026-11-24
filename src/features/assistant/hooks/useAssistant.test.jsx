@@ -21,6 +21,8 @@ const wrapper = ({ children }) => {
 
 describe('useAssistant', () => {
   beforeEach(async () => {
+    // these tests stub assistantService.sendMessage, i.e. they exercise mock mode
+    vi.stubEnv('VITE_ASSISTANT_MODE', 'mock')
     useAssistantStore.getState().clear()
     await i18n.changeLanguage('en')
   })

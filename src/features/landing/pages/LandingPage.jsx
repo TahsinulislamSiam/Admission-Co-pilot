@@ -220,6 +220,12 @@ export default function LandingPage() {
                     {t('landing.ctaSecondary')}
                   </Button>
                 </Link>
+                <Link to={ROUTES.adminLogin}>
+                  <Button size="lg" variant="ghost">
+                    <ShieldCheck className="h-4 w-4" />
+                    {t('landing.adminLogin')}
+                  </Button>
+                </Link>
               </div>
             </div>
 
