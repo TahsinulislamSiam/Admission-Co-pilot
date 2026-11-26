@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Landmark, SearchX } from 'lucide-react'
+import { SearchX } from 'lucide-react'
 import { usePublicUniversities } from '../hooks/useUniversities'
 import { PublicUniversityCard } from '../components/PublicUniversityCard'
 import { PublicFilters, ViewToggle } from '../components/PublicFilters'
@@ -50,10 +50,7 @@ export default function PublicHubPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
-          <Landmark className="h-5 w-5 text-brand-600" />
-          {t('universities.publicTitle')}
-        </h1>
+        <h1 className="text-2xl font-medium text-slate-900">{t('universities.publicTitle')}</h1>
         <p className="mt-1 text-sm text-slate-500">{t('universities.publicSubtitle')}</p>
       </div>
 
@@ -79,7 +76,7 @@ export default function PublicHubPage() {
               />
             </Card>
           ) : view === 'cards' ? (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((u) => (
                 <PublicUniversityCard key={u.id} university={u} />
               ))}

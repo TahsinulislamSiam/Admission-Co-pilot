@@ -1,118 +1,107 @@
 import { useTranslation } from 'react-i18next'
-import { CalendarClock, Users, MapPin, Banknote, ClipboardList, Layers, Wallet } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Card, CardContent } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
-import { SourceLink, VerifiedBadge } from '@/components/common/SourceLink'
 import { useLocale } from '@/hooks/useLocale'
 import { formatDate, daysUntil, formatBDT } from '@/lib/utils'
 import { ROUTES, route } from '@/routes/constants'
 
-/** Card for a public university on the hub grid (FR-2). */
+/** One label + value pair in the fact sheet. */
+function Fact({ label, children }) {
+  return (
+    <div className="min-w-0">
+      <dt className="text-xs text-slate-500">{label}</dt>
+      <dd className="mt-0.5 text-sm font-medium tabular-nums text-slate-900">{children}</dd>
+    </div>
+  )
+}
+
+/** Card for a public university on the hub grid (FR-2). Reads like a prospectus entry. */
 export function PublicUniversityCard({ university: u }) {
   const { t } = useTranslation()
   const { loc, lang } = useLocale()
 
   const days = daysUntil(u.deadline)
-  const deadlineTone =
-    days == null
-      ? 'default'
-      : days < 0
-        ? 'danger'
-        : days <= 14
-          ? 'warning'
-          : 'success'
+  const urgent = days != null && days >= 0 && days <= 14
 
   return (
-    <Card className="flex h-full flex-col transition-shadow hover:shadow-card-hover">
-      <CardContent className="flex flex-1 flex-col">
-        {/* header */}
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h3 className="truncate text-base font-semibold text-slate-800">{loc(u.name)}</h3>
-            <p className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
-              <MapPin className="h-3 w-3" />
-              {loc(u.city)} · {t('universities.established')} {u.established}
-            </p>
-          </div>
-          <Badge variant="brand">{loc(u.shortName)}</Badge>
+    <article className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 transition-colors hover:border-slate-300">
+      <header>
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-base font-medium leading-snug text-slate-900">{loc(u.name)}</h3>
+          <span className="shrink-0 text-xs text-slate-400">{loc(u.shortName)}</span>
         </div>
+        <p className="mt-1 text-xs text-slate-500">
+          {loc(u.city)} · {t('universities.established')} {u.established}
+        </p>
+      </header>
 
-        {/* key numbers */}
-        <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-          {u.seatsTotal != null && (
-            <div className="flex items-center gap-2 text-slate-600">
-              <Users className="h-4 w-4 text-brand-600" />
-              <span className="font-semibold text-slate-800">{u.seatsTotal.toLocaleString('en-IN')}</span>
-              <span className="text-xs">{t('common.seats')}</span>
-            </div>
-          )}
-          {u.applicationFee != null && (
-            <div className="flex items-center gap-2 text-slate-600">
-              <Banknote className="h-4 w-4 text-brand-600" />
-              <span className="font-semibold text-slate-800">৳{u.applicationFee}</span>
-              <span className="text-xs">{t('common.fee')}</span>
-            </div>
-          )}
-          {u.examPattern && (
-            <div className="flex items-center gap-2 text-slate-600">
-              <ClipboardList className="h-4 w-4 text-brand-600" />
-              <span className="text-xs">{u.examPattern}</span>
-            </div>
-          )}
-          {u.groups?.length > 0 && (
-            <div className="flex items-center gap-2 text-slate-600">
-              <Layers className="h-4 w-4 text-brand-600" />
-              <span className="text-xs">
-                {u.groups.map((g) => t(`profile.groups.${g}`)).join(', ')}
-              </span>
-            </div>
-          )}
-          {u.costMin != null && (
-            <div className="col-span-2 flex items-center gap-2 border-t border-slate-100 pt-3 text-slate-600">
-              <Wallet className="h-4 w-4 text-brand-600" />
-              <span className="font-semibold text-slate-800">
-                {u.costMin === u.costMax
-                  ? formatBDT(u.costMin)
-                  : `${formatBDT(u.costMin)} – ${formatBDT(u.costMax)}`}
-              </span>
-              <span className="text-xs">{t('universities.estimatedDegreeCost')}</span>
-            </div>
-          )}
-        </div>
-
-        {/* deadline */}
-        {u.deadline && (
-          <div className="mt-4 flex items-center justify-between rounded-lg bg-slate-50 px-3 py-2">
-            <span className="flex items-center gap-1.5 text-xs text-slate-500">
-              <CalendarClock className="h-3.5 w-3.5" />
-              {t('common.deadline')}: {formatDate(u.deadline, lang)}
-            </span>
-            {days != null && days >= 0 && (
-              <Badge variant={deadlineTone}>
-                {days === 0 ? t('common.daysLeftToday') : t('common.daysLeft', { count: days })}
-              </Badge>
-            )}
-          </div>
+      <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4">
+        {u.seatsTotal != null && (
+          <Fact label={t('common.seats')}>{u.seatsTotal.toLocaleString('en-IN')}</Fact>
         )}
+        {u.applicationFee != null && <Fact label={t('common.fee')}>৳{u.applicationFee}</Fact>}
+        {u.examPattern && <Fact label={t('universities.filterPattern')}>{u.examPattern}</Fact>}
+        {u.groups?.length > 0 && (
+          <Fact label={t('universities.filterGroup')}>
+            {u.groups.map((g) => t(`profile.groups.${g}`)).join(', ')}
+          </Fact>
+        )}
+      </dl>
 
-        {/* FR-4: source + last verified on every record */}
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <SourceLink url={u.sourceUrl} compact label={t('universities.source')} />
-          <VerifiedBadge date={u.lastVerified} />
+      {u.costMin != null && (
+        <div className="mt-5 border-t border-slate-200/70 pt-4">
+          <p className="text-xs text-slate-500">{t('universities.estimatedDegreeCost')}</p>
+          <p className="mt-0.5 text-sm font-medium tabular-nums text-slate-900">
+            {u.costMin === u.costMax
+              ? formatBDT(u.costMin)
+              : `${formatBDT(u.costMin)} – ${formatBDT(u.costMax)}`}
+          </p>
         </div>
+      )}
 
-        <div className="mt-4 flex-1" />
+      {u.deadline && (
+        <p className="mt-4 flex flex-wrap items-baseline justify-between gap-x-3 text-sm text-slate-600">
+          <span>
+            {t('common.deadline')}:{' '}
+            <span className="font-medium text-slate-900">{formatDate(u.deadline, lang)}</span>
+          </span>
+          {days != null && days >= 0 && (
+            <span className={urgent ? 'font-medium text-rose-700' : 'text-slate-500'}>
+              {days === 0 ? t('common.daysLeftToday') : t('common.daysLeft', { count: days })}
+            </span>
+          )}
+        </p>
+      )}
 
-        <div className="mt-4">
-          <Link to={route(ROUTES.publicUniversityDetail, { id: u.id })}>
-            <Button variant="secondary" className="w-full">
-              {t('common.details')}
-            </Button>
-          </Link>
+      <div className="flex-1" />
+
+      {/* footer: details left, provenance right (FR-4: source + last verified) */}
+      <footer className="mt-5 flex items-end justify-between gap-3 border-t border-slate-200/70 pt-4">
+        <Link
+          to={route(ROUTES.publicUniversityDetail, { id: u.id })}
+          className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:underline"
+        >
+          {t('common.details')}
+          <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
+        </Link>
+        <div className="text-right text-xs leading-relaxed text-slate-500">
+          {u.sourceUrl && (
+            <a
+              href={u.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-600 underline decoration-slate-300 underline-offset-2 hover:text-brand-700"
+            >
+              {t('universities.source')}
+            </a>
+          )}
+          {u.lastVerified && (
+            <span className="block">
+              {t('universities.verifiedOn')} {formatDate(u.lastVerified, lang)}
+            </span>
+          )}
         </div>
-      </CardContent>
-    </Card>
+      </footer>
+    </article>
   )
 }
