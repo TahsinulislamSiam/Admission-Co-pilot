@@ -532,8 +532,8 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "welcome": "Welcome, {{name}}",
-    "subtitle": "Here is how your preparation is going",
+    "welcome": "Hi {{name}}, ready for today?",
+    "subtitle": "Your practice so far, in one place",
     "testsTaken": "Tests taken",
     "avgScore": "Average score",
     "bestScore": "Best score",
@@ -552,9 +552,10 @@
     "quickLinks": "Quick links",
     "recentResults": "Recent results",
     "viewResult": "Result",
-    "noData": "No data yet",
-    "noDataDesc": "Take your first mock test to see progress here.",
-    "takeFirstTest": "Take your first test",
+    "noData": "Your first test starts the story",
+    "noDataDesc": "Take one mock test and this page fills in with your scores, your weak topics and what to practise next. It takes about as long as a tea break.",
+    "emptyChartHint": "Your scores will appear here",
+    "takeFirstTest": "Start a mock test",
     "mistakeCount": "{{count}} mistakes"
   },
   "admin": {

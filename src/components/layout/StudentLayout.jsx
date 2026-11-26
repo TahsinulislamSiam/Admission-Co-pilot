@@ -28,20 +28,29 @@ import { LanguageSwitcher } from '@/components/common/LanguageSwitcher'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary'
 import { cn } from '@/lib/utils'
 
-const navItems = [
-  { to: ROUTES.dashboard, icon: LayoutDashboard, key: 'nav.dashboard' },
-  { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
-  { to: ROUTES.publicUniversities, icon: Landmark, key: 'nav.publicUniversities' },
-  { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
-  { to: ROUTES.professors, icon: GraduationCap, key: 'nav.professors' },
-  { to: ROUTES.compare, icon: Scale, key: 'nav.compare' },
-  { to: ROUTES.assistant, icon: MessagesSquare, key: 'nav.assistant' },
-  { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
-  { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
-  { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
-  { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
-  { to: ROUTES.newspaper, icon: Newspaper, key: 'nav.newspaper' },
-  { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
+// Grouped by what a student is doing: tracking, exploring, getting help, practising.
+const navGroups = [
+  [
+    { to: ROUTES.dashboard, icon: LayoutDashboard, key: 'nav.dashboard' },
+    { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
+  ],
+  [
+    { to: ROUTES.publicUniversities, icon: Landmark, key: 'nav.publicUniversities' },
+    { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
+    { to: ROUTES.professors, icon: GraduationCap, key: 'nav.professors' },
+    { to: ROUTES.compare, icon: Scale, key: 'nav.compare' },
+  ],
+  [
+    { to: ROUTES.assistant, icon: MessagesSquare, key: 'nav.assistant' },
+    { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
+    { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
+  ],
+  [
+    { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
+    { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
+    { to: ROUTES.newspaper, icon: Newspaper, key: 'nav.newspaper' },
+    { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
+  ],
 ]
 
 /** Student app shell: fixed sidebar + topbar + content area. */
@@ -99,10 +108,10 @@ export function StudentLayout() {
             </button>
             <Link
               to={ROUTES.landing}
-              className="hidden items-center gap-2 sm:flex"
+              className="hidden items-center gap-2 sm:flex lg:hidden"
               aria-label={t('nav.home')}
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white transition-transform duration-200 hover:scale-105">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
                 <GraduationCap className="h-4 w-4" />
               </span>
               <span className="font-semibold text-slate-900">{t('common.appName')}</span>
@@ -149,24 +158,31 @@ function SidebarContent({ user, isAdmin, onLogout, t, onClose }) {
         )}
       </div>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4 scrollbar-slim">
-        {navItems.map(({ to, icon: Icon, key }) => (
-          <NavLink
-            key={to}
-            to={to}
-            onClick={onClose}
-            className={({ isActive }) =>
-              cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-brand-50 text-brand-800'
-                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-              )
-            }
+      <nav className="flex-1 overflow-y-auto px-3 py-4 scrollbar-slim">
+        {navGroups.map((group, gi) => (
+          <div
+            key={gi}
+            className={cn('space-y-0.5', gi > 0 && 'mt-3 border-t border-slate-200/70 pt-3')}
           >
-            <Icon className="h-4.5 w-4.5 h-[18px] w-[18px]" />
-            {t(key)}
-          </NavLink>
+            {group.map(({ to, icon: Icon, key }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  cn(
+                    'flex h-9 items-center gap-3 rounded-lg px-3 text-sm transition-colors',
+                    isActive
+                      ? 'bg-slate-100 font-medium text-slate-900 shadow-[inset_2px_0_0_0_theme(colors.brand.600)]'
+                      : 'text-slate-600 hover:bg-slate-100/70 hover:text-slate-900'
+                  )
+                }
+              >
+                <Icon className="h-[18px] w-[18px] shrink-0" strokeWidth={1.5} />
+                {t(key)}
+              </NavLink>
+            ))}
+          </div>
         ))}
 
         {isAdmin && (
@@ -175,7 +191,7 @@ function SidebarContent({ user, isAdmin, onLogout, t, onClose }) {
             onClick={onClose}
             className={({ isActive }) =>
               cn(
-                'mt-4 flex items-center gap-3 rounded-lg border border-dashed border-brand-300 px-3 py-2.5 text-sm font-medium',
+                'mt-3 flex h-9 items-center gap-3 rounded-lg px-3 text-sm text-brand-700',
                 isActive ? 'bg-brand-50 text-brand-800' : 'text-brand-700 hover:bg-brand-50'
               )
             }

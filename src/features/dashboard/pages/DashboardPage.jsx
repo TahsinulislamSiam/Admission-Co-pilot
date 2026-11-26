@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate, Link } from 'react-router-dom'
 import {
-  LayoutDashboard,
   FileStack,
   TrendingUp,
   Trophy,
@@ -34,7 +33,6 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Skeleton, SkeletonList } from '@/components/ui/Skeleton'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { EmptyState } from '@/components/common/EmptyState'
 import { useLocale } from '@/hooks/useLocale'
 import { formatDate } from '@/lib/utils'
 import { ROUTES, route } from '@/routes/constants'
@@ -83,29 +81,30 @@ export default function DashboardPage() {
       {/* header */}
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
-            <LayoutDashboard className="h-5 w-5 text-brand-600" />
-            {t('dashboard.welcome', { name: user?.name || '' })}
+          <h1 className="text-2xl font-medium text-slate-900">
+            {t('dashboard.welcome', { name: (user?.name || '').split(' ')[0] })}
           </h1>
           <p className="mt-1 text-sm text-slate-500">{t('dashboard.subtitle')}</p>
         </div>
       </div>
 
       {noData ? (
-        <Card>
-          <EmptyState
-            icon={FileStack}
-            title={t('dashboard.noData')}
-            description={t('dashboard.noDataDesc')}
-            action={
-              <Link to={ROUTES.tests}>
+        <Card className="overflow-hidden">
+          <div className="grid items-center gap-8 p-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:p-10">
+            <div>
+              <h2 className="text-2xl font-medium leading-snug text-slate-900">{t('dashboard.noData')}</h2>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-slate-500">
+                {t('dashboard.noDataDesc')}
+              </p>
+              <Link to={ROUTES.tests} className="mt-6 inline-block">
                 <Button>
-                  <PlayCircle className="h-4 w-4" />
                   {t('dashboard.takeFirstTest')}
+                  <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-            }
-          />
+            </div>
+            <EmptyChartSketch label={t('dashboard.emptyChartHint')} />
+          </div>
         </Card>
       ) : (
         <>
@@ -119,9 +118,8 @@ export default function DashboardPage() {
             ].map((s, i) => (
               <Card key={i}>
                 <CardContent className="py-4">
-                  <s.icon className={`h-5 w-5 ${s.tone}`} />
-                  <p className="mt-2 text-2xl font-semibold text-slate-800">{s.value}</p>
-                  <p className="text-xs text-slate-400">{s.label}</p>
+                  <p className="text-xs text-slate-500">{s.label}</p>
+                  <p className="mt-1 text-3xl font-medium tabular-nums text-slate-900">{s.value}</p>
                 </CardContent>
               </Card>
             ))}
@@ -350,6 +348,29 @@ export default function DashboardPage() {
           </Card>
         </>
       )}
+    </div>
+  )
+}
+
+/** A faint, hand-drawn style outline of the score chart this page will show. */
+function EmptyChartSketch({ label }) {
+  return (
+    <div className="relative h-44 rounded-xl border border-dashed border-slate-300 bg-slate-50/70">
+      <svg viewBox="0 0 320 160" className="absolute inset-0 h-full w-full" aria-hidden>
+        {[40, 80, 120].map((y) => (
+          <line key={y} x1="16" x2="304" y1={y} y2={y} stroke="#DED7C4" strokeWidth="1" />
+        ))}
+        <path
+          d="M16 118 C 60 108, 84 124, 120 96 S 190 70, 224 78 S 280 44, 304 34"
+          fill="none"
+          stroke="#A3AE8E"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeDasharray="2 7"
+        />
+        <circle cx="304" cy="34" r="4" fill="#1E3B2F" />
+      </svg>
+      <p className="absolute bottom-3 left-4 text-xs text-slate-400">{label}</p>
     </div>
   )
 }
