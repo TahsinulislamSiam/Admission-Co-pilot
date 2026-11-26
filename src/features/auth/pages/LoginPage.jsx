@@ -7,7 +7,7 @@ import { LogIn, ShieldCheck } from 'lucide-react'
 import { AuthNavbar } from '@/components/layout/Navbar'
 import { AuthBackground } from '../components/AuthBackground'
 import { Button } from '@/components/ui/Button'
-import { Input, Field } from '@/components/ui/Input'
+import { Input, PasswordInput, Field } from '@/components/ui/Input'
 import { loginSchema } from '../validation'
 import { authService } from '@/services/authService'
 import { ROUTES } from '@/routes/constants'
@@ -82,7 +82,7 @@ export default function LoginPage() {
               <Input type="email" placeholder="you@example.com" autoComplete="email" {...register('email')} />
             </Field>
             <Field label={t('auth.password')} error={t(`auth.errors.${errors.password?.message}`, { defaultValue: '' })}>
-              <Input type="password" placeholder="••••••••" autoComplete="current-password" {...register('password')} />
+              <PasswordInput placeholder="••••••••" autoComplete="current-password" {...register('password')} />
             </Field>
 
             <div className="mb-4 text-right">

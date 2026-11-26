@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Search, SlidersHorizontal, LayoutGrid, Table2 } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
-import { Card, CardContent } from '@/components/ui/Card'
 import { CheckboxRow } from '@/components/ui/FormControls'
 import {
   Select,
@@ -95,25 +94,23 @@ export function PublicFilters({ universities, onFilter }) {
     setMinHsc('')
   }
 
-  return (
-    <Card className="h-fit lg:sticky lg:top-24">
-      <CardContent>
-        <div className="mb-4 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-            <SlidersHorizontal className="h-4 w-4 text-brand-600" />
-            {t('universities.filtersTitle')}
-          </h3>
-          <button
-            onClick={reset}
-            className="text-xs font-medium text-brand-700 hover:underline"
-          >
-            {t('common.clearFilters')}
-          </button>
-        </div>
+  const label = 'mb-1.5 block text-xs text-slate-500'
+  const chip = (active) =>
+    `h-10 rounded-lg border px-3.5 text-sm transition-colors ${
+      active
+        ? 'border-brand-600 bg-brand-600 text-white'
+        : 'border-slate-300 bg-white text-slate-600 hover:border-slate-400 hover:text-slate-900'
+    }`
 
-        {/* search */}
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+  return (
+    <section className="rounded-xl border border-slate-200 bg-white p-5">
+      {/* row 1: search, group, clear */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative min-w-[240px] flex-1">
+          <Search
+            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+            strokeWidth={1.5}
+          />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -121,148 +118,127 @@ export function PublicFilters({ universities, onFilter }) {
             className="pl-9"
           />
         </div>
-
-        {/* group checkboxes */}
-        <p className="mb-2 text-xs font-semibold  text-slate-400">
-          {t('universities.filterGroup')}
-        </p>
-        <div className="mb-4 space-y-2">
+        <div className="flex flex-wrap gap-2" role="group" aria-label={t('universities.filterGroup')}>
           {['science', 'commerce', 'arts'].map((g) => (
-            <CheckboxRow
+            <button
               key={g}
-              id={`flt-group-${g}`}
-              label={t(`profile.groups.${g}`)}
-              checked={group === 'all' ? false : group === g}
-              disabled={group === 'all'}
-              onCheckedChange={(v) => {
-                if (group === 'all' && v) setGroup(g)
-                else if (!v) setGroup('all')
-              }}
-            />
+              type="button"
+              aria-pressed={group === g}
+              onClick={() => setGroup(group === g ? 'all' : g)}
+              className={chip(group === g)}
+            >
+              {t(`profile.groups.${g}`)}
+            </button>
           ))}
-          {group === 'all' && (
-            <p className="text-xs text-slate-400">— {t('common.all')} —</p>
-          )}
+        </div>
+        <button
+          onClick={reset}
+          className="text-sm text-brand-700 underline-offset-2 hover:underline"
+        >
+          {t('common.clearFilters')}
+        </button>
+      </div>
+
+      {/* row 2: the rest */}
+      <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-slate-200/70 pt-4 md:grid-cols-3 xl:grid-cols-6">
+        <div>
+          <span className={label}>{t('universities.filterCity')}</span>
+          <Select value={city} onValueChange={setCity}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t('common.all')}</SelectItem>
+              {cities.map((c) => (
+                <SelectItem key={c} value={c}>
+                  {c}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
-        {/* city */}
-        <p className="mb-2 text-xs font-semibold  text-slate-400">
-          {t('universities.filterCity')}
-        </p>
-        <Select value={city} onValueChange={setCity} className="mb-4">
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">{t('common.all')}</SelectItem>
-            {cities.map((c) => (
-              <SelectItem key={c} value={c}>
-                {c}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {/* deadline window */}
-        <p className="mb-2 text-xs font-semibold  text-slate-400">
-          {t('universities.filterDeadline')}
-        </p>
-        <Select value={deadline} onValueChange={setDeadline} className="mb-4">
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="any">{t('universities.filterDeadlineAny')}</SelectItem>
-            <SelectItem value="30">{t('universities.filterDeadline30')}</SelectItem>
-            <SelectItem value="60">{t('universities.filterDeadline60')}</SelectItem>
-          </SelectContent>
-        </Select>
-
-        {/* exam pattern */}
-        <p className="mb-2 text-xs font-semibold  text-slate-400">
-          {t('universities.filterPattern')}
-        </p>
-        <Select value={pattern} onValueChange={setPattern} className="mb-4">
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">{t('common.all')}</SelectItem>
-            {['MCQ', 'Written', 'MCQ + Written'].map((pt) => (
-              <SelectItem key={pt} value={pt}>
-                {pt}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {/* numeric filters */}
-        <div className="grid grid-cols-1 gap-3">
-          <div>
-            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
-              {t('universities.filterFeeMax')}
-            </p>
-            <Input
-              type="number"
-              min="0"
-              placeholder="৳450"
-              value={maxFee}
-              onChange={(e) => setMaxFee(e.target.value)}
-            />
-          </div>
-          <div>
-            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
-              {t('universities.filterSeatsMin')}
-            </p>
-            <Input
-              type="number"
-              min="0"
-              placeholder="1000"
-              value={minSeats}
-              onChange={(e) => setMinSeats(e.target.value)}
-            />
-          </div>
-          <div>
-            <p className="mb-1.5 text-xs font-semibold  text-slate-400">
-              {t('universities.filterMinHsc')}
-            </p>
-            <Input
-              type="number"
-              step="0.25"
-              min="0"
-              max="5"
-              placeholder="3.50"
-              value={minHsc}
-              onChange={(e) => setMinHsc(e.target.value)}
-            />
-          </div>
+        <div>
+          <span className={label}>{t('universities.filterDeadline')}</span>
+          <Select value={deadline} onValueChange={setDeadline}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="any">{t('universities.filterDeadlineAny')}</SelectItem>
+              <SelectItem value="30">{t('universities.filterDeadline30')}</SelectItem>
+              <SelectItem value="60">{t('universities.filterDeadline60')}</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-      </CardContent>
-    </Card>
+
+        <div>
+          <span className={label}>{t('universities.filterPattern')}</span>
+          <Select value={pattern} onValueChange={setPattern}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t('common.all')}</SelectItem>
+              {['MCQ', 'Written', 'MCQ + Written'].map((pt) => (
+                <SelectItem key={pt} value={pt}>
+                  {pt}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <label className="block">
+          <span className={label}>{t('universities.filterFeeMax')}</span>
+          <Input
+            type="number"
+            min="0"
+            placeholder="৳450"
+            value={maxFee}
+            onChange={(e) => setMaxFee(e.target.value)}
+          />
+        </label>
+        <label className="block">
+          <span className={label}>{t('universities.filterSeatsMin')}</span>
+          <Input
+            type="number"
+            min="0"
+            placeholder="1000"
+            value={minSeats}
+            onChange={(e) => setMinSeats(e.target.value)}
+          />
+        </label>
+        <label className="block">
+          <span className={label}>{t('universities.filterMinHsc')}</span>
+          <Input
+            type="number"
+            step="0.25"
+            min="0"
+            max="5"
+            placeholder="3.50"
+            value={minHsc}
+            onChange={(e) => setMinHsc(e.target.value)}
+          />
+        </label>
+      </div>
+    </section>
   )
 }
 
 /** Cards / Table view toggle used by both hub pages. */
 export function ViewToggle({ value, onChange }) {
   const { t } = useTranslation()
+  const tab = (active) =>
+    `rounded-md px-3 py-1 text-sm transition-colors ${
+      active ? 'bg-white font-medium text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+    }`
   return (
-    <div className="inline-flex overflow-hidden rounded-lg border border-slate-300">
-      <button
-        onClick={() => onChange('cards')}
-        className={`flex items-center gap-1.5 px-3 py-1.5 text-sm ${
-          value === 'cards' ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
-        }`}
-      >
-        <LayoutGrid className="h-4 w-4" />
+    <div className="inline-flex gap-0.5 rounded-lg bg-slate-100 p-0.5">
+      <button onClick={() => onChange('cards')} className={tab(value === 'cards')}>
         {t('universities.cardsView')}
       </button>
-      <button
-        onClick={() => onChange('table')}
-        className={`flex items-center gap-1.5 px-3 py-1.5 text-sm ${
-          value === 'table' ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-50'
-        }`}
-      >
-        <Table2 className="h-4 w-4" />
+      <button onClick={() => onChange('table')} className={tab(value === 'table')}>
         {t('universities.tableView')}
       </button>
     </div>
