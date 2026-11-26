@@ -12,7 +12,7 @@ import {
   GraduationCap,
   Building2,
   UserRound,
-  Mail,
+  LifeBuoy,
   Newspaper,
 } from 'lucide-react'
 import {
@@ -48,7 +48,7 @@ const quickLinks = [
   { to: ROUTES.privateUniversities, icon: Building2, key: 'nav.privateUniversities' },
   { to: ROUTES.professors, icon: GraduationCap, key: 'nav.professors' },
   { to: ROUTES.newspaper, icon: Newspaper, key: 'nav.newspaper' },
-  { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
+  { to: ROUTES.mail, icon: LifeBuoy, key: 'nav.mail' },
   { to: ROUTES.profile, icon: UserRound, key: 'nav.profile' },
 ]
 

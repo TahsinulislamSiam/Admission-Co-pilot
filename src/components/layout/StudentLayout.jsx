@@ -13,7 +13,7 @@ import {
   Layers,
   FileStack,
   PlayCircle,
-  Mail,
+  LifeBuoy,
   LogOut,
   Menu,
   X,
@@ -49,7 +49,7 @@ const navGroups = [
     { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },
     { to: ROUTES.videos, icon: PlayCircle, key: 'nav.videos' },
     { to: ROUTES.newspaper, icon: Newspaper, key: 'nav.newspaper' },
-    { to: ROUTES.mail, icon: Mail, key: 'nav.mail' },
+    { to: ROUTES.mail, icon: LifeBuoy, key: 'nav.mail' },
   ],
 ]
 
