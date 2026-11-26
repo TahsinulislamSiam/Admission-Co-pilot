@@ -54,7 +54,7 @@ export default function PublicHubPage() {
         <p className="mt-1 text-sm text-slate-500">{t('universities.publicSubtitle')}</p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+      <div className="space-y-5">
         <PublicFilters universities={universities} onFilter={handleFilter} />
 
         <div>

@@ -95,21 +95,18 @@ export function PublicFilters({ universities, onFilter }) {
   }
 
   const label = 'mb-1.5 block text-xs text-slate-500'
+  const chip = (active) =>
+    `h-10 rounded-lg border px-3.5 text-sm transition-colors ${
+      active
+        ? 'border-brand-600 bg-brand-600 text-white'
+        : 'border-slate-300 bg-white text-slate-600 hover:border-slate-400 hover:text-slate-900'
+    }`
 
   return (
-    <aside className="h-fit rounded-xl border border-slate-200 bg-white p-5 lg:sticky lg:top-24">
-      <div className="mb-5 flex items-baseline justify-between">
-        <h2 className="text-base font-medium text-slate-900">{t('universities.filtersTitle')}</h2>
-        <button
-          onClick={reset}
-          className="text-xs text-brand-700 underline-offset-2 hover:underline"
-        >
-          {t('common.clearFilters')}
-        </button>
-      </div>
-
-      <div className="space-y-5">
-        <div className="relative">
+    <section className="rounded-xl border border-slate-200 bg-white p-5">
+      {/* row 1: search, group, clear */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative min-w-[240px] flex-1">
           <Search
             className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
             strokeWidth={1.5}
@@ -121,22 +118,29 @@ export function PublicFilters({ universities, onFilter }) {
             className="pl-9"
           />
         </div>
+        <div className="flex flex-wrap gap-2" role="group" aria-label={t('universities.filterGroup')}>
+          {['science', 'commerce', 'arts'].map((g) => (
+            <button
+              key={g}
+              type="button"
+              aria-pressed={group === g}
+              onClick={() => setGroup(group === g ? 'all' : g)}
+              className={chip(group === g)}
+            >
+              {t(`profile.groups.${g}`)}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={reset}
+          className="text-sm text-brand-700 underline-offset-2 hover:underline"
+        >
+          {t('common.clearFilters')}
+        </button>
+      </div>
 
-        <fieldset>
-          <legend className={label}>{t('universities.filterGroup')}</legend>
-          <div className="space-y-2">
-            {['science', 'commerce', 'arts'].map((g) => (
-              <CheckboxRow
-                key={g}
-                id={`flt-group-${g}`}
-                label={t(`profile.groups.${g}`)}
-                checked={group === g}
-                onCheckedChange={(v) => setGroup(v ? g : 'all')}
-              />
-            ))}
-          </div>
-        </fieldset>
-
+      {/* row 2: the rest */}
+      <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-slate-200/70 pt-4 md:grid-cols-3 xl:grid-cols-6">
         <div>
           <span className={label}>{t('universities.filterCity')}</span>
           <Select value={city} onValueChange={setCity}>
@@ -185,42 +189,40 @@ export function PublicFilters({ universities, onFilter }) {
           </Select>
         </div>
 
-        <div className="space-y-5 border-t border-slate-200/70 pt-5">
-          <label className="block">
-            <span className={label}>{t('universities.filterFeeMax')}</span>
-            <Input
-              type="number"
-              min="0"
-              placeholder="৳450"
-              value={maxFee}
-              onChange={(e) => setMaxFee(e.target.value)}
-            />
-          </label>
-          <label className="block">
-            <span className={label}>{t('universities.filterSeatsMin')}</span>
-            <Input
-              type="number"
-              min="0"
-              placeholder="1000"
-              value={minSeats}
-              onChange={(e) => setMinSeats(e.target.value)}
-            />
-          </label>
-          <label className="block">
-            <span className={label}>{t('universities.filterMinHsc')}</span>
-            <Input
-              type="number"
-              step="0.25"
-              min="0"
-              max="5"
-              placeholder="3.50"
-              value={minHsc}
-              onChange={(e) => setMinHsc(e.target.value)}
-            />
-          </label>
-        </div>
+        <label className="block">
+          <span className={label}>{t('universities.filterFeeMax')}</span>
+          <Input
+            type="number"
+            min="0"
+            placeholder="৳450"
+            value={maxFee}
+            onChange={(e) => setMaxFee(e.target.value)}
+          />
+        </label>
+        <label className="block">
+          <span className={label}>{t('universities.filterSeatsMin')}</span>
+          <Input
+            type="number"
+            min="0"
+            placeholder="1000"
+            value={minSeats}
+            onChange={(e) => setMinSeats(e.target.value)}
+          />
+        </label>
+        <label className="block">
+          <span className={label}>{t('universities.filterMinHsc')}</span>
+          <Input
+            type="number"
+            step="0.25"
+            min="0"
+            max="5"
+            placeholder="3.50"
+            value={minHsc}
+            onChange={(e) => setMinHsc(e.target.value)}
+          />
+        </label>
       </div>
-    </aside>
+    </section>
   )
 }
 
