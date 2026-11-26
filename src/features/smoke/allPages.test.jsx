@@ -9,7 +9,7 @@
  * A page that crashes on render, or a button whose handler throws, fails here.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, cleanup, waitFor } from '@testing-library/react'
+import { render, cleanup, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { MemoryRouter } from 'react-router-dom'
@@ -94,8 +94,6 @@ const byPath = (url) => {
       mistakeCounts: {},
       testsTaken: 2,
       lastScore: 55,
-      bestScore: 70,
-      avgScore: 55,
     }
   if (path.startsWith('/users/me/attempts')) return [attempt]
   if (path.startsWith('/tests')) return [

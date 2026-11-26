@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
-import { CheckboxRow } from '@/components/ui/FormControls'
 import {
   Select,
   SelectTrigger,
@@ -48,7 +47,7 @@ export function PublicFilters({ universities, onFilter }) {
           .toLowerCase()
         if (!hay.includes(q)) return false
       }
-      if (group !== 'all' && !u.groups.includes(group)) return false
+      if (group !== 'all' && !(u.groups ?? []).includes(group)) return false
       if (city !== 'all' && loc(u.city) !== city) return false
       if (pattern !== 'all' && u.examPattern !== pattern) return false
       if (deadline !== 'any') {
