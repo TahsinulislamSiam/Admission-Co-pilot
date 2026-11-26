@@ -7,7 +7,7 @@ import { UserPlus } from 'lucide-react'
 import { AuthNavbar } from '@/components/layout/Navbar'
 import { AuthBackground } from '../components/AuthBackground'
 import { Button } from '@/components/ui/Button'
-import { Input, Field } from '@/components/ui/Input'
+import { Input, PasswordInput, Field } from '@/components/ui/Input'
 import { RadioGroup, Radio } from '@/components/ui/FormControls'
 import { registerSchema } from '../validation'
 import { authService } from '@/services/authService'
@@ -66,10 +66,10 @@ export default function RegisterPage() {
             </Field>
             <div className="grid grid-cols-2 gap-3">
               <Field label={t('auth.password')} error={t(`auth.errors.${errors.password?.message}`, { defaultValue: '' })}>
-                <Input type="password" autoComplete="new-password" {...register('password')} />
+                <PasswordInput autoComplete="new-password" {...register('password')} />
               </Field>
               <Field label={t('auth.confirmPassword')} error={t(`auth.errors.${errors.confirmPassword?.message}`, { defaultValue: '' })}>
-                <Input type="password" autoComplete="new-password" {...register('confirmPassword')} />
+                <PasswordInput autoComplete="new-password" {...register('confirmPassword')} />
               </Field>
             </div>
 

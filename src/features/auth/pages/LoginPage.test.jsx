@@ -24,7 +24,7 @@ describe('LoginPage', () => {
     expect(screen.getByRole('heading', { name: 'স্বাগতম ফিরে আসার জন্য' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /লগইন/ })).toBeInTheDocument()
     expect(screen.getByLabelText(/ইমেইল/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/পাসওয়ার্ড/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/পাসওয়ার্ড/, { selector: "input" })).toBeInTheDocument()
   })
 
   it('shows required-field errors when submitted empty', async () => {
@@ -42,7 +42,7 @@ describe('LoginPage', () => {
     renderLogin()
 
     await user.type(screen.getByLabelText(/ইমেইল/), 'not-an-email')
-    await user.type(screen.getByLabelText(/পাসওয়ার্ড/), 'password123')
+    await user.type(screen.getByLabelText(/পাসওয়ার্ড/, { selector: "input" }), 'password123')
     await user.click(screen.getByRole('button', { name: /লগইন/ }))
 
     expect(await screen.findByText('সঠিক ইমেইল দিন')).toBeInTheDocument()
@@ -75,7 +75,7 @@ describe('LoginPage', () => {
     expect(screen.getByRole('heading', { name: 'অ্যাডমিন সাইন ইন' })).toBeInTheDocument()
 
     await user.type(screen.getByLabelText(/ইমেইল/), 'student@example.com')
-    await user.type(screen.getByLabelText(/পাসওয়ার্ড/), 'password123')
+    await user.type(screen.getByLabelText(/পাসওয়ার্ড/, { selector: "input" }), 'password123')
     await user.click(screen.getByRole('button', { name: /লগইন/ }))
 
     expect(login).toHaveBeenCalled()

@@ -183,6 +183,8 @@
     "alreadyHave": "আগে থেকেই অ্যাকাউন্ট আছে?",
     "dontHave": "অ্যাকাউন্ট নেই?",
     "forgotLink": "পাসওয়ার্ড মনে নেই?",
+    "showPassword": "পাসওয়ার্ড দেখান",
+    "hidePassword": "পাসওয়ার্ড লুকান",
     "backToLogin": "লগইনে ফিরে যান",
     "loginSuccess": "সফলভাবে লগইন হয়েছে",
     "registerSuccess": "রেজিস্ট্রেশন সফল! স্বাগতম {{name}}",

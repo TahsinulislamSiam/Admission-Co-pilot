@@ -183,6 +183,8 @@
     "alreadyHave": "Already have an account?",
     "dontHave": "No account yet?",
     "forgotLink": "Forgot password?",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "backToLogin": "Back to login",
     "loginSuccess": "Logged in successfully",
     "registerSuccess": "Registered! Welcome {{name}}",
