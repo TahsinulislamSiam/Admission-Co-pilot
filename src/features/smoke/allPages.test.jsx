@@ -247,7 +247,6 @@ const PrivateDetailPage = pick(await import('@/features/universities/pages/Priva
 const ComparePage = pick(await import('@/features/universities/pages/ComparePage'))
 const AssistantPage = pick(await import('@/features/assistant/pages/AssistantPage'))
 const RecommendationsPage = pick(await import('@/features/recommendations/pages/RecommendationsPage'))
-const PlatformPage = pick(await import('@/features/platform/pages/PlatformPage'))
 const TestListPage = pick(await import('@/features/mock-tests/pages/TestListPage'))
 const VideoSectionPage = pick(await import('@/features/videos/pages/VideoSectionPage'))
 const NewspaperPage = pick(await import('@/features/news/pages/NewspaperPage'))
@@ -277,7 +276,6 @@ const PAGES = [
   ['ComparePage', ComparePage, '/app/compare'],
   ['AssistantPage', AssistantPage, '/app/assistant'],
   ['RecommendationsPage', RecommendationsPage, '/app/recommendations'],
-  ['PlatformPage', PlatformPage, '/app/platform'],
   ['TestListPage', TestListPage, '/app/tests'],
   ['VideoSectionPage', VideoSectionPage, '/app/videos'],
   ['NewspaperPage', NewspaperPage, '/app/newspaper'],
