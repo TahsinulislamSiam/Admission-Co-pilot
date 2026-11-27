@@ -94,8 +94,6 @@ const byPath = (url) => {
       mistakeCounts: {},
       testsTaken: 2,
       lastScore: 55,
-      bestScore: 70,
-      avgScore: 55,
     }
   if (path.startsWith('/users/me/attempts')) return [attempt]
   if (path.startsWith('/tests')) return [

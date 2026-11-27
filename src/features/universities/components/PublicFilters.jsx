@@ -48,7 +48,7 @@ export function PublicFilters({ universities, onFilter }) {
           .toLowerCase()
         if (!hay.includes(q)) return false
       }
-      if (group !== 'all' && !u.groups.includes(group)) return false
+      if (group !== 'all' && !u.groups?.includes(group)) return false
       if (city !== 'all' && loc(u.city) !== city) return false
       if (pattern !== 'all' && u.examPattern !== pattern) return false
       if (deadline !== 'any') {
