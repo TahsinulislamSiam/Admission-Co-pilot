@@ -19,7 +19,6 @@ export const ROUTES = {
   compare: '/app/compare',
   assistant: '/app/assistant',
   recommendations: '/app/recommendations',
-  platform: '/app/platform',
   tests: '/app/tests',
   videos: '/app/videos',
   newspaper: '/app/newspaper',

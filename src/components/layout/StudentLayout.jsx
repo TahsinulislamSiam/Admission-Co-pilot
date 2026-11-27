@@ -10,7 +10,6 @@ import {
   Scale,
   MessagesSquare,
   Sparkles,
-  Layers,
   FileStack,
   PlayCircle,
   LifeBuoy,
@@ -43,7 +42,6 @@ const navGroups = [
   [
     { to: ROUTES.assistant, icon: MessagesSquare, key: 'nav.assistant' },
     { to: ROUTES.recommendations, icon: Sparkles, key: 'nav.recommendations' },
-    { to: ROUTES.platform, icon: Layers, key: 'nav.platform' },
   ],
   [
     { to: ROUTES.tests, icon: FileStack, key: 'nav.mockTests' },

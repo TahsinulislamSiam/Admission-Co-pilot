@@ -49,7 +49,6 @@
     "profile": "Profile",
     "assistant": "AI Assistant",
     "recommendations": "Recommendations",
-    "platform": "Platform",
     "mockTests": "Mock Tests",
     "publicUniversities": "Public Universities",
     "privateUniversities": "Private Universities",
@@ -422,23 +421,6 @@
     "noResultsDesc": "Try relaxing the budget or GPA filter.",
     "publicTag": "Public",
     "privateTag": "Private"
-  },
-  "platform": {
-    "title": "Platform",
-    "subtitle": "Coaching and admission platforms in Bangladesh, with their focus areas, locations and official links",
-    "noticeTitle": "About this list",
-    "searchPlaceholder": "Search a platform, focus or area",
-    "count": "{{shown}} of {{total}} platforms",
-    "allFocus": "All",
-    "emptyTitle": "No platform matches",
-    "emptyDesc": "Try another keyword or clear the focus filter.",
-    "notVerified": "Rate not verified",
-    "sampleRate": "Sample",
-    "officialSite": "Official platform",
-    "searchOfficial": "Find official site",
-    "source": "Source",
-    "claimedResults": "Published claims (not a rate)",
-    "datasetMeta": "Research dataset created {{date}}. Verify details with the platform before relying on them."
   },
   "tests": {
     "title": "Mock Tests",
