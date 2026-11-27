@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { KeyRound, MailCheck } from 'lucide-react'
 import { AuthNavbar } from '@/components/layout/Navbar'
+import { AuthBackground } from '../components/AuthBackground'
 import { Button } from '@/components/ui/Button'
 import { Input, Field } from '@/components/ui/Input'
 import { forgotSchema } from '../validation'
@@ -37,16 +38,17 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="relative isolate flex min-h-screen flex-col bg-slate-50">
       <AuthNavbar />
+      <AuthBackground />
       <div className="flex flex-1 items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-card">
+        <div className="w-full rounded-2xl border border-white/60 bg-white/45 p-8 shadow-[0_8px_32px_rgba(30,59,47,0.12)] backdrop-blur-xl lg:w-[45%]">
           {sent ? (
             <div className="py-8 text-center">
               <div className="mx-auto mb-4 w-fit rounded-full bg-brand-50 p-4">
                 <MailCheck className="h-8 w-8 text-brand-600" />
               </div>
-              <h1 className="text-lg font-bold text-slate-900">{t('auth.resetSentTitle')}</h1>
+              <h1 className="text-lg font-semibold text-slate-900">{t('auth.resetSentTitle')}</h1>
               <p className="mt-2 text-sm text-slate-500">
                 {t('auth.resetSentDesc')} <span className="font-medium text-slate-700">{sentTo}</span>
               </p>
@@ -58,7 +60,7 @@ export default function ForgotPasswordPage() {
             </div>
           ) : (
             <>
-              <h1 className="text-xl font-bold text-slate-900">{t('auth.forgotTitle')}</h1>
+              <h1 className="text-xl font-semibold text-slate-900">{t('auth.forgotTitle')}</h1>
               <p className="mt-1 text-sm text-slate-500">{t('auth.forgotSubtitle')}</p>
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-6">

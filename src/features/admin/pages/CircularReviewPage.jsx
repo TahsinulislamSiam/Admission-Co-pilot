@@ -186,7 +186,7 @@ export default function CircularReviewPage() {
           </Button>
         </Link>
         <div className="min-w-0 flex-1">
-          <h1 className="flex items-center gap-2 text-xl font-bold text-slate-900">
+          <h1 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
             <FileSearch className="h-5 w-5 text-brand-600" />
             {t('admin.circulars.reviewTitle')}
           </h1>
@@ -241,7 +241,7 @@ export default function CircularReviewPage() {
           </CardHeader>
           <CardContent>
             {/* dates */}
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <h4 className="mb-3 text-xs font-semibold  text-slate-400">
               {t('admin.circulars.datesSection')}
             </h4>
             <div className="mb-5 grid gap-4 sm:grid-cols-3">
@@ -272,7 +272,7 @@ export default function CircularReviewPage() {
             </div>
 
             {/* eligibility + fees */}
-            <h4 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            <h4 className="mb-3 text-xs font-semibold  text-slate-400">
               {t('admin.circulars.eligibilitySection')}
               {' · '}
               {t('admin.circulars.feesSection')}
@@ -313,7 +313,7 @@ export default function CircularReviewPage() {
 
             {/* departments */}
             <div className="mb-3 flex items-center justify-between">
-              <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+              <h4 className="text-xs font-semibold  text-slate-400">
                 {t('admin.circulars.departmentsSection')}
               </h4>
               <Button type="button" size="sm" variant="outline" onClick={addDepartment}>

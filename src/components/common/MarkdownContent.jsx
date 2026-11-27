@@ -40,9 +40,9 @@ export function MarkdownContent({ content, className }) {
           strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
           ul: ({ children }) => <ul className="my-2 list-disc space-y-1 pl-5">{children}</ul>,
           ol: ({ children }) => <ol className="my-2 list-decimal space-y-1 pl-5">{children}</ol>,
-          h1: ({ children }) => <h1 className="my-2 text-lg font-bold">{children}</h1>,
-          h2: ({ children }) => <h2 className="my-2 text-base font-bold">{children}</h2>,
-          h3: ({ children }) => <h3 className="my-1.5 text-sm font-bold">{children}</h3>,
+          h1: ({ children }) => <h1 className="my-2 text-lg font-semibold">{children}</h1>,
+          h2: ({ children }) => <h2 className="my-2 text-base font-semibold">{children}</h2>,
+          h3: ({ children }) => <h3 className="my-1.5 text-sm font-semibold">{children}</h3>,
           p: ({ children }) => <p className="my-2">{children}</p>,
         }}
       >

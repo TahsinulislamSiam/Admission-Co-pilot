@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 import { LogIn, ShieldCheck } from 'lucide-react'
 import { AuthNavbar } from '@/components/layout/Navbar'
+import { AuthBackground } from '../components/AuthBackground'
 import { Button } from '@/components/ui/Button'
-import { Input, Field } from '@/components/ui/Input'
+import { Input, PasswordInput, Field } from '@/components/ui/Input'
 import { loginSchema } from '../validation'
 import { authService } from '@/services/authService'
 import { ROUTES } from '@/routes/constants'
@@ -64,14 +65,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="relative isolate flex min-h-screen flex-col bg-slate-50">
       <AuthNavbar />
+      <AuthBackground />
       <div className="flex flex-1 items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-card">
-          <h1 className="text-xl font-bold text-slate-900">
+        <div className="w-full rounded-2xl border border-white/60 bg-white/45 p-8 shadow-[0_8px_32px_rgba(30,59,47,0.12)] backdrop-blur-xl lg:w-[45%]">
+          <h1 className="text-center text-xl font-semibold text-slate-900">
             {isAdminMode ? t('auth.adminLoginTitle') : t('auth.loginTitle')}
           </h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-center text-sm text-slate-500">
             {isAdminMode ? t('auth.adminLoginSubtitle') : t('auth.loginSubtitle')}
           </p>
 
@@ -80,7 +82,7 @@ export default function LoginPage() {
               <Input type="email" placeholder="you@example.com" autoComplete="email" {...register('email')} />
             </Field>
             <Field label={t('auth.password')} error={t(`auth.errors.${errors.password?.message}`, { defaultValue: '' })}>
-              <Input type="password" placeholder="••••••••" autoComplete="current-password" {...register('password')} />
+              <PasswordInput placeholder="••••••••" autoComplete="current-password" {...register('password')} />
             </Field>
 
             <div className="mb-4 text-right">

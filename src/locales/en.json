@@ -62,7 +62,7 @@
     "getStarted": "Get started",
     "openMenu": "Open menu",
     "videos": "Video Lessons",
-    "mail": "Mail",
+    "mail": "Support",
     "professors": "Faculty Directory",
     "newspaper": "Newspaper"
   },
@@ -90,15 +90,11 @@
       "The seat is taken by whoever prepares for it"
     ],
     "howTitle": "How it works",
-    "howSubtitle": "From profile to final admission prep — in just 7 steps",
+    "howSubtitle": "From profile to final admission prep — in just 6 steps",
     "steps": {
       "s1": {
-        "title": "Create your profile",
-        "desc": "Give your SSC & HSC GPA, group and budget."
-      },
-      "s2": {
-        "title": "Set preferences",
-        "desc": "Tell us preferred subjects, cities and hostel needs."
+        "title": "Set up your profile",
+        "desc": "SSC & HSC GPA, group, budget, preferred subjects, cities and hostel needs."
       },
       "s3": {
         "title": "Explore universities",
@@ -187,6 +183,8 @@
     "alreadyHave": "Already have an account?",
     "dontHave": "No account yet?",
     "forgotLink": "Forgot password?",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "backToLogin": "Back to login",
     "loginSuccess": "Logged in successfully",
     "registerSuccess": "Registered! Welcome {{name}}",
@@ -335,6 +333,12 @@
     "compareMax": "You can compare up to 3 universities",
     "compareTitle": "University comparison",
     "compareSubtitle": "View 2–3 universities side by side",
+    "compareDepartments": "Departments",
+    "compareRank": "Shortlist rank",
+    "compareLowest": "Lowest",
+    "compareProgrammes": "Cost by programme",
+    "compareVerdict": "{{name}} costs less in {{wins}} of {{total}} programmes you can compare.",
+    "compareVerdictTie": "Costs are close: no university is cheaper across the board.",
     "compareEmpty": "Add universities from the directory to compare",
     "compareEmptyDesc": "Use the 'Compare' button on a card to pick up to 3 universities.",
     "removeFromCompare": "Remove from list",
@@ -536,8 +540,8 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "welcome": "Welcome, {{name}} 👋",
-    "subtitle": "Here is how your preparation is going",
+    "welcome": "Hi {{name}}, ready for today?",
+    "subtitle": "Your practice so far, in one place",
     "testsTaken": "Tests taken",
     "avgScore": "Average score",
     "bestScore": "Best score",
@@ -556,9 +560,10 @@
     "quickLinks": "Quick links",
     "recentResults": "Recent results",
     "viewResult": "Result",
-    "noData": "No data yet",
-    "noDataDesc": "Take your first mock test to see progress here.",
-    "takeFirstTest": "Take your first test",
+    "noData": "Your first test starts the story",
+    "noDataDesc": "Take one mock test and this page fills in with your scores, your weak topics and what to practise next. It takes about as long as a tea break.",
+    "emptyChartHint": "Your scores will appear here",
+    "takeFirstTest": "Start a mock test",
     "mistakeCount": "{{count}} mistakes"
   },
   "admin": {

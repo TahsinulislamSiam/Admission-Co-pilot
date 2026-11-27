@@ -33,7 +33,7 @@ export function RecommendationCard({ item }) {
     <Card className="relative overflow-hidden transition-shadow hover:shadow-card-hover">
       {/* match score ribbon */}
       <div
-        className="absolute right-0 top-0 rounded-bl-xl bg-brand-600 px-3 py-1.5 text-sm font-bold text-white"
+        className="absolute right-0 top-0 rounded-bl-xl bg-brand-600 px-3 py-1.5 text-sm font-semibold text-white"
         title={t('recommendations.match')}
       >
         {item.matchScore}%
@@ -82,28 +82,28 @@ export function RecommendationCard({ item }) {
         {/* cost + city + deadline */}
         <div className="mt-4 grid grid-cols-3 gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-center">
           <div>
-            <p className="text-sm font-bold text-slate-900">{formatBDT(item.totalCost)}</p>
-            <p className="text-[11px] text-slate-400">{t('recommendations.totalCost')}</p>
+            <p className="text-sm font-semibold text-slate-900">{formatBDT(item.totalCost)}</p>
+            <p className="text-xs text-slate-400">{t('recommendations.totalCost')}</p>
           </div>
           <div>
             <p className="flex items-center justify-center gap-1 text-sm font-medium text-slate-700">
               <MapPin className="h-3.5 w-3.5 text-brand-600" />
               {loc(item.city)}
             </p>
-            <p className="text-[11px] text-slate-400">{t('common.city')}</p>
+            <p className="text-xs text-slate-400">{t('common.city')}</p>
           </div>
           <div>
             <p className="flex items-center justify-center gap-1 text-sm font-medium text-slate-700">
               <CalendarDays className="h-3.5 w-3.5 text-brand-600" />
               {formatDate(item.deadline, lang)}
             </p>
-            <p className="text-[11px] text-slate-400">{t('common.deadline')}</p>
+            <p className="text-xs text-slate-400">{t('common.deadline')}</p>
           </div>
         </div>
 
         {/* match reasons */}
         <div className="mt-4">
-          <p className="mb-1.5 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          <p className="mb-1.5 flex items-center gap-1 text-xs font-semibold  text-slate-400">
             <Sparkles className="h-3 w-3 text-accent-500" />
             {t('recommendations.matchReason')}
           </p>
@@ -148,7 +148,7 @@ export function RecommendationFilters({ value, onChange }) {
         <div className="min-w-[220px] flex-1">
           <div className="mb-1.5 flex items-center justify-between text-xs">
             <span className="font-medium text-slate-600">{t('recommendations.filterBudget')}</span>
-            <span className="font-bold text-brand-700">
+            <span className="font-semibold text-brand-700">
               {value.budget === Infinity ? '∞' : formatBDT(value.budget)}
             </span>
           </div>
@@ -170,7 +170,7 @@ export function RecommendationFilters({ value, onChange }) {
         <div className="min-w-[200px]">
           <div className="mb-1.5 flex items-center justify-between text-xs">
             <span className="font-medium text-slate-600">{t('recommendations.filterMinGpa')}</span>
-            <span className="font-bold text-brand-700">{value.minGpa.toFixed(2)}</span>
+            <span className="font-semibold text-brand-700">{value.minGpa.toFixed(2)}</span>
           </div>
           <input
             type="range"
